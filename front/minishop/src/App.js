@@ -1,9 +1,10 @@
 import './App.css';
+import MainPageTemplate from './pageTemplates/MainPageTemplate';
 
 function App() {
   return (
     <div className="App">
-      <div></div>
+      <MainPageTemplate />
     </div>
   );
 }
