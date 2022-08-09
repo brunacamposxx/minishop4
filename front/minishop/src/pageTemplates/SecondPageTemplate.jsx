@@ -21,7 +21,12 @@ export function SecondPageTemplate(props) {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{ background: '#b07ca3' }}>
+        <AppBar
+          position="sticky"
+          style={{ background: '#b07ca3' }}
+          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
+          <img src="/Mini Shop Desktop.png" alt="shop" className="headerimg" />
           <Toolbar>
             <div className="barra">
               <div className="ladoesquerdo">
@@ -41,11 +46,9 @@ export function SecondPageTemplate(props) {
                   VitaHealth
                 </Typography>
               </div>
-              <div className="ladodireito">
-                <Button color="inherit" className="botao">
-                  <PersonIcon />
-                </Button>
-              </div>
+              <Button color="inherit">
+                <PersonIcon style={{ marginLeft: 'auto' }} />
+              </Button>
             </div>
           </Toolbar>
         </AppBar>
@@ -55,7 +58,13 @@ export function SecondPageTemplate(props) {
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
       >
-        <Box p={2} width="250px" role="presentation" textAlign="center">
+        <Box
+          p={2}
+          width="250px"
+          role="presentation"
+          textAlign="center"
+          marginTop="180px"
+        >
           <List>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <ListItem>

@@ -2,6 +2,13 @@
     max-width: 45px;
 }
 
+.headerimg {
+    object-fit: cover;
+    width: 100vw;
+    height: 140px;
+    margin-bottom: -5px;
+}
+
 span {
     padding: 5px;
     color: #686868;
@@ -31,10 +38,6 @@ span {
     align-items: center;
 }
 
-.ladodireito {
-    display: flex;
-    flex-direction: row;    
-    align-items: center;
-    margin-left: 1100px;
+.barra {
+    width: 100%;
 }
-
