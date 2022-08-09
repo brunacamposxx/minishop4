@@ -1,0 +1,40 @@
+.icone {
+    max-width: 45px;
+}
+
+span {
+    padding: 5px;
+    color: #686868;
+}
+
+.logo {
+    max-width: 130px;
+}
+
+.divisor {
+    width: 3px;
+    height: 40px;
+    background-color: white;
+    color: white;
+    margin-right: 20px;
+}
+
+.barra {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.ladoesquerdo {
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+}
+
+.ladodireito {
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    margin-left: 1100px;
+}
+
