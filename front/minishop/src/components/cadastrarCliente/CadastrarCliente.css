@@ -1,0 +1,25 @@
+.alinhamento-direita {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cadastrar-cliente {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;    
+    justify-content: center;
+}
+
+.container-cliente{
+   background-color: #E3E3E3;
+   height: 100vh;
+}
+
+.container-form{
+    background-color: #FFF;
+    /* max-width: 200vw; */
+    margin: 5vw;
+    padding: 2vh;
+    padding-left: 5vw;
+    padding-right: 0;
+    
+}

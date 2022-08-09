@@ -1,0 +1,13 @@
+.titulo{
+    margin-left: 30px;
+    text-align: start;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.divider{
+    background-color: #b8b9bc;
+    height: 2px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
