@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,14 +22,12 @@ public class CustomerOrder {
 
     @Column(name = "CustomerId", insertable = false, updatable = false)
     private Integer customerId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CustomerId")
     private Customer customer;
 
-    @Column(name = "OrderId", insertable = false, updatable = false)
-    private Integer orderId;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OrderId")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY)
+    private List<OrderItem> orderItems;
 
 }
