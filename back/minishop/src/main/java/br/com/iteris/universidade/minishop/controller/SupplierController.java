@@ -1,8 +1,8 @@
 package br.com.iteris.universidade.minishop.controller;
 
 import br.com.iteris.universidade.minishop.domain.DTO.PaginatedSearchRequest;
-import br.com.iteris.universidade.minishop.domain.DTO.ResponseBase;
-import br.com.iteris.universidade.minishop.domain.DTO.SupplierResponse;
+import br.com.iteris.universidade.minishop.domain.dto.ResponseBase;
+import br.com.iteris.universidade.minishop.domain.dto.SupplierResponse;
 import br.com.iteris.universidade.minishop.service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,8 +1,7 @@
 package br.com.iteris.universidade.minishop.service;
 
-import br.com.iteris.universidade.minishop.domain.DTO.PaginatedSearchRequest;
-import br.com.iteris.universidade.minishop.domain.DTO.ResponseBase;
-import br.com.iteris.universidade.minishop.domain.DTO.SupplierResponse;
+import br.com.iteris.universidade.minishop.domain.dto.ResponseBase;
+import br.com.iteris.universidade.minishop.domain.dto.SupplierResponse;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import br.com.iteris.universidade.minishop.repository.SupplierRespository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import br.com.iteris.universidade.minishop.domain.DTO.PaginatedSearchRequest;
 
 import java.util.Optional;
 
