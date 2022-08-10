@@ -1,6 +1,6 @@
 package br.com.iteris.universidade.minishop.controller;
 
-import br.com.iteris.universidade.minishop.domain.DTO.*;
+import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

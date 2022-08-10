@@ -1,6 +1,6 @@
 package br.com.iteris.universidade.minishop.service;
 
-import br.com.iteris.universidade.minishop.domain.DTO.*;
+import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Customer;
 import br.com.iteris.universidade.minishop.repository.CustomersRepository;
 import lombok.RequiredArgsConstructor;
