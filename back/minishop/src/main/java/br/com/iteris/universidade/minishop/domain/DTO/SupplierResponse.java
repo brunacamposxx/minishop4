@@ -1,4 +1,4 @@
-package br.com.iteris.universidade.minishop.domain.DTO;
+package br.com.iteris.universidade.minishop.domain.dto;
 
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import lombok.Data;
