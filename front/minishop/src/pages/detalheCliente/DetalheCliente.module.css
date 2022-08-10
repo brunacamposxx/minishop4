@@ -26,7 +26,7 @@
 }
 
 .conteiner {
-    width: 70vw;
+    width: 83vw;
     align-self: center;
     display: flex;
     flex-direction: column;
@@ -62,7 +62,7 @@
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 44px;
     color: #b07ca3;
     font-weight: 400;
     margin: 0px;
@@ -78,10 +78,14 @@ h5 {
     font-size: 16px;
 }
 
-.total {
+.total, .titulo {
     font-size: 26px;
     font-weight: 400;
     color: #808080;
     margin: 0px;
     margin-bottom: 10px;
+}
+
+.titulo {
+    margin-left: 50px;
 }

@@ -1,9 +1,12 @@
 import React from 'react';
+import CardProduto from '../../components/cardProduto/CardProduto';
 
 function Produtos() {
   return (
     <div>
-      <p>produtos</p>
+      <CardProduto />
+      <CardProduto />
+      <CardProduto />
     </div>
   );
 }
