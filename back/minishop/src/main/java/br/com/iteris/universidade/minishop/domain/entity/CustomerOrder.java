@@ -16,8 +16,6 @@ public class CustomerOrder {
     @Column(name = "OrderDate")
     private Date orderDate;
 
-    //OrderNumber?????
-
     @Column(name = "TotalAmount", columnDefinition = "decimal(12, 2)")
     private double totalAmount;
 
@@ -26,5 +24,11 @@ public class CustomerOrder {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CustomerId")
     private Customer customer;
+
+    @Column(name = "OrderId", insertable = false, updatable = false)
+    private Integer orderId;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OrderId")
+    private OrderItem orderItem;
 
 }
