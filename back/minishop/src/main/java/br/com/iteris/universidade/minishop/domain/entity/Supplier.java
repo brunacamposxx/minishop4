@@ -43,8 +43,8 @@ public class Supplier {
     @Column(name = "ContactName")
     private String contato;
 
-    //@OneToMany(mappedBy = "supplierId", fetch = FetchType.LAZY)
-    //private List<Product> products;
+    @OneToMany(mappedBy = "supplierId", fetch = FetchType.LAZY)
+    private List<Product> products;
 
 
 }

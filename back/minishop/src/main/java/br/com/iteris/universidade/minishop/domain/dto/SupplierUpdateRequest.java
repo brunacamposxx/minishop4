@@ -1,4 +1,4 @@
-package br.com.iteris.universidade.minishop.domain.DTO;
+package br.com.iteris.universidade.minishop.domain.dto;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CNPJ;

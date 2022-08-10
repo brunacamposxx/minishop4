@@ -1,6 +1,6 @@
 package br.com.iteris.universidade.minishop.controller;
 
-import br.com.iteris.universidade.minishop.domain.DTO.*;
+import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import br.com.iteris.universidade.minishop.service.SupplierService;
 //import com.google.common.base.Supplier;

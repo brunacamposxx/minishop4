@@ -1,7 +1,6 @@
-package br.com.iteris.universidade.minishop.domain.DTO;
+package br.com.iteris.universidade.minishop.domain.dto;
 
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
-import com.fasterxml.jackson.databind.jsonschema.JsonSerializableSchema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
