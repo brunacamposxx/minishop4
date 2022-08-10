@@ -33,7 +33,7 @@ function DetalheCliente() {
         </div>
         <div className={styles.linha}></div>
         <div className={styles.partedois}>
-          <h4 className={styles.total}>Pedidos</h4>
+          <h4 className={styles.titulo}>Pedidos</h4>
           <div className={styles.quadro}>
             <div className={styles.linhaquadro}>
               <span className={styles.produto}>3 Chai Latte</span>
