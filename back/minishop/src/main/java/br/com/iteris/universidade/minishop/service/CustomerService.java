@@ -63,7 +63,7 @@ public class CustomerService {
 
     // Consulta por id consultado todos campos mais lista de ordens de compra (relacionamento tabela Customer com tabela CustomerOrder)
     // falta retornar lista de ordens de compra (relacionamento tabela Customer com tabela CustomerOrder);
-    public ResponseBase<CustomerResponse> pesquisaPorId(int id) {
+    public ResponseBase<CustomerConsultaPorIdResponse> pesquisaPorId(int id) {
         // Consulta o repositorio para procurar por um custumer pelo id
         Optional<Customer> customerOptional = customersRepository.findById(id);
         // Verifica se o custimer foi encontrado, caso o contratrio retorna um erro
@@ -71,9 +71,9 @@ public class CustomerService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
         // Mapeia de entidade para dto
-        CustomerResponse customerResponse = new CustomerResponse(customer);
+        CustomerConsultaPorIdResponse customerConsultaPorIdResponse = new CustomerConsultaPorIdResponse(customer);
 
-        return new ResponseBase<>(customerResponse);
+        return new ResponseBase<>(customerConsultaPorIdResponse);
     }
 
     // Listagem paginada consultando id, nome, telefone e email;

@@ -34,7 +34,7 @@ public class CustomersController {
     @GetMapping("api/costumers/{id}")
     public ResponseEntity pesquisaPorId(@PathVariable int id) {
 
-        ResponseBase<CustomerResponse> retorno = customerService.pesquisaPorId(id);
+        ResponseBase<CustomerConsultaPorIdResponse> retorno = customerService.pesquisaPorId(id);
 
         return ResponseEntity.ok(retorno);
     }
