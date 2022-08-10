@@ -15,17 +15,20 @@ public class OrderItem {
     @Column(name = "OrderId", insertable = false, updatable = false)
     private Long OrderId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OrderId")
+    private CustomerOrder customerOrder;
+
     @Column(name = "ProductId", insertable = false, updatable = false)
     private Long productId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId")
+    private Product product;
 
     @Column(name = "UnitPrice", columnDefinition = "decimal(12,2")
     private double unitPrice;
 
     @Column(name = "Quantity")
     private Integer quantity;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId")
-    private Product product;
 }
-
