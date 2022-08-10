@@ -6,6 +6,8 @@ import Fornecedores from './pages/Fornecedores';
 import Pedidos from './pages/Pedidos';
 import Produtos from './pages/Produtos';
 import SecondPageTemplate from './pageTemplates/SecondPageTemplate';
+import DetalheProduto from './pages/DetalheProduto';
+import DetalheCliente from './pages/DetalheCliente';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/fornecedores" element={<Fornecedores />} />
             <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/produtos" element={<Produtos />} />
+            <Route path="/detalheproduto" element={<DetalheProduto />} />
+            <Route path="/detalhecliente" element={<DetalheCliente />} />
           </Routes>
         </SecondPageTemplate>
       </BrowserRouter>

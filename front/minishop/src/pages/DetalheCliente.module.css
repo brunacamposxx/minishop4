@@ -1,0 +1,87 @@
+.cabecalho {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 85vw;
+    padding: 0px;
+    margin: 0px;
+}
+
+.pagina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e3e3e3;
+    width: 100vw;
+    height: 80vh;
+}
+
+.linha {
+    height: 1px;
+    width: 98%;
+    background-color: #808080;
+    margin-bottom: 20px;
+    align-self: center;
+}
+
+.conteiner {
+    width: 70vw;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+    background-color: white;
+}
+
+.parteum {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.partedois {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.quadro {
+    background-color: #e3e3e3;
+    width: 90%;
+    align-self: center;
+    padding:10px
+}
+
+.linhaquadro {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 50px;
+    color: #b07ca3;
+    font-weight: 400;
+    margin: 0px;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.produto {
+    color: #b07ca3;
+    font-size: 16px;
+}
+
+.total {
+    font-size: 26px;
+    font-weight: 400;
+    color: #808080;
+    margin: 0px;
+    margin-bottom: 10px;
+}
