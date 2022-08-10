@@ -2,8 +2,15 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import './TextFields.css';
 
-function TextFields({ label, size, placeholder, required, value, aoAlterado }) {
-  const width = size + 'vw';
+function TextFields({
+  label,
+  largura,
+  placeholder,
+  required,
+  value,
+  aoAlterado,
+}) {
+  const width = largura + 'vw';
   const aoDigitado = (evento) => {
     aoAlterado(evento.target.value);
   };
