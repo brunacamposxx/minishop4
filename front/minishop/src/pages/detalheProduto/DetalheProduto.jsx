@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './DetalheProduto.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import { Button } from '@mui/material';
+import Botao from '../../components/botao/Botao';
+import { Link } from 'react-router-dom';
 
 function DetalheProduto(props) {
   return (
@@ -19,7 +21,7 @@ function DetalheProduto(props) {
           />
         </div>
         <div className={styles.direita}>
-          <h1 style={{ fontSize: '40px' }}>
+          <h1 className={styles.nome}>
             {props.nome ? props.nome : 'Nome do produto'}
           </h1>
           <h1
@@ -49,6 +51,9 @@ function DetalheProduto(props) {
           </Button>
         </div>
       </div>
+      <Link to="/produtos" style={{ textDecoration: 'none' }}>
+        <Botao cor="#b07ca3" label="Voltar" />
+      </Link>
     </div>
   );
 }

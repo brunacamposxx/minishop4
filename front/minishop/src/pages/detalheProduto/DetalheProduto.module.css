@@ -40,7 +40,7 @@
     align-items: center;
     background-color: #e3e3e3;
     width: 100vw;
-    height: 80vh;
+    height: 90vh;
 }
 
 h1 {
@@ -50,6 +50,7 @@ h1 {
 h2 {
     margin: 10px;
     color: #808080;
+    font-weight: 400;
 }
 
 .linha {
@@ -62,4 +63,11 @@ h2 {
 .dados {
     margin-top: 50px;
     font-size: 20px;
+}
+
+.nome {
+    margin: 20px;
+    margin-left: 0;
+    font-size: 40px;
+    color: black
 }

@@ -1,13 +1,14 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Clientes from './pages/Clientes';
+import Clientes from './pages/clientes/Clientes';
 import HomePage from './pages/HomePage';
-import Fornecedores from './pages/Fornecedores';
+import Fornecedores from './pages/fornecedores/Fornecedores';
 import Pedidos from './pages/Pedidos';
-import Produtos from './pages/Produtos';
+import Produtos from './pages/produtos/Produtos';
 import SecondPageTemplate from './pageTemplates/SecondPageTemplate';
-import DetalheProduto from './pages/DetalheProduto';
-import DetalheCliente from './pages/DetalheCliente';
+import DetalheProduto from './pages/detalheProduto/DetalheProduto';
+import DetalheCliente from './pages/detalheCliente/DetalheCliente';
+import DetalheFornecedor from './pages/detalheFornecedor/DetalheFornecedor';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/produtos" element={<Produtos />} />
             <Route path="/detalheproduto" element={<DetalheProduto />} />
             <Route path="/detalhecliente" element={<DetalheCliente />} />
+            <Route path="/detalhefornecedor" element={<DetalheFornecedor />} />
           </Routes>
         </SecondPageTemplate>
       </BrowserRouter>
