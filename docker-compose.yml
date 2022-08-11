@@ -1,10 +1,11 @@
 version: '3'
 services:
   localstack:
-    image: localstack/localstack
+    image: localstack/localstack:0.14.5
     environment:
       - SERVICES=s3
       - DOCKER_HOST=unix:///var/run/docker.sock
+      - DATA_DIR=/tmp/localstack/data
       # AWS - Credenciais
       - AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
       - AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
@@ -12,6 +13,9 @@ services:
       - AWS_DEFAULT_OUTPUT=json
     ports:
       - "4566:4566" # s3
+    volumes:
+      - localstack:/tmp/localstack
+    container_name: aws_minishop
   sqlserver:
     image: mcr.microsoft.com/mssql/server
     environment:
@@ -20,3 +24,5 @@ services:
     ports:
       - "1433:1433"
     container_name: db_minishop
+volumes:
+  localstack:
