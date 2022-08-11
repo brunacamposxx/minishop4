@@ -7,18 +7,41 @@ import SubjectIcon from '@mui/icons-material/Subject';
 import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
-import { getClientePorId } from '../../services/minishopApiServices';
+import {
+  getClientePorId,
+  getProdutoPorId,
+} from '../../services/minishopApiServices';
 
 function DetalheCliente() {
   const { id } = useParams();
+  const listaIdProdutos = [];
+  const listaNomes = [];
 
   const [cliente, setCliente] = useState({});
+  const [pedidos, setPedidos] = useState({});
 
   useEffect(() => {
     getClientePorId(id).then((data) => {
       setCliente(data.objetoRetorno);
+      setPedidos(data.objetoRetorno.customerOrders);
     });
   }, [id]);
+
+  console.log(pedidos);
+  for (let i = 0; i < pedidos.length; i++) {
+    listaIdProdutos.push(pedidos[i].id);
+  }
+
+  async function pegaNomes() {
+    for (let n = 0; n < listaIdProdutos.length; n++) {
+      await getProdutoPorId(listaIdProdutos[n]).then((data) => {
+        listaNomes.push(data.objetoRetorno.productName);
+      });
+    }
+  }
+
+  console.log(listaNomes);
+  pegaNomes();
 
   return (
     <div className={styles.pagina}>
