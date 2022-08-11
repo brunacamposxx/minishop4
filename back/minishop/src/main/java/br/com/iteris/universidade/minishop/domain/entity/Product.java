@@ -32,9 +32,9 @@ public class Product {
     @Column(name = "PackageName", length = 100)
     private String packageName;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productId")
+   @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
     @JsonManagedReference
-    private List<OrderItem> orderItems;
+    private List<ProductImage> images;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "supplierId", insertable = false, updatable = false)
