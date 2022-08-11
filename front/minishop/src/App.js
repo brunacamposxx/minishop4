@@ -21,9 +21,9 @@ function App() {
             <Route path="/fornecedores" element={<Fornecedores />} />
             <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/produtos" element={<Produtos />} />
-            <Route path="/detalheproduto" element={<DetalheProduto />} />
-            <Route path="/detalhecliente" element={<DetalheCliente />} />
-            <Route path="/detalhefornecedor" element={<DetalheFornecedor />} />
+            <Route path="/produtos/:id" element={<DetalheProduto />} />
+            <Route path="/clientes/:id" element={<DetalheCliente />} />
+            <Route path="/fornecedores/:id" element={<DetalheFornecedor />} />
           </Routes>
         </SecondPageTemplate>
       </BrowserRouter>

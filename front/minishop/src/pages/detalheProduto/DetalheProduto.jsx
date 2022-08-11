@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './DetalheProduto.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { getProdutoPorId } from '../../services/minishopApiServices';
 
-function DetalheProduto(props) {
+function DetalheProduto() {
+  const { id } = useParams();
+
+  const [produto, setProduto] = useState({});
+
+  useEffect(() => {
+    getProdutoPorId(id).then((data) => {
+      setProduto(data.objetoRetorno);
+    });
+  }, [id]);
+
   return (
     <div className={styles.pagina}>
       <div className={styles.cabecalho}>
@@ -14,15 +25,11 @@ function DetalheProduto(props) {
       </div>
       <div className={styles.conteiner}>
         <div className={styles.esquerda}>
-          <img
-            src={props.imagem ? props.imagem : '/organic.jpg'}
-            alt="produto"
-            className={styles.foto}
-          />
+          <img src={'/sem-foto.jpg'} alt="produto" className={styles.foto} />
         </div>
         <div className={styles.direita}>
           <h1 className={styles.nome}>
-            {props.nome ? props.nome : 'Nome do produto'}
+            {produto.productName ? produto.productName : 'Nome do produto'}
           </h1>
           <h1
             style={{
@@ -32,16 +39,17 @@ function DetalheProduto(props) {
               margin: '0px',
             }}
           >
-            {props.preco ? props.preco : 'R$00,00'}
+            {produto.unitPrice ? 'R$' + produto.unitPrice : 'R$00,00'}
           </h1>
           <span className={styles.dados}>
-            Fornecedor: {props.fornecedor ? props.fornecedor : 'Exemplo'}
+            Fornecedor:{' '}
+            {produto.supplierId == 12 ? 'Exotic Liquids' : 'Exemplo'}
           </span>
           <span style={{ fontSize: '20px' }}>
-            Quantidade: {props.quantidade ? props.quantidade : 'Exemplo'}
+            {produto.packageName ? 'Pacotes:' + produto.packageName : ''}
           </span>
           <span className={styles.dados}>
-            {props.status ? props.status : 'Status'}
+            {produto.isDiscontinued == false ? 'Ativo' : 'Inativo'}
           </span>
           <Button
             color="inherit"
@@ -52,7 +60,11 @@ function DetalheProduto(props) {
         </div>
       </div>
       <Link to="/produtos" style={{ textDecoration: 'none' }}>
-        <CustomBotao cor="#b07ca3" label="Voltar" />
+        <CustomBotao
+          cor="#b07ca3"
+          label="Voltar"
+          style={{ marginLeft: 'auto' }}
+        />
       </Link>
     </div>
   );

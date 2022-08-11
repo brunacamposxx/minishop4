@@ -31,3 +31,11 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.carregar {
+    align-self: center;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+}

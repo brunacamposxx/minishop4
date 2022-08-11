@@ -10,6 +10,7 @@ public class ProductResponseFull {
     private Double UnitPrice;
     private boolean IsDiscontinued;
     private Integer SupplierId;
+    private String PackageName;
 
     private String NomeSupplier;
 
@@ -21,6 +22,7 @@ public class ProductResponseFull {
         UnitPrice = product.getUnitPrice();
         IsDiscontinued = product.getIsDiscontinued();
         SupplierId = product.getSupplierId();
+        PackageName = product.getPackageName();
         NomeSupplier = product.getSupplier().getNome();
     }
 }

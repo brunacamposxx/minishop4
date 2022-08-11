@@ -1,45 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardProduto from '../../components/cardProduto/CardProduto';
 import styles from './Produtos.module.css';
+import { getProdutos } from '../../services/minishopApiServices';
 
 function Produtos() {
-  const lista = [
-    {
-      id: 0,
-      nome: 'Chai Latte',
-      imagem: '/organic.jpg',
-      preco: 'R$18,00',
-      status: 'Ativo',
-    },
-    {
-      id: 0,
-      nome: 'Aniseed Syrup',
-      imagem: '/organic.jpg',
-      preco: 'R$12,00',
-      status: 'Inativo',
-    },
-    {
-      id: 0,
-      nome: 'Chai Latte',
-      imagem: '/organic.jpg',
-      preco: 'R$18,00',
-      status: 'Ativo',
-    },
-    {
-      id: 0,
-      nome: 'Aniseed Syrup',
-      imagem: '/organic.jpg',
-      preco: 'R$24,00',
-      status: 'Ativo',
-    },
-    {
-      id: 0,
-      nome: 'Chai Latte',
-      imagem: '/organic.jpg',
-      preco: 'R$19,00',
-      status: 'Inativo',
-    },
-  ];
+  const [listaProdutos, setListaProdutos] = useState([]);
+  const [pagina, setPagina] = useState(0);
+
+  function proximaPagina() {
+    setPagina((paginaAtual) => paginaAtual + 1);
+  }
+
+  useEffect(() => {
+    getProdutos(pagina, 8).then((data) => {
+      setListaProdutos((listaAtual) => [
+        ...listaAtual,
+        ...data.objetoRetorno.content,
+      ]);
+    });
+  }, [pagina]);
 
   return (
     <div className={styles.pagina}>
@@ -48,16 +27,20 @@ function Produtos() {
         <div className={styles.linha}></div>
       </div>
       <div className={styles.listacards}>
-        {lista.map((produto) => (
+        {listaProdutos.map((produto) => (
           <CardProduto
             key={produto.id}
-            nome={produto.nome}
+            id={produto.id}
+            productName={produto.productName}
             imagem={produto.imagem}
-            preco={produto.preco}
-            status={produto.status}
+            unitPrice={produto.unitPrice}
+            isDiscontinued={produto.isDiscontinued}
           />
         ))}
       </div>
+      <p className={styles.carregar} onClick={() => proximaPagina()}>
+        Carregar mais...
+      </p>
     </div>
   );
 }
