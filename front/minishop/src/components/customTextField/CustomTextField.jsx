@@ -1,8 +1,8 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
-import './TextFields.css';
+import './CustomTextField.css';
 
-function TextFields({
+function CustomTextFiels({
   label,
   largura,
   placeholder,
@@ -33,4 +33,4 @@ function TextFields({
   );
 }
 
-export default TextFields;
+export default CustomTextFiels;

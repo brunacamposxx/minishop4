@@ -16,25 +16,22 @@
    height: 100vh;
 }
 
-.container-form{
+.container-form-fornecedor{
     background-color: #FFF;
-    /* max-width: 200vw; */
     margin: 5vw;
-    padding: 2vh;
+    padding-top: 5vh;
     padding-left: 5vw;
     padding-right: 5vw;
     padding-bottom: 2vw;
-    
 }
 
-/* .menu-item{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-    padding-right: 50px; */
-/* } */
 
-.flex{
+.flex-fornecedor{
     display: flex;
     align-items: flex-start;
+}
+
+
+.alinhamento-uf{
+    margin-left: 5px;
 }

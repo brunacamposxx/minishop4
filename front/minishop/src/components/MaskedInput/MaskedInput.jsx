@@ -14,10 +14,6 @@ const MaskedInput = ({
   aoAlterado,
 }) => {
   const width = largura + 'vw';
-  // const onChangeFunction = (event) => {
-  //   emMudanca(event.target.value);
-  // };
-
   const aoDigitado = (evento) => {
     aoAlterado(evento.target.value);
   };
@@ -28,7 +24,7 @@ const MaskedInput = ({
       mask={mascara}
       maskChar={null}
       onChange={aoDigitado}
-      style={{ width: width }}
+      style={{ width: width, marginTop: 20 }}
       id="outlined-read-only-input"
       label={label}
       type="text"

@@ -1,7 +1,7 @@
 import React from 'react';
 import './CadastrarFornecedor.css';
-import Botao from '../botao/Botao';
-import TextFields from '../textFields/TextFields';
+import CustomBotao from '../customBotao/CustomBotao';
+import CustomTextField from '../customTextField/CustomTextField';
 import Titulo from '../titulo/Titulo';
 import MaskedInput from '../MaskedInput/MaskedInput';
 import { validaEmail, validaCnpj } from '../../service/regex';
@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import { estadosBrasileiros } from '../../constants/fornecedor.constants';
 
 const CadastrarFornecedor = () => {
   const [email, setEmail] = useState('');
@@ -17,11 +18,7 @@ const CadastrarFornecedor = () => {
   const [cidade, setCidade] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [contato, setContato] = useState('');
-
-  const [estado, setEstado] = React.useState('');
-  const handleChange = (event) => {
-    setEstado(event.target.value);
-  };
+  const [estado, setEstado] = useState('');
 
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCnpjErr, setInputCnpjErr] = useState(false);
@@ -33,6 +30,7 @@ const CadastrarFornecedor = () => {
     console.log('cidade', cidade);
     console.log('telefone', telefone);
     console.log('cnpj', cnpj);
+    console.log('teste', inputEmailErr);
 
     if (!validaEmail.test(email)) {
       setInputEmailErr(true);
@@ -45,52 +43,25 @@ const CadastrarFornecedor = () => {
       setInputCnpjErr(false);
     }
   };
-  const estadosBrasileiros = [
-    { nome: 'AC' },
-    { nome: 'AL' },
-    { nome: 'AP' },
-    { nome: 'AM' },
-    { nome: 'BA' },
-    { nome: 'CE' },
-    { nome: 'DF' },
-    { nome: 'ES' },
-    { nome: 'GO' },
-    { nome: 'MA' },
-    { nome: 'MT' },
-    { nome: 'MG' },
-    { nome: 'MS' },
-    { nome: 'PA' },
-    { nome: 'PB' },
-    { nome: 'PR' },
-    { nome: 'PE' },
-    { nome: 'PI' },
-    { nome: 'RJ' },
-    { nome: 'RN' },
-    { nome: 'RS' },
-    { nome: 'RO' },
-    { nome: 'RR' },
-    { nome: 'SC' },
-    { nome: 'SP' },
-    { nome: 'SE' },
-    { nome: 'TO' },
-  ];
 
   return (
     <div className="container-fornecedor">
       <Titulo titulo="Cadastrar Fornecedor" />
-      <div className="container-form">
+      <div className="container-form-fornecedor">
         <form className="cadastrar-fornecedor">
           <aside>
-            <div className="flex">
-              <TextFields
+            <div className="flex-fornecedor">
+              <CustomTextField
                 label="Nome"
                 required={true}
                 value={nome}
+                largura={30}
                 aoAlterado={(valor) => setNome(valor)}
               />
             </div>
-            <div className="flex">
-              <TextFields
+            <div className="flex-fornecedor">
+              <CustomTextField
+                largura={30}
                 label="Contato"
                 required={true}
                 value={contato}
@@ -98,34 +69,41 @@ const CadastrarFornecedor = () => {
               />
             </div>
 
-            <div className="flex">
-              <TextFields
+            <div className="flex-fornecedor teste">
+              <CustomTextField
                 label="Cidade"
+                largura={20}
                 required={true}
                 value={cidade}
                 aoAlterado={(valor) => setCidade(valor)}
-                largura={20}
               />
 
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="UF"
-                size="small"
-                value={estado}
-                onChange={handleChange}
-                required={true}
-              >
-                {estadosBrasileiros.map((option) => (
-                  <MenuItem key={option.nome} value={option.nome}>
-                    {option.nome}
-                  </MenuItem>
-                ))}
-              </TextField>
+              <div className="alinhamento-uf">
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  style={{
+                    width: 100,
+                    marginTop: 19,
+                  }}
+                  label="UF"
+                  size="small"
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                  required={true}
+                >
+                  {estadosBrasileiros.map((option) => (
+                    <MenuItem key={option.nome} value={option.nome}>
+                      {option.nome}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
             </div>
           </aside>
           <main>
-            <TextFields
+            <CustomTextField
+              largura={30}
               required={true}
               label="E-mail"
               placeholder="email@email.com"
@@ -134,7 +112,7 @@ const CadastrarFornecedor = () => {
               aoAlterado={(valor) => setEmail(valor)}
             />
 
-            <div className="flex">
+            <div className="flex-fornecedor">
               <MaskedInput
                 mascara="(99)99999-9999"
                 required={true}
@@ -149,7 +127,7 @@ const CadastrarFornecedor = () => {
               />
             </div>
 
-            <div className="flex">
+            <div className="flex-fornecedor">
               <MaskedInput
                 mascara="99.999.999/9999-99"
                 placeholder="CNPJ"
@@ -168,8 +146,8 @@ const CadastrarFornecedor = () => {
         </form>
 
         <div className="alinhamento-direita">
-          <Botao onClick={validate} cor="#B17DA4" label="Salvar" />
-          <Botao cor="#94b456" label="Voltar" />
+          <CustomBotao onClick={validate} cor="#B17DA4" label="Salvar" />
+          <CustomBotao cor="#94b456" label="Voltar" />
         </div>
         {inputEmailErr && (
           <Alert severity="error">Por favor digite um e-mail válido!</Alert>

@@ -1,12 +1,12 @@
 import './CadastrarCliente.css';
-import Botao from '../botao/Botao';
-import TextFields from '../textFields/TextFields';
+import CustomBotao from '../customBotao/CustomBotao';
+import CustomTextField from '../customTextField/CustomTextField';
 import Titulo from '../titulo/Titulo';
 import MaskedInput from '../MaskedInput/MaskedInput';
 import { validaEmail } from '../../service/regex';
 import { useState } from 'react';
 import { validaCPF } from '../../service/validaCpf';
-import Alert from '@mui/material/Alert';
+import CustomAlertaErro from '../customAlertaErro/CustomAlertaErro';
 
 const CadastrarCliente = () => {
   const [inputEmailErr, setInputEmailErr] = useState(false);
@@ -44,71 +44,78 @@ const CadastrarCliente = () => {
         <form className="cadastrar-cliente">
           <aside>
             <div className="flex">
-              <TextFields
+              <CustomTextField
                 label="Nome"
                 required={true}
                 value={nome}
+                largura={30}
                 aoAlterado={(valor) => setNome(valor)}
               />
             </div>
             <div className="flex">
-              <TextFields
+              <CustomTextField
                 label="Sobrenome"
                 required={true}
                 value={sobrenome}
+                largura={30}
                 aoAlterado={(valor) => setSobrenome(valor)}
               />
             </div>
             <div className="">
-              <TextFields
+              <CustomTextField
                 required={true}
+                largura={30}
                 label="E-mail"
                 placeholder="email@email.com"
                 type="email"
                 value={email}
                 aoAlterado={(valor) => setEmail(valor)}
               />
-              {inputEmailErr && (
-                <Alert severity="error">
-                  Por favor digite um e-mail válido!
-                </Alert>
-              )}
             </div>
           </aside>
           <main>
-            <MaskedInput
-              mascara="(99)99999-9999"
-              required={true}
-              label="Telefone"
-              largura={20}
-              aoAlterado={(valor) =>
-                setTelefone(
-                  valor.replace('-', '').replace('(', '').replace(')', ''),
-                )
-              }
-              value={telefone}
-            />
+            <div className="margin">
+              <MaskedInput
+                mascara="(99)99999-9999"
+                required={true}
+                label="Telefone"
+                largura={20}
+                aoAlterado={(valor) =>
+                  setTelefone(
+                    valor.replace('-', '').replace('(', '').replace(')', ''),
+                  )
+                }
+                value={telefone}
+              />
+            </div>
 
-            <MaskedInput
-              mascara="999.999.999-99"
-              placeholder="CPF"
-              required={true}
-              label="CPF"
-              largura={20}
-              value={cpf}
-              aoAlterado={(valor) =>
-                setCpf(valor.replace('-', '').replaceAll('.', ''))
-              }
-            />
-            {inputCpfErr && (
-              <Alert severity="error">Por favor digite um CPF válido!</Alert>
-            )}
+            <div className="margin">
+              <MaskedInput
+                mascara="999.999.999-99"
+                placeholder="CPF"
+                required={true}
+                label="CPF"
+                largura={20}
+                value={cpf}
+                aoAlterado={(valor) =>
+                  setCpf(valor.replace('-', '').replaceAll('.', ''))
+                }
+              />
+            </div>
           </main>
         </form>
 
         <div className="alinhamento-direita">
-          <Botao onClick={validate} cor="#B17DA4" label="Salvar" />
-          <Botao cor="#94b456" label="Voltar" />
+          <CustomBotao onClick={validate} cor="#B17DA4" label="Salvar" />
+          <CustomBotao cor="#94b456" label="Voltar" />
+        </div>
+        <div className="margin">
+          {inputCpfErr && (
+            <CustomAlertaErro mensagem="Por favor digite um CPF válido!" />
+          )}
+          {inputEmailErr && (
+            <CustomAlertaErro mensagem="Por favor digite um e-mail válido!" />
+          )}
         </div>
       </div>
     </div>

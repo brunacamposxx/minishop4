@@ -1,29 +1,32 @@
 .alinhamento-direita {
     display: flex;
     justify-content: flex-end;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
 }
 
-.cadastrar-cliente {
+.cadastrar-produto {
     display: grid;
     grid-template-columns: 1fr 0.5fr;    
     justify-content: center;
 }
 
-.container-cliente{
+.container-produto{
    background-color: #E3E3E3;
    height: 100vh;
 }
 
-.container-form{
+.container-form-produto{
     background-color: #FFF;
     margin: 5vw;
-    padding: 2vh;
+    padding-top: 5vh;
     padding-left: 5vw;
-    padding-right: 0;
-    
+    padding-right: 5vw;
+    padding-bottom: 2vw;
 }
 
-.margin{
-    margin-right: 5vw;
-}
 
+.flex{
+    display: flex;
+    align-items: flex-start;
+}
