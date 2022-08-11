@@ -10,19 +10,21 @@ export default function CardProduto(props) {
     <div>
       <div className={styles.card}>
         <p className={styles.dados}>
-          {props.nome ? props.nome : 'Nome do produto'}
+          {props.productName ? props.productName : 'Nome do produto'}
         </p>
         <img
           src={props.imagem ? props.imagem : '/organic.jpg'}
           alt="produto"
           className={styles.imagem}
         />
-        <p className={styles.dados}>{props.preco ? props.preco : 'R$00,00'}</p>
+        <p className={styles.dados}>
+          {props.unitPrice ? props.unitPrice : 'R$00,00'}
+        </p>
         <p className={styles.status}>
-          {props.status ? props.status : 'Status'}
+          {props.isDiscontinued ? props.isDiscontinued : 'Status'}
         </p>
         <div className={styles.icones}>
-          <Link to="/detalheproduto" style={{ textDecoration: 'none' }}>
+          <Link to={`/produtos/${props.id}`} style={{ textDecoration: 'none' }}>
             <Button>
               <RemoveRedEyeIcon
                 style={{ fontSize: '30', color: '#b07ca3', margin: '5px' }}
