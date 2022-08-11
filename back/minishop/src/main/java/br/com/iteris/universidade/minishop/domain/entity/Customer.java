@@ -28,7 +28,7 @@ public class Customer {
     @Column(name = "Phone", length = 15)
     private String phone;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customerId")
-    @JsonManagedReference
-    private List<CustomerOrder> customerOrders;
+    //@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customerId")
+    //@JsonManagedReference
+    //private List<CustomerOrder> customerOrders;
 }

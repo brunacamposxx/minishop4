@@ -2,6 +2,8 @@ package br.com.iteris.universidade.minishop.service;
 
 import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Customer;
+import br.com.iteris.universidade.minishop.domain.entity.CustomerOrder;
+import br.com.iteris.universidade.minishop.repository.CustomerOrdersRepository;
 import br.com.iteris.universidade.minishop.repository.CustomersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +21,7 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomersRepository customersRepository;
+    private final CustomerOrdersRepository customerOrdersRepository;
 
     // IMPLEMENTAR VALIDAÇÕES QUE SÃO PEDIDAS.
 
@@ -62,19 +67,25 @@ public class CustomerService {
     }
 
     // Consulta por id consultado todos campos mais lista de ordens de compra (relacionamento tabela Customer com tabela CustomerOrder)
-    // falta retornar lista de ordens de compra (relacionamento tabela Customer com tabela CustomerOrder);
     public ResponseBase<CustomerConsultaPorIdResponse> pesquisaPorId(int id) {
-        // Consulta o repositorio para procurar por um custumer pelo id
-        Optional<Customer> customerOptional = customersRepository.findById(id);
-        // Verifica se o custimer foi encontrado, caso o contratrio retorna um erro
-        Customer customer = customerOptional
+
+        Customer customer = customersRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
+        List<CustomerOrder> customerOrders = customerOrdersRepository.findByCustomer(customer.getId());
+
+        List<CustomerOrderConsultaPorCustomerIdResponse> customerOrderResponse = new ArrayList<>();
+
+        for (CustomerOrder order : customerOrders) {
+            customerOrderResponse.add(new CustomerOrderConsultaPorCustomerIdResponse(order));
+        }
+
         // Mapeia de entidade para dto
-        CustomerConsultaPorIdResponse customerConsultaPorIdResponse = new CustomerConsultaPorIdResponse(customer);
+        CustomerConsultaPorIdResponse customerConsultaPorIdResponse = new CustomerConsultaPorIdResponse(customer, customerOrderResponse);
 
         return new ResponseBase<>(customerConsultaPorIdResponse);
     }
+    //CustomerOrderPorCustomerIdResponse
 
     // Listagem paginada consultando id, nome, telefone e email;
     public ResponseBase<Page<CustomerPesquisarPaginadoResponse>> pesquisarPaginado(PaginatedSearchRequest searchRequest) {

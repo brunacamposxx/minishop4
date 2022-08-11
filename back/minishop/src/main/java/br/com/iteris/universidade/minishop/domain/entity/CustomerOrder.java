@@ -33,5 +33,4 @@ public class CustomerOrder {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "orderId")
     @JsonManagedReference
     private List<OrderItem> orderItems;
-
 }
