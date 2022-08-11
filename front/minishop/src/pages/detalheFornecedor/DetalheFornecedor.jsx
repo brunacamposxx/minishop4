@@ -15,10 +15,12 @@ function DetalheFornecedor() {
   const { id } = useParams();
 
   const [fornecedor, setFornecedor] = useState({});
+  const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
     getFornecedorPorId(id).then((data) => {
       setFornecedor(data.objetoRetorno);
+      setProdutos(data.objetoRetorno.listaDeProdutos);
     });
   }, [id]);
 
@@ -65,8 +67,14 @@ function DetalheFornecedor() {
         <div className={styles.partedois}>
           <h4 className={styles.total}>Produtos</h4>
           <div className={styles.quadro}>
-            <span className={styles.produto}>Chai Latte</span>
-            <span className={styles.produto}>Cajun Seasoning</span>
+            <p className={styles.produto}>
+              {produtos.map((produto) => (
+                <span key={produto.id}>
+                  {' '}
+                  {produto.productName} <br />
+                </span>
+              ))}
+            </p>
           </div>
         </div>
         <Button
