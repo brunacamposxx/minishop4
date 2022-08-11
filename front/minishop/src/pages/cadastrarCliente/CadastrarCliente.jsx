@@ -3,38 +3,45 @@ import CustomBotao from '../../components/customBotao/CustomBotao';
 import CustomTextField from '../../components/customTextField/CustomTextField';
 import Titulo from '../../components/titulo/Titulo';
 import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
-import { validaEmail } from '../../service/regex';
+import { validaEmail } from '../../service/validadores/regex';
 import { useState } from 'react';
-import { validaCPF } from '../../service/validaCpf';
+import { validaCPF } from '../../service/validadores/validaCpf';
 import CustomAlertaErro from '../../components/customAlertaErro/CustomAlertaErro';
+import { postCliente } from '../../service/requisicoesApi/clienteApiService';
+import { unmaskCPF } from '../../service/mascara/cpf';
+import { unmaskTelefone } from '../../service/unmask/telefone';
 
 const CadastrarCliente = () => {
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCpfErr, setInputCpfErr] = useState(false);
 
-  const [email, setEmail] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [cpf, setCpf] = useState('');
+  // const [telefone, setTelefone] = useState('');
+  // const [nome, setNome] = useState('');
+  // const [sobrenome, setSobrenome] = useState('');
 
-  const validate = () => {
-    console.log('cpf', cpf);
-    console.log('email', email);
-    console.log('nome', nome);
-    console.log('sobrenome', sobrenome);
-    console.log('telefone', telefone);
+  const [novoCliente, setNovoCliente] = useState({
+    cpf: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+  });
 
-    if (!validaCPF(cpf)) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!validaCPF(novoCliente.cpf)) {
       setInputCpfErr(false);
     } else {
       setInputCpfErr(true);
     }
-    if (!validaEmail.test(email)) {
+    if (!validaEmail.test(novoCliente.email)) {
       setInputEmailErr(true);
     } else {
       setInputEmailErr(false);
     }
+    postCliente(novoCliente);
   };
 
   return (
@@ -47,18 +54,22 @@ const CadastrarCliente = () => {
               <CustomTextField
                 label="Nome"
                 required={true}
-                value={nome}
+                value={novoCliente.firstName}
                 largura={30}
-                aoAlterado={(valor) => setNome(valor)}
+                aoAlterado={(valor) =>
+                  setNovoCliente({ ...novoCliente, firstName: valor })
+                }
               />
             </div>
             <div className="flex">
               <CustomTextField
                 label="Sobrenome"
                 required={true}
-                value={sobrenome}
+                value={novoCliente.lastName}
                 largura={30}
-                aoAlterado={(valor) => setSobrenome(valor)}
+                aoAlterado={(valor) =>
+                  setNovoCliente({ ...novoCliente, lastName: valor })
+                }
               />
             </div>
             <div className="">
@@ -68,8 +79,10 @@ const CadastrarCliente = () => {
                 label="E-mail"
                 placeholder="email@email.com"
                 type="email"
-                value={email}
-                aoAlterado={(valor) => setEmail(valor)}
+                value={novoCliente.email}
+                aoAlterado={(valor) =>
+                  setNovoCliente({ ...novoCliente, email: valor })
+                }
               />
             </div>
           </aside>
@@ -81,11 +94,12 @@ const CadastrarCliente = () => {
                 label="Telefone"
                 largura={20}
                 aoAlterado={(valor) =>
-                  setTelefone(
-                    valor.replace('-', '').replace('(', '').replace(')', ''),
-                  )
+                  setNovoCliente({
+                    ...novoCliente,
+                    phone: unmaskTelefone(valor),
+                  })
                 }
-                value={telefone}
+                value={novoCliente.phone}
               />
             </div>
 
@@ -96,9 +110,9 @@ const CadastrarCliente = () => {
                 required={true}
                 label="CPF"
                 largura={20}
-                value={cpf}
+                value={novoCliente.cpf}
                 aoAlterado={(valor) =>
-                  setCpf(valor.replace('-', '').replaceAll('.', ''))
+                  setNovoCliente({ ...novoCliente, cpf: unmaskCPF(valor) })
                 }
               />
             </div>
@@ -106,7 +120,7 @@ const CadastrarCliente = () => {
         </form>
 
         <div className="alinhamento-direita">
-          <CustomBotao onClick={validate} cor="#B17DA4" label="Salvar" />
+          <CustomBotao onClick={handleSubmit} cor="#B17DA4" label="Salvar" />
           <CustomBotao cor="#94b456" label="Voltar" />
         </div>
         <div className="margin">
