@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './DetalheProduto.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import { Button } from '@mui/material';
-import Botao from '../../components/botao/Botao';
+import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link } from 'react-router-dom';
 
 function DetalheProduto(props) {
@@ -52,7 +52,7 @@ function DetalheProduto(props) {
         </div>
       </div>
       <Link to="/produtos" style={{ textDecoration: 'none' }}>
-        <Botao cor="#b07ca3" label="Voltar" />
+        <CustomBotao cor="#b07ca3" label="Voltar" />
       </Link>
     </div>
   );

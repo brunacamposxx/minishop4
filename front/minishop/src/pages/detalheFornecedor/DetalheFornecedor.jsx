@@ -4,7 +4,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { Button } from '@mui/material';
-import Botao from '../../components/botao/Botao';
+import CustomBotao from '../../components/customBotao/CustomBotao';
 import PersonIcon from '@mui/icons-material/Person';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -65,7 +65,7 @@ function DetalheFornecedor() {
         </Button>
       </div>
       <Link to="/fornecedores" style={{ textDecoration: 'none' }}>
-        <Botao cor="#b07ca3" label="Voltar" />
+        <CustomBotao cor="#b07ca3" label="Voltar" />
       </Link>
     </div>
   );

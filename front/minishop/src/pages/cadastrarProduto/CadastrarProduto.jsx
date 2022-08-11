@@ -1,12 +1,11 @@
 import './CadastrarProduto.css';
-import CustomBotao from '../customBotao/CustomBotao';
-import CustomTextField from '../customTextField/CustomTextField';
-import Titulo from '../titulo/Titulo';
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import CustomTextField from '../../components/customTextField/CustomTextField';
+import Titulo from '../../components/titulo/Titulo';
 import { useState } from 'react';
-// import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import CustomSwitch from '../customSwitch/CustomSwitch';
+import CustomSwitch from '../../components/customSwitch/CustomSwitch';
 
 const CadastrarProduto = () => {
   const [imagem, setImagem] = useState('');
