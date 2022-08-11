@@ -16,13 +16,24 @@ public class ProductResponse {
     private Double UnitPrice;
     private boolean IsDiscontinued;
 
-    private List<ProductImage> imagens;
+    private String imagemPrincipal;
+
+   // private List<ProductImage> imagens;
 
     public ProductResponse(Product product) {
         Id = product.getId();
         ProductName = product.getProductName();
         UnitPrice = product.getUnitPrice();
         IsDiscontinued = product.getIsDiscontinued();
-        this.imagens = product.getImages();
+        if (product.getImages().size() == 0 ) {
+            imagemPrincipal = null;
+        } else if (product.getProductImage().getSequencia() != 1) {
+            System.out.println("/////////////////////////////////////////////////////////////////////////////////////////////// entrou aqui óh");
+            imagemPrincipal = null;
+        }
+        else{
+            imagemPrincipal = product.getProductImage().getURL();
+        }
     }
+
 }

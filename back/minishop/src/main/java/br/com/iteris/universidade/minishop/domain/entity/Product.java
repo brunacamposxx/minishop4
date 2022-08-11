@@ -36,6 +36,13 @@ public class Product {
     @JsonManagedReference
     private List<ProductImage> images;
 
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JsonBackReference
+    private ProductImage productImage;
+
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "supplierId", insertable = false, updatable = false)
     @JsonBackReference
