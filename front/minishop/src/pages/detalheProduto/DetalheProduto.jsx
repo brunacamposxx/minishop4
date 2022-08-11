@@ -3,17 +3,17 @@ import styles from './DetalheProduto.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getProdutoPorId } from '../../services/minishopApiServices';
 
 function DetalheProduto() {
   const { id } = useParams();
 
-  const [produto, setProduto] = useState(null);
+  const [produto, setProduto] = useState({});
 
   useEffect(() => {
     getProdutoPorId(id).then((data) => {
-      setProduto(data);
+      setProduto(data.objetoRetorno);
     });
   }, [id]);
 
@@ -25,11 +25,7 @@ function DetalheProduto() {
       </div>
       <div className={styles.conteiner}>
         <div className={styles.esquerda}>
-          <img
-            src={produto.imagem ? produto.imagem : '/sem-foto.jpg'}
-            alt="produto"
-            className={styles.foto}
-          />
+          <img src={'/sem-foto.jpg'} alt="produto" className={styles.foto} />
         </div>
         <div className={styles.direita}>
           <h1 className={styles.nome}>
@@ -43,16 +39,17 @@ function DetalheProduto() {
               margin: '0px',
             }}
           >
-            {produto.unitPrice ? produto.unitPrice : 'R$00,00'}
+            {produto.unitPrice ? 'R$' + produto.unitPrice : 'R$00,00'}
           </h1>
           <span className={styles.dados}>
-            Fornecedor: {produto.supplierId ? produto.supplierId : 'Exemplo'}
+            Fornecedor:{' '}
+            {produto.supplierId == 12 ? 'Exotic Liquids' : 'Exemplo'}
           </span>
           <span style={{ fontSize: '20px' }}>
-            Quantidade: {produto.quantidade ? produto.quantidade : 'Exemplo'}
+            {produto.packageName ? 'Pacotes:' + produto.packageName : ''}
           </span>
           <span className={styles.dados}>
-            {produto.isDiscontinued ? produto.isDiscontinued : 'Status'}
+            {produto.isDiscontinued == false ? 'Ativo' : 'Inativo'}
           </span>
           <Button
             color="inherit"

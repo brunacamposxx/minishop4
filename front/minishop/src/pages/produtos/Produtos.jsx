@@ -5,12 +5,20 @@ import { getProdutos } from '../../services/minishopApiServices';
 
 function Produtos() {
   const [listaProdutos, setListaProdutos] = useState([]);
+  const [pagina, setPagina] = useState(0);
+
+  function proximaPagina() {
+    setPagina((paginaAtual) => paginaAtual + 1);
+  }
 
   useEffect(() => {
-    getProdutos().then((data) => {
-      setListaProdutos(data);
+    getProdutos(pagina, 8).then((data) => {
+      setListaProdutos((listaAtual) => [
+        ...listaAtual,
+        ...data.objetoRetorno.content,
+      ]);
     });
-  }, []);
+  }, [pagina]);
 
   return (
     <div className={styles.pagina}>
@@ -22,6 +30,7 @@ function Produtos() {
         {listaProdutos.map((produto) => (
           <CardProduto
             key={produto.id}
+            id={produto.id}
             productName={produto.productName}
             imagem={produto.imagem}
             unitPrice={produto.unitPrice}
@@ -29,6 +38,9 @@ function Produtos() {
           />
         ))}
       </div>
+      <p className={styles.carregar} onClick={() => proximaPagina()}>
+        Carregar mais...
+      </p>
     </div>
   );
 }

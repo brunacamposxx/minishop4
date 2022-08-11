@@ -13,15 +13,15 @@ export default function CardProduto(props) {
           {props.productName ? props.productName : 'Nome do produto'}
         </p>
         <img
-          src={props.imagem ? props.imagem : '/organic.jpg'}
+          src={props.imagem ? props.imagem : '/sem-foto.jpg'}
           alt="produto"
           className={styles.imagem}
         />
         <p className={styles.dados}>
-          {props.unitPrice ? props.unitPrice : 'R$00,00'}
+          {props.unitPrice ? 'R$' + props.unitPrice : 'R$00,00'}
         </p>
         <p className={styles.status}>
-          {props.isDiscontinued ? props.isDiscontinued : 'Status'}
+          {props.isDiscontinued == false ? 'Ativo' : 'Inativo'}
         </p>
         <div className={styles.icones}>
           <Link to={`/produtos/${props.id}`} style={{ textDecoration: 'none' }}>
