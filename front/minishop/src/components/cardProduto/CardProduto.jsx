@@ -3,6 +3,7 @@ import styles from './CardProduto.module.css';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import CreateIcon from '@mui/icons-material/Create';
 import { Button } from '@mui/material';
+import CircleIcon from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
 
 export default function CardProduto(props) {
@@ -21,6 +22,11 @@ export default function CardProduto(props) {
           {props.unitPrice ? 'R$' + props.unitPrice : 'R$00,00'}
         </p>
         <p className={styles.status}>
+          {props.isDiscontinued == false ? (
+            <CircleIcon style={{ fontSize: '15', color: 'green' }} />
+          ) : (
+            <CircleIcon style={{ fontSize: '15', color: 'red' }} />
+          )}
           {props.isDiscontinued == false ? 'Ativo' : 'Inativo'}
         </p>
         <div className={styles.icones}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './DetalheFornecedor.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -8,9 +8,20 @@ import CustomBotao from '../../components/customBotao/CustomBotao';
 import PersonIcon from '@mui/icons-material/Person';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import PlaceIcon from '@mui/icons-material/Place';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getFornecedorPorId } from '../../services/minishopApiServices';
 
 function DetalheFornecedor() {
+  const { id } = useParams();
+
+  const [fornecedor, setFornecedor] = useState({});
+
+  useEffect(() => {
+    getFornecedorPorId(id).then((data) => {
+      setFornecedor(data.objetoRetorno);
+    });
+  }, [id]);
+
   return (
     <div className={styles.pagina}>
       <div className={styles.cabecalho}>
@@ -19,33 +30,34 @@ function DetalheFornecedor() {
       </div>
       <div className={styles.conteiner}>
         <div className={styles.parteum}>
-          <h1>Exotic Liquids</h1>
+          <h1>{fornecedor.nome}</h1>
           <div className={styles.colunaum}>
             <h5>
               <PersonIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              Charlotte Cooper
+              {fornecedor.contato ? fornecedor.contato : ''}
             </h5>
             <h5>
               <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              (37)998187879
+              {fornecedor.telefone ? fornecedor.telefone : ''}
             </h5>
           </div>
           <div className={styles.colunadois}>
             <h5>
               <CorporateFareIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              52.733.987/4444-02
+              {fornecedor.cnpj ? fornecedor.cnpj : ''}
             </h5>
             <h5>
               <AlternateEmailIcon
                 style={{ fontSize: '28', color: '#b07ca3' }}
               />
-              maria.anders@gmail.com
+              {fornecedor.email ? fornecedor.email : ''}
             </h5>
           </div>
           <div className={styles.colunatres}>
             <h5>
               <PlaceIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              Uberlândia - MG
+              {fornecedor.cidade ? fornecedor.cidade : ''} <span>-</span>
+              {fornecedor.estado ? fornecedor.estado : ''}
             </h5>
           </div>
         </div>

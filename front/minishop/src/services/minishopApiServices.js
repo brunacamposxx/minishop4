@@ -33,3 +33,21 @@ export function getClientePorId(id) {
     return AxiosResponse.data;
   });
 }
+
+const urlApiF = 'http://localhost:8080/minishop/supplier/?paginaAtual=';
+
+export function getFornecedores(paginaAtual, qtdPorPagina) {
+  return axios
+    .get(urlApiF + paginaAtual + '&qtdPorPagina=' + qtdPorPagina)
+    .then((AxiosResponse) => {
+      return AxiosResponse.data;
+    });
+}
+
+export function getFornecedorPorId(id) {
+  const urlComIdFornecedor =
+    'http://localhost:8080/minishop/supplier' + '/' + id;
+  return axios.get(urlComIdFornecedor).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}

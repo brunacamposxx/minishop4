@@ -17,6 +17,7 @@
 .dados {
     font-size: 15px;
     display: flex;
+    align-items: center;
 }
 
 .nome {
