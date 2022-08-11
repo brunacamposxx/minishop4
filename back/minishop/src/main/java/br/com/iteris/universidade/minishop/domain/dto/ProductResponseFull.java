@@ -11,11 +11,16 @@ public class ProductResponseFull {
     private boolean IsDiscontinued;
     private Integer SupplierId;
 
+    private String NomeSupplier;
+
+    //private String URL;
+
     public ProductResponseFull(Product product) {
         Id = product.getId();
         ProductName = product.getProductName();
         UnitPrice = product.getUnitPrice();
         IsDiscontinued = product.getIsDiscontinued();
         SupplierId = product.getSupplierId();
+        NomeSupplier = product.getSupplier().getNome();
     }
 }
