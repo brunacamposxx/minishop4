@@ -1,6 +1,7 @@
 package br.com.iteris.universidade.minishop.service;
 
 import br.com.iteris.universidade.minishop.domain.dto.*;
+import br.com.iteris.universidade.minishop.domain.entity.Customer;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import br.com.iteris.universidade.minishop.repository.SupplierRespository;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,10 @@ public class SupplierService {
     }
 
     public ResponseBase<SupplierResponse> create(SupplierCreateRequest novo){
+
+        List<String> ufEstados = new ArrayList<>();
+        //ufEstados.add("DF", "GO", );
+
         Supplier modeloDb = new Supplier();
         modeloDb.setNome(novo.getNome());
         modeloDb.setCNPJ(novo.getCNPJ());
@@ -61,14 +66,15 @@ public class SupplierService {
 
     }
 
-    public ResponseBase<SupplierResponse> getById(Integer id) {
+    public ResponseBase<SupplierProductResponse> getById(Integer id) {
         Optional<Supplier> supplierOptional = supplierRespository.findById(id);
         ;
         Supplier supplier = supplierOptional
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Supplier não enontrado !"));
-        SupplierResponse supplierResponse = new SupplierResponse(supplier);
-        return new ResponseBase<>(supplierResponse);
+        SupplierProductResponse supplierProductResponse = new SupplierProductResponse(supplier);
+        return new ResponseBase<>(supplierProductResponse);
     }
+
 
     public List<SupplierShortResponse> shortAll() {
 

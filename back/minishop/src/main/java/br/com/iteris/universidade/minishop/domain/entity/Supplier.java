@@ -48,5 +48,4 @@ public class Supplier {
     @JsonManagedReference
     private List<Product> products;
 
-
 }

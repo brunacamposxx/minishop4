@@ -7,6 +7,7 @@ import br.com.iteris.universidade.minishop.service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,7 +25,7 @@ public class SupplierController {
 
     @GetMapping(value = "minishop/supplier/{id}")
     public ResponseEntity getById(@PathVariable Integer id){
-        ResponseBase<SupplierResponse> retorno = supplierService.getById(id);
+        ResponseBase<SupplierProductResponse> retorno = supplierService.getById(id);
         return ResponseEntity.ok(retorno);
     }
 
@@ -35,7 +36,7 @@ public class SupplierController {
     }
 
     @PostMapping(value = "minishop/supplier")
-    public ResponseEntity create(@Valid @RequestBody SupplierCreateRequest postModel){
+    public ResponseEntity create(@Validated @RequestBody SupplierCreateRequest postModel){
         ResponseBase<SupplierResponse> retorno = supplierService.create(postModel);
         return ResponseEntity.ok(retorno);
 
