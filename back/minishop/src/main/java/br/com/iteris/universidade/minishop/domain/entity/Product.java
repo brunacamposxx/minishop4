@@ -30,8 +30,8 @@ public class Product {
     @Column(name = "PackageName", length = 100)
     private String packageName;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    /*@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "supplierId", nullable = false)
     @JsonBackReference
-    private Supplier supplier;
+    private Supplier supplier;*/
 }
