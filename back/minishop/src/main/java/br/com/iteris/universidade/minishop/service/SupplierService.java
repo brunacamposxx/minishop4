@@ -45,6 +45,10 @@ public class SupplierService {
     }
 
     public ResponseBase<SupplierResponse> create(SupplierCreateRequest novo){
+
+        List<String> ufEstados = new ArrayList<>();
+        //ufEstados.add("DF", "GO", );
+
         Supplier modeloDb = new Supplier();
         modeloDb.setNome(novo.getNome());
         modeloDb.setCNPJ(novo.getCNPJ());

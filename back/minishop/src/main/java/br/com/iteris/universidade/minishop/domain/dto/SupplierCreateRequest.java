@@ -25,9 +25,10 @@ public class SupplierCreateRequest {
     //Obrigatório e que esteja entre as 27 siglas de estados brasileiros;
         @NotEmpty
         @Size(max = 2)
+        @UfsBrasileiros
         private String Estado;
 
-        @Email
+        @Email(message = "o email não existe ou ja está cadastrado para outro supplier")
         @Size(max = 255)
         private String Email;
 
