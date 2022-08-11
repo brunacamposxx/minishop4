@@ -24,7 +24,7 @@ public class SupplierController {
 
     @GetMapping(value = "minishop/supplier/{id}")
     public ResponseEntity getById(@PathVariable Integer id){
-        ResponseBase<SupplierResponse> retorno = supplierService.getById(id);
+        ResponseBase<SupplierProductResponse> retorno = supplierService.getById(id);
         return ResponseEntity.ok(retorno);
     }
 
