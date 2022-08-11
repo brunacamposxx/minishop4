@@ -2,6 +2,8 @@ package br.com.iteris.universidade.minishop.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.br.CNPJ;
 import javax.persistence.*;
 import javax.validation.constraints.Email;

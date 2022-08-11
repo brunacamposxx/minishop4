@@ -3,6 +3,8 @@ package br.com.iteris.universidade.minishop.domain.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,8 +32,12 @@ public class Product {
     @Column(name = "PackageName", length = 100)
     private String packageName;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplierId", nullable = false)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productId")
+    @JsonManagedReference
+    private List<OrderItem> orderItems;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "supplierId", insertable = false, updatable = false)
     @JsonBackReference
     private Supplier supplier;
 }
