@@ -27,7 +27,7 @@ public class ProductImage {
     private Integer productID;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId", nullable = false)
+    @JoinColumn(name = "productId", insertable = false, updatable = false)
     @JsonBackReference
     private Product product;
 
