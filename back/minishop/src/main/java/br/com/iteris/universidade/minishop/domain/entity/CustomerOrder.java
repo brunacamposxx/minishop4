@@ -26,12 +26,11 @@ public class CustomerOrder {
     private Integer customerId;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "customerId", insertable = false, updatable = false)
     @JsonBackReference
     private Customer customer;
 
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "orderId")
     @JsonManagedReference
     private List<OrderItem> orderItems;
-
 }

@@ -12,6 +12,10 @@ public class ProductResponseFull {
     private Integer SupplierId;
     private String PackageName;
 
+    private String NomeSupplier;
+
+    //private String URL;
+
     public ProductResponseFull(Product product) {
         Id = product.getId();
         ProductName = product.getProductName();
@@ -19,5 +23,6 @@ public class ProductResponseFull {
         IsDiscontinued = product.getIsDiscontinued();
         SupplierId = product.getSupplierId();
         PackageName = product.getPackageName();
+        NomeSupplier = product.getSupplier().getNome();
     }
 }

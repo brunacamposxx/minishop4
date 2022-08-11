@@ -1,12 +1,12 @@
 import './CadastrarCliente.css';
-import CustomBotao from '../customBotao/CustomBotao';
-import CustomTextField from '../customTextField/CustomTextField';
-import Titulo from '../titulo/Titulo';
-import MaskedInput from '../MaskedInput/MaskedInput';
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import CustomTextField from '../../components/customTextField/CustomTextField';
+import Titulo from '../../components/titulo/Titulo';
+import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
 import { validaEmail } from '../../service/regex';
 import { useState } from 'react';
 import { validaCPF } from '../../service/validaCpf';
-import CustomAlertaErro from '../customAlertaErro/CustomAlertaErro';
+import CustomAlertaErro from '../../components/customAlertaErro/CustomAlertaErro';
 
 const CadastrarCliente = () => {
   const [inputEmailErr, setInputEmailErr] = useState(false);
@@ -75,7 +75,7 @@ const CadastrarCliente = () => {
           </aside>
           <main>
             <div className="margin">
-              <MaskedInput
+              <CustomMaskedInput
                 mascara="(99)99999-9999"
                 required={true}
                 label="Telefone"
@@ -90,7 +90,7 @@ const CadastrarCliente = () => {
             </div>
 
             <div className="margin">
-              <MaskedInput
+              <CustomMaskedInput
                 mascara="999.999.999-99"
                 placeholder="CPF"
                 required={true}

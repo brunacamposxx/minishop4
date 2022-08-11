@@ -32,7 +32,7 @@ public class OrderItem {
     private CustomerOrder customerOrder;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "productId", insertable = false, updatable = false)
     @JsonBackReference
     private Product product;
 }

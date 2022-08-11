@@ -1,5 +1,6 @@
 package br.com.iteris.universidade.minishop.service;
 
+import br.com.iteris.universidade.minishop.domain.dto.OrderItemIdResponse;
 import br.com.iteris.universidade.minishop.domain.dto.OrderItemResponse;
 import br.com.iteris.universidade.minishop.domain.dto.PaginatedSearchRequest;
 import br.com.iteris.universidade.minishop.domain.dto.ResponseBase;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +33,16 @@ public class OrderItemsService {
         Page<OrderItem> paginatedResponse = orderItemsRepository.findAll(pageRequest);
 
         return new ResponseBase<>(paginatedResponse.map(OrderItemResponse::new));
+    }
+
+    public ResponseBase<OrderItemIdResponse> pesquisarPorId(long id) {
+        Optional<OrderItem> orderItemOptional = orderItemsRepository.findById(id);
+
+        OrderItem orderItem = orderItemOptional
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado!"));
+
+        OrderItemIdResponse orderItemIdResponse = new OrderItemIdResponse((orderItem));
+
+        return new ResponseBase<>(orderItemIdResponse);
     }
 }
