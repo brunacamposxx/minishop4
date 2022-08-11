@@ -22,4 +22,11 @@
         <!-- Verificar se seu banco está em PT/BR ou em EN e usar o script correto aqui -->
         <sqlFile splitStatements="false"  endDelimiter="GO" path="dados-minishop.sql" relativeToChangelogFile="true" />
     </changeSet>
+
+    <changeSet author="frank.galindo@iteris.com.br" id="CRIA_UMATABELA">
+        <comment>Cria Tabelas</comment>
+        <!-- Caminho do script sql dessa migration, é nele que as instruções para criar as tabelas vão ficar  -->
+        <sqlFile path="schema-productimage.sql" relativeToChangelogFile="true" />
+    </changeSet>
+
 </databaseChangeLog>
