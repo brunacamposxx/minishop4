@@ -1,4 +1,4 @@
-package br.com.iteris.universidade.minishop.configuration;
+package br.com.iteris.universidade.minishop.intro.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -9,6 +9,7 @@ public class MapperConfiguration {
 
     @Bean
     public ObjectMapper objectMapper() {
+
         return new ObjectMapper();
     }
 
