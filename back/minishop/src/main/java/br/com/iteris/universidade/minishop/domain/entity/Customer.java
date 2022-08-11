@@ -27,8 +27,4 @@ public class Customer {
     private String email;
     @Column(name = "Phone", length = 15)
     private String phone;
-
-    //@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customerId")
-    //@JsonManagedReference
-    //private List<CustomerOrder> customerOrders;
 }

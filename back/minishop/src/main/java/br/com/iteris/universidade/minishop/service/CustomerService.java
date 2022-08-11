@@ -23,8 +23,6 @@ public class CustomerService {
     private final CustomersRepository customersRepository;
     private final CustomerOrdersRepository customerOrdersRepository;
 
-    // IMPLEMENTAR VALIDAÇÕES QUE SÃO PEDIDAS.
-
     //Criação
     public ResponseBase<CustomerResponse> cadastrar(CustomerCreateRequest novo) {
 
@@ -85,7 +83,6 @@ public class CustomerService {
 
         return new ResponseBase<>(customerConsultaPorIdResponse);
     }
-    //CustomerOrderPorCustomerIdResponse
 
     // Listagem paginada consultando id, nome, telefone e email;
     public ResponseBase<Page<CustomerPesquisarPaginadoResponse>> pesquisarPaginado(PaginatedSearchRequest searchRequest) {
