@@ -1,9 +1,9 @@
 import InputMask from 'react-input-mask';
 import TextField from '@mui/material/TextField';
 import React from 'react';
-import './MaskedInput.css';
+import './CustomMaskedInput.css';
 
-const MaskedInput = ({
+const CustomMaskedInput = ({
   mascara,
   required,
   largura,
@@ -41,4 +41,4 @@ const MaskedInput = ({
   );
 };
 
-export default MaskedInput;
+export default CustomMaskedInput;

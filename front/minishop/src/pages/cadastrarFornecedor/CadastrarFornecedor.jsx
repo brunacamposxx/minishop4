@@ -1,9 +1,9 @@
 import React from 'react';
 import './CadastrarFornecedor.css';
-import CustomBotao from '../customBotao/CustomBotao';
-import CustomTextField from '../customTextField/CustomTextField';
-import Titulo from '../titulo/Titulo';
-import MaskedInput from '../MaskedInput/MaskedInput';
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import CustomTextField from '../../components/customTextField/CustomTextField';
+import Titulo from '../../components/titulo/Titulo';
+import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
 import { validaEmail, validaCnpj } from '../../service/regex';
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
@@ -113,7 +113,7 @@ const CadastrarFornecedor = () => {
             />
 
             <div className="flex-fornecedor">
-              <MaskedInput
+              <CustomMaskedInput
                 mascara="(99)99999-9999"
                 required={true}
                 label="Telefone"
@@ -128,7 +128,7 @@ const CadastrarFornecedor = () => {
             </div>
 
             <div className="flex-fornecedor">
-              <MaskedInput
+              <CustomMaskedInput
                 mascara="99.999.999/9999-99"
                 placeholder="CNPJ"
                 required={true}
