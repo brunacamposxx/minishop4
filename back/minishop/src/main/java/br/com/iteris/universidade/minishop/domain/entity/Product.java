@@ -30,10 +30,6 @@ public class Product {
     @Column(name = "PackageName", length = 100)
     private String packageName;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productId")
-    @JsonManagedReference
-    private List<OrderItem> orderItems;
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "supplierId", nullable = false)
     @JsonBackReference
