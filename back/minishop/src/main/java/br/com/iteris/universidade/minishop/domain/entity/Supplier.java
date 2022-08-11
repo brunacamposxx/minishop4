@@ -1,5 +1,6 @@
 package br.com.iteris.universidade.minishop.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -43,7 +44,8 @@ public class Supplier {
     @Column(name = "ContactName")
     private String contato;
 
-    @OneToMany(mappedBy = "supplierId", fetch = FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "supplierId")
+    @JsonManagedReference
     private List<Product> products;
 
 
