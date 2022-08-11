@@ -5,6 +5,8 @@ import br.com.iteris.universidade.minishop.domain.entity.Customer;
 import br.com.iteris.universidade.minishop.domain.entity.CustomerOrder;
 import br.com.iteris.universidade.minishop.repository.CustomerOrdersRepository;
 import br.com.iteris.universidade.minishop.repository.CustomersRepository;
+import br.com.iteris.universidade.minishop.util.CpfValidator;
+import br.com.iteris.universidade.minishop.util.EmailValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +27,21 @@ public class CustomerService {
 
     //Criação
     public ResponseBase<CustomerResponse> cadastrar(CustomerCreateRequest novo) {
+
+        if (novo.getCPF() == null || !CpfValidator.isCPF(novo.getCPF())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF inválido");
+        }
+        if (!EmailValidator.isValid(novo.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail inválido");
+        }
+        var emailFound = customersRepository.findByEmailContaining(novo.getEmail());
+        if (emailFound.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este e-mail já está cadastrado");
+        }
+        var cpfFound = customersRepository.findByCpfContaining(novo.getCPF());
+        if (cpfFound.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O CPF já está cadastrado");
+        }
 
         // Cria uma entidade a partir do DTO
         Customer modeloDb = new Customer();

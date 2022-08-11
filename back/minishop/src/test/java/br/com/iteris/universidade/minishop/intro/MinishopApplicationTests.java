@@ -1,4 +1,4 @@
-package br.com.iteris.universidade.minishop;
+package br.com.iteris.universidade.minishop.intro;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
