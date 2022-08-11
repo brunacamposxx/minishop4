@@ -20,12 +20,12 @@ public class ProductsService {
     private final ProductsRepository productsRepository;
     private final SupplierRespository supplierRespository;
 
-    public ResponseBase<Page<ProductResponse>> pesquisar(SearchProductsRequest searchRequest){
-        if(searchRequest.getPaginaAtual() < 0) {
+    public ResponseBase<Page<ProductResponse>> pesquisar(SearchProductsRequest searchRequest) {
+        if (searchRequest.getPaginaAtual() < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O indice da página deve começar em 0");
         }
 
-        if(searchRequest.getQtdPorPagina() < 1 || searchRequest.getQtdPorPagina() > 50) {
+        if (searchRequest.getQtdPorPagina() < 1 || searchRequest.getQtdPorPagina() > 50) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quantidade de itens por página deve ser entre 1 e 50 itens");
         }
 
@@ -51,7 +51,7 @@ public class ProductsService {
     public ResponseBase<ProductResponse> editarPorId(long id, ProductUpdateRequest productUpdateRequest) {
         Optional<Product> produtoEncontrado = productsRepository.findById(id);
 
-        if(produtoEncontrado.isEmpty()) {
+        if (produtoEncontrado.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado");
         }
 
@@ -59,6 +59,7 @@ public class ProductsService {
 
         product.setProductName(productUpdateRequest.getProductName());
         product.setSupplierId(productUpdateRequest.getSupplierId());
+        System.out.println(productUpdateRequest.getUnitPrice());
         product.setUnitPrice(productUpdateRequest.getUnitPrice());
         product.setIsDiscontinued(productUpdateRequest.getIsDiscontinued());
         product.setPackageName(productUpdateRequest.getPackageName());
@@ -71,7 +72,7 @@ public class ProductsService {
     public ResponseBase<ProductResponse> cadastrar(ProductCreateRequest novo) {
         Optional<Supplier> supplierOptional = supplierRespository.findById(novo.getSupplierId());
 
-        if(supplierOptional.isEmpty()) {
+        if (supplierOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fornecedor não encontrado ou inexistente");
         }
 

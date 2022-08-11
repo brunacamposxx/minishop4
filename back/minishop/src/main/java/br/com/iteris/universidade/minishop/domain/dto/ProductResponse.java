@@ -4,10 +4,13 @@ import br.com.iteris.universidade.minishop.domain.entity.Product;
 
 import lombok.Data;
 
+import javax.persistence.Column;
+
 @Data
 public class ProductResponse {
     private long Id;
     private String ProductName;
+
     private Double UnitPrice;
     private boolean IsDiscontinued;
 
