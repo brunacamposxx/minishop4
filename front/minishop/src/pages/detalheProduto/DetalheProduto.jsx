@@ -43,7 +43,7 @@ function DetalheProduto() {
           </h1>
           <span className={styles.dados}>
             Fornecedor:{' '}
-            {produto.supplierId == 12 ? 'Exotic Liquids' : 'Exemplo'}
+            {produto.supplierId == 3 ? 'Boa Comida' : 'Função enfeites'}
           </span>
           <span style={{ fontSize: '20px' }}>
             {produto.packageName ? 'Pacotes:' + produto.packageName : ''}

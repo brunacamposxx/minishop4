@@ -16,14 +16,14 @@ export default function CardCliente(props) {
         </p>
         <p className={styles.dados}>
           <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-          {props.telefone ? props.telefone : '(11) 9999 9999'}
+          {props.phone !== null ? props.phone : ' '}
         </p>
         <p className={styles.dados}>
           <AlternateEmailIcon style={{ fontSize: '28', color: '#b07ca3' }} />
           {props.email ? props.email : 'maria.anders@gmail.com'}
         </p>
         <div className={styles.icones}>
-          <Link to="/detalhecliente" style={{ textDecoration: 'none' }}>
+          <Link to={`/clientes/${props.id}`} style={{ textDecoration: 'none' }}>
             <Button>
               <RemoveRedEyeIcon
                 style={{ fontSize: '30', color: '#b07ca3', margin: '5px' }}

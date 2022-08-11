@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './DetalheCliente.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -6,9 +6,20 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import SubjectIcon from '@mui/icons-material/Subject';
 import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getClientePorId } from '../../services/minishopApiServices';
 
 function DetalheCliente() {
+  const { id } = useParams();
+
+  const [cliente, setCliente] = useState({});
+
+  useEffect(() => {
+    getClientePorId(id).then((data) => {
+      setCliente(data.objetoRetorno);
+    });
+  }, [id]);
+
   return (
     <div className={styles.pagina}>
       <div className={styles.cabecalho}>
@@ -17,18 +28,18 @@ function DetalheCliente() {
       </div>
       <div className={styles.conteiner}>
         <div className={styles.parteum}>
-          <h1>Maria</h1>
+          <h1>{cliente.firstName + ' ' + cliente.lastName}</h1>
           <h5>
             <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            (37)998187879
+            {cliente.phone}
           </h5>
           <h5>
             <AlternateEmailIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            maria.anders@gmail.com
+            {cliente.email}
           </h5>
           <h5>
             <SubjectIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            458.990.339-22
+            {cliente.cpf}
           </h5>
         </div>
         <div className={styles.linha}></div>
