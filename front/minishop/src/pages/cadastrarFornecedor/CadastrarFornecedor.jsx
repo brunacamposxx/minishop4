@@ -4,44 +4,44 @@ import CustomBotao from '../../components/customBotao/CustomBotao';
 import CustomTextField from '../../components/customTextField/CustomTextField';
 import Titulo from '../../components/titulo/Titulo';
 import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
-import { validaEmail, validaCnpj } from '../../service/regex';
 import { useState } from 'react';
+import { validaEmail } from '../../service/validadores/regex';
+import { validarCnpj } from '../../service/validadores/validarCnpj';
 import Alert from '@mui/material/Alert';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { estadosBrasileiros } from '../../constants/fornecedor.constants';
+import { unmaskCnpj } from '../../service/unmask/cnpj';
+import { unmaskTelefone } from '../../service/unmask/telefone';
+// import { postFornecedor } from '../../service/requisicoesApi/fornecedorApiService';
 
 const CadastrarFornecedor = () => {
-  const [email, setEmail] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [nome, setNome] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [cnpj, setCnpj] = useState('');
-  const [contato, setContato] = useState('');
-  const [estado, setEstado] = useState('');
+  const [novoFornecedor, setNovoFornecedor] = useState({
+    nome: '',
+    cidade: '',
+    estado: '',
+    email: '',
+    telefone: '',
+    contato: '',
+  });
 
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCnpjErr, setInputCnpjErr] = useState(false);
 
-  const validate = () => {
-    console.log('email', email);
-    console.log('nome', nome);
-    console.log('contato', contato);
-    console.log('cidade', cidade);
-    console.log('telefone', telefone);
-    console.log('cnpj', cnpj);
-    console.log('teste', inputEmailErr);
-
-    if (!validaEmail.test(email)) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!validaEmail.test(novoFornecedor.email)) {
       setInputEmailErr(true);
     } else {
       setInputEmailErr(false);
     }
-    if (!validaCnpj.test(cnpj)) {
+    if (!validarCnpj(novoFornecedor.cnpj)) {
       setInputCnpjErr(true);
     } else {
       setInputCnpjErr(false);
     }
+    //postFornecedor(novoFornecedor);
+    console.log(novoFornecedor);
   };
 
   return (
@@ -54,9 +54,14 @@ const CadastrarFornecedor = () => {
               <CustomTextField
                 label="Nome"
                 required={true}
-                value={nome}
+                value={novoFornecedor.nome}
                 largura={30}
-                aoAlterado={(valor) => setNome(valor)}
+                aoAlterado={(valor) =>
+                  setNovoFornecedor({
+                    ...novoFornecedor,
+                    nome: valor,
+                  })
+                }
               />
             </div>
             <div className="flex-fornecedor">
@@ -64,8 +69,13 @@ const CadastrarFornecedor = () => {
                 largura={30}
                 label="Contato"
                 required={true}
-                value={contato}
-                aoAlterado={(valor) => setContato(valor)}
+                value={novoFornecedor.contato}
+                aoAlterado={(valor) =>
+                  setNovoFornecedor({
+                    ...novoFornecedor,
+                    contato: valor,
+                  })
+                }
               />
             </div>
 
@@ -74,8 +84,13 @@ const CadastrarFornecedor = () => {
                 label="Cidade"
                 largura={20}
                 required={true}
-                value={cidade}
-                aoAlterado={(valor) => setCidade(valor)}
+                value={novoFornecedor.cidade}
+                aoAlterado={(valor) =>
+                  setNovoFornecedor({
+                    ...novoFornecedor,
+                    cidade: valor,
+                  })
+                }
               />
 
               <div className="alinhamento-uf">
@@ -88,8 +103,13 @@ const CadastrarFornecedor = () => {
                   }}
                   label="UF"
                   size="small"
-                  value={estado}
-                  onChange={(e) => setEstado(e.target.value)}
+                  value={novoFornecedor.estado}
+                  onChange={(valor) =>
+                    setNovoFornecedor({
+                      ...novoFornecedor,
+                      estado: valor.target.value,
+                    })
+                  }
                   required={true}
                 >
                   {estadosBrasileiros.map((option) => (
@@ -108,8 +128,13 @@ const CadastrarFornecedor = () => {
               label="E-mail"
               placeholder="email@email.com"
               type="email"
-              value={email}
-              aoAlterado={(valor) => setEmail(valor)}
+              value={novoFornecedor.email}
+              aoAlterado={(valor) =>
+                setNovoFornecedor({
+                  ...novoFornecedor,
+                  email: valor,
+                })
+              }
             />
 
             <div className="flex-fornecedor">
@@ -119,11 +144,12 @@ const CadastrarFornecedor = () => {
                 label="Telefone"
                 largura={20}
                 aoAlterado={(valor) =>
-                  setTelefone(
-                    valor.replace('-', '').replace('(', '').replace(')', ''),
-                  )
+                  setNovoFornecedor({
+                    ...novoFornecedor,
+                    telefone: unmaskTelefone(valor),
+                  })
                 }
-                value={telefone}
+                value={novoFornecedor.telefone}
               />
             </div>
 
@@ -134,11 +160,12 @@ const CadastrarFornecedor = () => {
                 required={true}
                 label="CNPJ"
                 largura={20}
-                value={cnpj}
+                value={novoFornecedor.cnpj}
                 aoAlterado={(valor) =>
-                  setCnpj(
-                    valor.replace('-', '').replaceAll('.', '').replace('/', ''),
-                  )
+                  setNovoFornecedor({
+                    ...novoFornecedor,
+                    cnpj: unmaskCnpj(valor),
+                  })
                 }
               />
             </div>
@@ -146,7 +173,7 @@ const CadastrarFornecedor = () => {
         </form>
 
         <div className="alinhamento-direita">
-          <CustomBotao onClick={validate} cor="#B17DA4" label="Salvar" />
+          <CustomBotao onClick={handleSubmit} cor="#B17DA4" label="Salvar" />
           <CustomBotao cor="#94b456" label="Voltar" />
         </div>
         {inputEmailErr && (

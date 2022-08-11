@@ -1,6 +1,6 @@
 import React from 'react';
 import Alert from '@mui/material/Alert';
-import './CustomAlert.css';
+import './CustomAlertaErro.css';
 
 const CustomAlertaErro = ({ mensagem }) => {
   return (
