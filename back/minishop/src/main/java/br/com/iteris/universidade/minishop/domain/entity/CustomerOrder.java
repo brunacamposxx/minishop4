@@ -1,5 +1,7 @@
 package br.com.iteris.universidade.minishop.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,11 +25,13 @@ public class CustomerOrder {
     @Column(name = "CustomerId", insertable = false, updatable = false)
     private Integer customerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerId")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerId")
+    @JsonBackReference
     private Customer customer;
 
-    @OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "orderId")
+    @JsonManagedReference
     private List<OrderItem> orderItems;
 
 }

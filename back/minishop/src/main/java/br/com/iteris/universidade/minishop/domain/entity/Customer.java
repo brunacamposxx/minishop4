@@ -1,5 +1,6 @@
 package br.com.iteris.universidade.minishop.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -27,7 +28,7 @@ public class Customer {
     @Column(name = "Phone", length = 15)
     private String phone;
 
-    @OneToMany(mappedBy = "customerId", fetch = FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customerId")
+    @JsonManagedReference
     private List<CustomerOrder> customerOrders;
-
 }
