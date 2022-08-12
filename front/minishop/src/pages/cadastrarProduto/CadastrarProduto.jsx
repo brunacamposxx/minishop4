@@ -2,94 +2,153 @@ import './CadastrarProduto.css';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import CustomTextField from '../../components/customTextField/CustomTextField';
 import Titulo from '../../components/titulo/Titulo';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import CustomSwitch from '../../components/customSwitch/CustomSwitch';
+import { formatter } from '../../service/formatacao/real';
+import { getFornecedor } from '../../service/requisicoesApi/produtoApiService';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  postProduto,
+  getProdutoPorId,
+} from '../../service/requisicoesApi/produtoApiService';
 
 const CadastrarProduto = () => {
-  const [imagem, setImagem] = useState('');
-  const [preco, setPreco] = useState('');
-  const [pacote, setPacote] = useState('');
-  const [fornecedor, setFornecedor] = useState('');
-  const [nome, setNome] = useState('');
-  const [checked, setChecked] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [fornecedores, setFornecedores] = useState([]);
+  const [pagina, setPagina] = useState(0);
+  const [novoProduto, setNovoProduto] = useState({
+    isDiscontinued: false,
+    packageName: '',
+    productName: '',
+    supplierId: '',
+    unitPrice: 0,
+  });
 
-  const fornecedores = [{ nome: 'Arroz' }, { nome: 'Feijão' }];
+  useEffect(() => {
+    getFornecedor(pagina, 30).then((data) => {
+      setFornecedores((listaAtual) => [
+        ...listaAtual,
+        ...data.objetoRetorno.content,
+      ]);
+    });
+  }, [pagina]);
 
-  const handleClick = () => {
-    console.log(checked);
+  useEffect(() => {
+    getProdutoPorId(id).then((data) => {
+      setNovoProduto(data.objetoRetorno);
+    });
+  }, [id]);
+
+  function proximaPagina() {
+    setPagina((paginaAtual) => paginaAtual + 1);
+  }
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    postProduto(novoProduto);
   };
+
+  console.log(novoProduto);
   return (
     <div className="container-produto">
       <Titulo titulo="Cadastrar Produto" />
       <div className="container-form-produto">
-        <form className="cadastrar-produto">
+        <form className="cadastrar-produto" noValidate autoComplete="off">
           <aside>
             <div className="flex">
               <CustomTextField
                 label="Nome"
                 required={true}
-                value={nome}
+                value={novoProduto.productName}
                 largura={30}
-                aoAlterado={(valor) => setNome(valor)}
+                aoAlterado={(valor) =>
+                  setNovoProduto({
+                    ...novoProduto,
+                    productName: valor,
+                  })
+                }
               />
             </div>
-            <div className="flex">
+            {/* <div className="flex">
               <CustomTextField
                 label="Imagem"
                 required={true}
                 value={imagem}
                 largura={30}
-                aoAlterado={(valor) => setImagem(valor)}
+                // aoAlterado={(valor) =>
+                //   setNovoProduto({
+                //     ...novoProduto,
+                //     nome: valor,
+                //   })
+                // }
               />
-            </div>
+            </div> */}
           </aside>
           <main>
             <div className="flex">
               <CustomTextField
                 required={true}
                 label="Preço"
-                placeholder="R$ 0,00"
+                placeholder="R$ 0.00"
                 type="number"
-                value={preco}
+                value={novoProduto.unitPrice}
                 largura={20}
-                aoAlterado={(valor) => setPreco(valor)}
+                aoAlterado={(valor) =>
+                  setNovoProduto({
+                    ...novoProduto,
+                    unitPrice: formatter(valor),
+                  })
+                }
               />
             </div>
             <div className="flex">
               <CustomTextField
                 label="Pacote"
                 largura={20}
-                value={pacote}
-                aoAlterado={(valor) => setPacote(valor)}
+                value={novoProduto.packageName}
+                aoAlterado={(valor) =>
+                  setNovoProduto({ ...novoProduto, packageName: valor })
+                }
               />
             </div>
 
             <div className="flex">
               <TextField
-                style={{ width: 160, marginTop: 15 }}
+                style={{ width: 200, marginTop: 15 }}
                 id="outlined-select-currency"
                 select
                 label="Fornecedores"
                 size="small"
-                value={fornecedor}
-                onChange={(valor) => setFornecedor(valor.target.value)}
+                value={novoProduto.supplierId}
+                onChange={(valor) =>
+                  setNovoProduto({
+                    ...novoProduto,
+                    supplierId: valor.target.value,
+                  })
+                }
                 required={true}
               >
-                {fornecedores.map((option) => (
-                  <MenuItem key={option.nome} value={option.nome}>
+                {fornecedores.map((option, index) => (
+                  <MenuItem key={index} value={option.id}>
                     {option.nome}
                   </MenuItem>
                 ))}
+                <MenuItem onClick={() => proximaPagina()}>
+                  Carregar mais...
+                </MenuItem>
               </TextField>
             </div>
 
             <div className="flex">
               <CustomSwitch
-                checked={checked}
-                aoAlterado={(valor) => setChecked(valor)}
-                label={checked ? 'Ativado' : 'Desativado'}
+                checked={novoProduto.isDiscontinued}
+                aoAlterado={(valor) =>
+                  setNovoProduto({ ...novoProduto, isDiscontinued: valor })
+                }
+                label={novoProduto.isDiscontinued ? 'Ativado' : 'Desativado'}
               />
             </div>
           </main>
@@ -97,7 +156,11 @@ const CadastrarProduto = () => {
 
         <div className="alinhamento-direita">
           <CustomBotao onClick={handleClick} cor="#B17DA4" label="Salvar" />
-          <CustomBotao cor="#94b456" label="Voltar" />
+          <CustomBotao
+            onClick={() => navigate(-1)}
+            cor="#94b456"
+            label="Voltar"
+          />
         </div>
       </div>
     </div>

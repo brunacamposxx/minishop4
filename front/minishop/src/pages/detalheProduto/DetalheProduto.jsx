@@ -57,6 +57,7 @@ function DetalheProduto() {
             )}
             {produto.isDiscontinued == false ? 'Ativo' : 'Inativo'}
           </span>
+
           <Button
             color="inherit"
             style={{ marginLeft: 'auto', marginTop: 'auto' }}

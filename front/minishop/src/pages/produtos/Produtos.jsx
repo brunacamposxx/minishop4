@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import CardProduto from '../../components/cardProduto/CardProduto';
 import styles from './Produtos.module.css';
 import { getProdutos } from '../../services/minishopApiServices';
+import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
+import { Link } from 'react-router-dom';
 
 function Produtos() {
   const [listaProdutos, setListaProdutos] = useState([]);
@@ -37,6 +39,11 @@ function Produtos() {
             isDiscontinued={produto.isDiscontinued}
           />
         ))}
+      </div>
+      <div>
+        <Link to="/cadastrarProduto">
+          <CustomFloatingButton />
+        </Link>
       </div>
       <p className={styles.carregar} onClick={() => proximaPagina()}>
         Carregar mais...

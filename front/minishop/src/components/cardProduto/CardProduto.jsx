@@ -37,7 +37,10 @@ export default function CardProduto(props) {
               />
             </Button>
           </Link>
-          <Link to="/editarproduto" style={{ textDecoration: 'none' }}>
+          <Link
+            to={`/editarproduto/${props.id}`}
+            style={{ textDecoration: 'none' }}
+          >
             <Button>
               <CreateIcon
                 style={{ fontSize: '30', color: '#b07ca3', margin: '5px' }}
