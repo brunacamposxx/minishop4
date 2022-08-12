@@ -16,7 +16,7 @@ public class CustomerOrderResponse {
     private List<OrderItem> Orders;
 
     public CustomerOrderResponse(CustomerOrder customerOrder) {
-        Id = customerOrder.getCustomerId();
+        Id = customerOrder.getId();
         OrderDate = customerOrder.getOrderDate();
         TotalAmount = customerOrder.getTotalAmount();
 
