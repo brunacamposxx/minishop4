@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import CardCliente from '../../components/cardCliente/CardCliente';
 import styles from './Clientes.module.css';
+import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
+import { Link } from 'react-router-dom';
 import { getClientes } from '../../services/minishopApiServices';
 
 function Clientes() {
@@ -40,6 +42,11 @@ function Clientes() {
       <p className={styles.carregar} onClick={() => proximaPagina()}>
         Carregar mais...
       </p>
+      <div>
+        <Link to="/cadastrarCliente">
+          <CustomFloatingButton />
+        </Link>
+      </div>
     </div>
   );
 }

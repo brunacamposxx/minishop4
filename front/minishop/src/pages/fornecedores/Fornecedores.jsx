@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import CardFornecedor from '../../components/cardFornecedor/CardFornecedor';
 import styles from './Fornecedores.module.css';
 import { getFornecedores } from '../../services/minishopApiServices';
+import { Link } from 'react-router-dom';
+import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
 
 function Fornecedores() {
   const [listaFornecedores, setListaFornecedores] = useState([]);
@@ -43,6 +45,11 @@ function Fornecedores() {
       <p className={styles.carregar} onClick={() => proximaPagina()}>
         Carregar mais...
       </p>
+      <div>
+        <Link to="/cadastrarFornecedor">
+          <CustomFloatingButton />
+        </Link>
+      </div>
     </div>
   );
 }

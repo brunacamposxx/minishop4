@@ -1,0 +1,6 @@
+.custom-floating{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+    margin-bottom: 50px;
+}
