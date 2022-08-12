@@ -1,11 +1,12 @@
 import Button from '@mui/material/Button';
 import './CustomBotao.css';
 
-const CustomBotao = ({ cor, onClick, label }) => {
+const CustomBotao = ({ cor, onClick, label, disabled }) => {
   const corBotao = cor;
   return (
     <div className="custom-botao">
       <Button
+        disabled={disabled}
         style={{
           backgroundColor: corBotao,
           fontFamily: 'Pompiere',

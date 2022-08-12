@@ -29,3 +29,9 @@ export function getProdutoPorId(id) {
     return AxiosResponse.data;
   });
 }
+
+export function editarProdutoPorId(id, produto) {
+  return axios.put(`${url}/${id}`, produto).then((response) => {
+    return response.data;
+  });
+}
