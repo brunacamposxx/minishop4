@@ -51,3 +51,12 @@ export function getFornecedorPorId(id) {
     return AxiosResponse.data;
   });
 }
+
+const urlApiP =
+  'http://localhost:8080/api/OrderItems/?paginaAtual=0&qtdPorPagina=7';
+
+export function getPedidos() {
+  return axios.get(urlApiP).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}

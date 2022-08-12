@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Clientes from './pages/clientes/Clientes';
 import HomePage from './pages/HomePage';
 import Fornecedores from './pages/fornecedores/Fornecedores';
-import Pedidos from './pages/Pedidos';
+import Pedidos from './pages/pedidos/Pedidos';
 import Produtos from './pages/produtos/Produtos';
 import SecondPageTemplate from './pageTemplates/SecondPageTemplate';
 import DetalheProduto from './pages/detalheProduto/DetalheProduto';
