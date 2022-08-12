@@ -9,6 +9,7 @@ import SecondPageTemplate from './pageTemplates/SecondPageTemplate';
 import DetalheProduto from './pages/detalheProduto/DetalheProduto';
 import DetalheCliente from './pages/detalheCliente/DetalheCliente';
 import DetalheFornecedor from './pages/detalheFornecedor/DetalheFornecedor';
+import DetalhePedido from './pages/detalhePedido/DetalhePedido';
 import CadastrarProduto from './pages/cadastrarProduto/CadastrarProduto';
 import CadastrarCliente from './pages/cadastrarCliente/CadastrarCliente';
 import CadastrarFornecedor from './pages/cadastrarFornecedor/CadastrarFornecedor';
@@ -27,6 +28,7 @@ function App() {
             <Route path="/produtos" element={<Produtos />} />
             <Route path="/produtos/:id" element={<DetalheProduto />} />
             <Route path="/clientes/:id" element={<DetalheCliente />} />
+            <Route path="/pedidos/:id" element={<DetalhePedido />} />
             <Route path="/fornecedores/:id" element={<DetalheFornecedor />} />
             <Route path="/cadastrarProduto/" element={<CadastrarProduto />} />
             <Route path="/editarProduto/:id" element={<EditarProduto />} />

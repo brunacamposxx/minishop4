@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './Pedidos.module.css';
 import { getPedidos } from '../../services/minishopApiServices';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 function Pedidos() {
   const [listaPedidos, setListaPedidos] = useState([]);
@@ -39,14 +41,21 @@ function Pedidos() {
               <span className={styles.dados}>
                 R${pedido.unitPrice * pedido.quantity}
               </span>
-              <RemoveRedEyeIcon
-                style={{
-                  fontSize: '30',
-                  color: '#b07ca3',
-                  margin: '5px',
-                  marginLeft: '200px',
-                }}
-              />
+              <Link
+                to={`/pedidos/${pedido.id}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <Button>
+                  <RemoveRedEyeIcon
+                    style={{
+                      fontSize: '30',
+                      color: '#b07ca3',
+                      margin: '5px',
+                      marginLeft: '200px',
+                    }}
+                  />
+                </Button>
+              </Link>
             </div>
           ))}
         </div>
