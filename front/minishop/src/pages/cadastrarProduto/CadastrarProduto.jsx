@@ -21,11 +21,11 @@ const CadastrarProduto = ({ valorInicial }) => {
   const valoresIniciais = valorInicial;
 
   const [novoProduto, setNovoProduto] = useState({
-    isDiscontinued: valoresIniciais.isDiscontinued ?? false,
-    packageName: valoresIniciais.packageName ?? '',
-    productName: valoresIniciais.productName ?? '',
-    supplierId: valoresIniciais.supplierId ?? '',
-    unitPrice: valoresIniciais.unitPrice ?? 0,
+    isDiscontinued: valoresIniciais?.isDiscontinued ?? false,
+    packageName: valoresIniciais?.packageName ?? '',
+    productName: valoresIniciais?.productName ?? '',
+    supplierId: valoresIniciais?.supplierId ?? '',
+    unitPrice: valoresIniciais?.unitPrice ?? 0,
   });
 
   useEffect(() => {
@@ -44,16 +44,20 @@ const CadastrarProduto = ({ valorInicial }) => {
   const handleClick = (event) => {
     event.preventDefault();
     if (valoresIniciais.id) {
-      postProduto(novoProduto);
+      putProdutoPorId(valoresIniciais.id, novoProduto);
     } else {
-      putProdutoPorId(novoProduto);
+      postProduto(novoProduto);
     }
   };
 
   console.log(novoProduto);
   return (
     <div className="container-produto">
-      <Titulo titulo="Cadastrar Produto" />
+      {valoresIniciais?.id ? (
+        <Titulo titulo="Editar Produto" />
+      ) : (
+        <Titulo titulo="Cadastrar Produto" />
+      )}
       <div className="container-form-produto">
         <form className="cadastrar-produto" noValidate autoComplete="off">
           <aside>

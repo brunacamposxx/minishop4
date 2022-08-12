@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProdutoPorId } from '../../service/requisicoesApi/produtoApiService';
 
-const EditarProduto = () => {
+const EditarFornecedor = () => {
   const { id } = useParams();
 
   const [valorInicial, setValorInicial] = useState(null);
@@ -23,4 +23,4 @@ const EditarProduto = () => {
   );
 };
 
-export default EditarProduto;
+export default EditarFornecedor;
