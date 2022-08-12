@@ -13,9 +13,13 @@ import TextField from '@mui/material/TextField';
 import { estadosBrasileiros } from '../../constants/fornecedor.constants';
 import { unmaskCnpj } from '../../service/unmask/cnpj';
 import { unmaskTelefone } from '../../service/unmask/telefone';
+import { useNavigate } from 'react-router-dom';
+
 // import { postFornecedor } from '../../service/requisicoesApi/fornecedorApiService';
 
 const CadastrarFornecedor = () => {
+  const navigate = useNavigate();
+
   const [novoFornecedor, setNovoFornecedor] = useState({
     nome: '',
     cidade: '',
@@ -174,7 +178,11 @@ const CadastrarFornecedor = () => {
 
         <div className="alinhamento-direita">
           <CustomBotao onClick={handleSubmit} cor="#B17DA4" label="Salvar" />
-          <CustomBotao cor="#94b456" label="Voltar" />
+          <CustomBotao
+            onClick={() => navigate(-1)}
+            cor="#94b456"
+            label="Voltar"
+          />
         </div>
         {inputEmailErr && (
           <Alert severity="error">Por favor digite um e-mail válido!</Alert>

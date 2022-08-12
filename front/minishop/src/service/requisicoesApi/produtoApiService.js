@@ -1,16 +1,31 @@
 import axios from 'axios';
-const url = 'http://localhost:8080/api/products';
+const urlPaginacao = 'http://localhost:8080/minishop/supplier?paginaAtual=';
 
-export function postFornecedor(novoProduto) {
+const url = 'http://localhost:8080/api/products/';
+
+export function postProduto(novoProduto) {
   const produtoPost = {
     isDiscontinued: novoProduto.isDiscontinued,
-    packageName: novoProduto.cnpj,
-    email: novoProduto.packageName,
+    packageName: novoProduto.packageName,
     productName: novoProduto.productName,
     supplierId: novoProduto.supplierId,
     unitPrice: novoProduto.unitPrice,
   };
   return axios.post(url, produtoPost).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
+
+export function getFornecedor(paginaAtual, qtdPorPagina) {
+  return axios
+    .get(urlPaginacao + paginaAtual + '&qtdPorPagina=' + qtdPorPagina)
+    .then((AxiosResponse) => {
+      return AxiosResponse.data;
+    });
+}
+
+export function getProdutoPorId(id) {
+  return axios.get(`${url}/${id}`).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }

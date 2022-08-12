@@ -1,6 +1,8 @@
 import React from 'react';
 import CardCliente from '../../components/cardCliente/CardCliente';
 import styles from './Clientes.module.css';
+import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
+import { Link } from 'react-router-dom';
 
 function Clientes() {
   const lista = [
@@ -69,6 +71,11 @@ function Clientes() {
             email={cliente.email}
           />
         ))}
+      </div>
+      <div>
+        <Link to="/cadastrarCliente">
+          <CustomFloatingButton />
+        </Link>
       </div>
     </div>
   );

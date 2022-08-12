@@ -8,18 +8,15 @@ import { useState } from 'react';
 import { validaCPF } from '../../service/validadores/validaCpf';
 import CustomAlertaErro from '../../components/customAlertaErro/CustomAlertaErro';
 import { postCliente } from '../../service/requisicoesApi/clienteApiService';
-import { unmaskCPF } from '../../service/mascara/cpf';
+import { unmaskCPF } from '../../service/unmask/cpf';
 import { unmaskTelefone } from '../../service/unmask/telefone';
+import { useNavigate } from 'react-router-dom';
 
 const CadastrarCliente = () => {
+  const navigate = useNavigate();
+
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCpfErr, setInputCpfErr] = useState(false);
-
-  // const [email, setEmail] = useState('');
-  // const [cpf, setCpf] = useState('');
-  // const [telefone, setTelefone] = useState('');
-  // const [nome, setNome] = useState('');
-  // const [sobrenome, setSobrenome] = useState('');
 
   const [novoCliente, setNovoCliente] = useState({
     cpf: '',
@@ -121,7 +118,11 @@ const CadastrarCliente = () => {
 
         <div className="alinhamento-direita">
           <CustomBotao onClick={handleSubmit} cor="#B17DA4" label="Salvar" />
-          <CustomBotao cor="#94b456" label="Voltar" />
+          <CustomBotao
+            onClick={() => navigate(-1)}
+            cor="#94b456"
+            label="Voltar"
+          />
         </div>
         <div className="margin">
           {inputCpfErr && (

@@ -1,6 +1,8 @@
 import React from 'react';
 import CardFornecedor from '../../components/cardFornecedor/CardFornecedor';
 import styles from './Fornecedores.module.css';
+import { Link } from 'react-router-dom';
+import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
 
 function Fornecedores() {
   const lista = [
@@ -63,6 +65,11 @@ function Fornecedores() {
             email={fornecedor.email}
           />
         ))}
+      </div>
+      <div>
+        <Link to="/cadastrarFornecedor">
+          <CustomFloatingButton />
+        </Link>
       </div>
     </div>
   );
