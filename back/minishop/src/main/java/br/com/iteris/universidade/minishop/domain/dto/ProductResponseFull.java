@@ -5,6 +5,7 @@ import br.com.iteris.universidade.minishop.domain.entity.ProductImage;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Data
@@ -20,9 +21,7 @@ public class ProductResponseFull {
 
    private List<String> listaUrls;
 
-   private List<ProductImage> imagens;
-
-   private String URL;
+   //private List<ProductImage> imagens;
 
     public ProductResponseFull(Product product) {
         Id = product.getId();
@@ -32,15 +31,22 @@ public class ProductResponseFull {
         SupplierId = product.getSupplierId();
         PackageName = product.getPackageName();
         NomeSupplier = product.getSupplier().getNome();
+
+
         if (product.getImages().size() == 0 ) {
-            listaUrls = null;
-        } /*else if (product.getProductImage().getSequencia() != 1) {
-            imagemPrincipal = null;
-        }*/
+            listaUrls = new ArrayList<>();
+        }
         else{
             List<String> lista = new ArrayList<>();
-            lista.add(product.getProductImage().getURL());
-            System.out.println("///////////////////////////////////////////////////////////////////////////////// entrou sim confia");
+
+                product.getImages().forEach(productImage -> {
+                   // System.out.println("/////////////////////----------------////////////////////////////////" + productImage.getURL());
+                    lista.add(productImage.getURL());
+                });
+
+                //lista.sort(Comparator.comparing();
+
+            //System.out.println("///////////////////////////////////////////////////////////////////////////////// entrou sim confia");
             this.listaUrls = lista;
         }
     }
