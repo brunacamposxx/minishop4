@@ -60,3 +60,10 @@ export function getPedidos() {
     return AxiosResponse.data;
   });
 }
+
+export function getPedidoPorId(id) {
+  const urlComIdPedido = 'http://localhost:8080/api/OrderItems' + '/' + id;
+  return axios.get(urlComIdPedido).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}

@@ -70,7 +70,10 @@ export function SecondPageTemplate(props) {
               <ListItem>
                 <ListItemButton>
                   <img src="/home.png" className="icone" alt="home" />
-                  <ListItemText primary="Home" />
+                  <ListItemText
+                    primary="Home"
+                    style={{ color: '#808080', padding: '5px' }}
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -79,7 +82,10 @@ export function SecondPageTemplate(props) {
               <ListItem>
                 <ListItemButton>
                   <img src="/produtos.png" className="icone" alt="produtos" />
-                  <ListItemText primary="Produtos" />
+                  <ListItemText
+                    primary="Produtos"
+                    style={{ color: '#808080', padding: '5px' }}
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -88,7 +94,10 @@ export function SecondPageTemplate(props) {
               <ListItem>
                 <ListItemButton>
                   <img src="/clientes.png" className="icone" alt="clientes" />
-                  <ListItemText primary="Clientes" />
+                  <ListItemText
+                    primary="Clientes"
+                    style={{ color: '#808080', padding: '5px' }}
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -97,7 +106,10 @@ export function SecondPageTemplate(props) {
               <ListItem>
                 <ListItemButton>
                   <img src="/pedidos.png" className="icone" alt="pedidos" />
-                  <ListItemText primary="Pedidos" />
+                  <ListItemText
+                    primary="Pedidos"
+                    style={{ color: '#808080', padding: '5px' }}
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -110,7 +122,10 @@ export function SecondPageTemplate(props) {
                     className="icone"
                     alt="fornecedores"
                   />
-                  <ListItemText primary="Fornecedores" />
+                  <ListItemText
+                    primary="Fornecedores"
+                    style={{ color: '#808080', padding: '5px' }}
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
