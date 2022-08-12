@@ -7,43 +7,55 @@ import { validaEmail } from '../../service/validadores/regex';
 import { useState } from 'react';
 import { validaCPF } from '../../service/validadores/validaCpf';
 import CustomAlertaErro from '../../components/customAlertaErro/CustomAlertaErro';
-import { postCliente } from '../../service/requisicoesApi/clienteApiService';
+import {
+  postCliente,
+  putClientePorId,
+} from '../../service/requisicoesApi/clienteApiService';
 import { unmaskCPF } from '../../service/unmask/cpf';
 import { unmaskTelefone } from '../../service/unmask/telefone';
 import { useNavigate } from 'react-router-dom';
 
-const CadastrarCliente = () => {
+const CadastrarCliente = ({ valorInicial }) => {
   const navigate = useNavigate();
+  const valoresIniciais = valorInicial;
 
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCpfErr, setInputCpfErr] = useState(false);
 
   const [novoCliente, setNovoCliente] = useState({
-    cpf: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
+    cpf: valoresIniciais?.cpf ?? '',
+    email: valoresIniciais?.email ?? '',
+    firstName: valoresIniciais?.firstName ?? '',
+    lastName: valoresIniciais?.lastName ?? '',
+    phone: valoresIniciais?.phone ?? '',
   });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!validaCPF(novoCliente.cpf)) {
-      setInputCpfErr(false);
+    if (valoresIniciais?.id) {
+      putClientePorId(valoresIniciais.id, novoCliente);
     } else {
-      setInputCpfErr(true);
+      if (!validaCPF(novoCliente.cpf)) {
+        setInputCpfErr(false);
+      } else {
+        setInputCpfErr(true);
+      }
+      if (!validaEmail.test(novoCliente.email)) {
+        setInputEmailErr(true);
+      } else {
+        setInputEmailErr(false);
+      }
+      postCliente(novoCliente);
     }
-    if (!validaEmail.test(novoCliente.email)) {
-      setInputEmailErr(true);
-    } else {
-      setInputEmailErr(false);
-    }
-    postCliente(novoCliente);
   };
 
   return (
     <div className="container-cliente">
-      <Titulo titulo="Cadastrar Clientes" />
+      {valoresIniciais?.id ? (
+        <Titulo titulo="Editar Cliente" />
+      ) : (
+        <Titulo titulo="Cadastrar Cliente" />
+      )}
       <div className="container-form">
         <form className="cadastrar-cliente">
           <aside>

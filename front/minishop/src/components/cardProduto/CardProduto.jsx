@@ -38,7 +38,7 @@ export default function CardProduto(props) {
             </Button>
           </Link>
           <Link
-            to={`/editarproduto/${props.id}`}
+            to={`/editarProduto/${props.id}`}
             style={{ textDecoration: 'none' }}
           >
             <Button>

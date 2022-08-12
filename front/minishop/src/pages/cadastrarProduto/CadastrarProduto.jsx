@@ -16,16 +16,17 @@ import {
 
 const CadastrarProduto = ({ valorInicial }) => {
   const navigate = useNavigate();
+  const [imagem, setImagem] = useState('');
   const [fornecedores, setFornecedores] = useState([]); //lista de fornecedores para o select
   const [pagina, setPagina] = useState(0); //paginacao
   const valoresIniciais = valorInicial;
 
   const [novoProduto, setNovoProduto] = useState({
-    isDiscontinued: valoresIniciais.isDiscontinued ?? false,
-    packageName: valoresIniciais.packageName ?? '',
-    productName: valoresIniciais.productName ?? '',
-    supplierId: valoresIniciais.supplierId ?? '',
-    unitPrice: valoresIniciais.unitPrice ?? 0,
+    isDiscontinued: valoresIniciais?.isDiscontinued ?? false,
+    packageName: valoresIniciais?.packageName ?? '',
+    productName: valoresIniciais?.productName ?? '',
+    supplierId: valoresIniciais?.supplierId ?? '',
+    unitPrice: valoresIniciais?.unitPrice ?? 0,
   });
 
   useEffect(() => {
@@ -43,17 +44,21 @@ const CadastrarProduto = ({ valorInicial }) => {
 
   const handleClick = (event) => {
     event.preventDefault();
-    if (valoresIniciais.id) {
-      postProduto(novoProduto);
+    if (valoresIniciais?.id) {
+      putProdutoPorId(valoresIniciais.id, novoProduto);
     } else {
-      putProdutoPorId(novoProduto);
+      postProduto(novoProduto);
     }
   };
 
   console.log(novoProduto);
   return (
     <div className="container-produto">
-      <Titulo titulo="Cadastrar Produto" />
+      {valoresIniciais?.id ? (
+        <Titulo titulo="Editar Produto" />
+      ) : (
+        <Titulo titulo="Cadastrar Produto" />
+      )}
       <div className="container-form-produto">
         <form className="cadastrar-produto" noValidate autoComplete="off">
           <aside>
@@ -71,20 +76,15 @@ const CadastrarProduto = ({ valorInicial }) => {
                 }
               />
             </div>
-            {/* <div className="flex">
+            <div className="flex">
               <CustomTextField
                 label="Imagem"
                 required={true}
                 value={imagem}
                 largura={30}
-                // aoAlterado={(valor) =>
-                //   setNovoProduto({
-                //     ...novoProduto,
-                //     nome: valor,
-                //   })
-                // }
+                aoAlterado={(valor) => setNovoProduto(setImagem(valor))}
               />
-            </div> */}
+            </div>
           </aside>
           <main>
             <div className="flex">
@@ -156,7 +156,7 @@ const CadastrarProduto = ({ valorInicial }) => {
         <div className="alinhamento-direita">
           <CustomBotao
             onClick={handleClick}
-            disabled={false}
+            disabled={true} //true - desabilitado
             cor="#B17DA4"
             label="Salvar"
           />

@@ -15,18 +15,23 @@ import { unmaskCnpj } from '../../service/unmask/cnpj';
 import { unmaskTelefone } from '../../service/unmask/telefone';
 import { useNavigate } from 'react-router-dom';
 
-// import { postFornecedor } from '../../service/requisicoesApi/fornecedorApiService';
+import {
+  postFornecedor,
+  putFornecedorPorId,
+} from '../../service/requisicoesApi/fornecedorApiService';
 
-const CadastrarFornecedor = () => {
+const CadastrarFornecedor = ({ valorInicial }) => {
   const navigate = useNavigate();
+  const valoresIniciais = valorInicial;
 
   const [novoFornecedor, setNovoFornecedor] = useState({
-    nome: '',
-    cidade: '',
-    estado: '',
-    email: '',
-    telefone: '',
-    contato: '',
+    nome: valoresIniciais?.nome ?? '',
+    cidade: valoresIniciais?.cidade ?? '',
+    estado: valoresIniciais?.estado ?? '',
+    email: valoresIniciais?.email ?? '',
+    telefone: valoresIniciais?.telefone ?? '',
+    contato: valoresIniciais?.contato ?? '',
+    cnpj: valoresIniciais?.cnpj ?? '',
   });
 
   const [inputEmailErr, setInputEmailErr] = useState(false);
@@ -34,23 +39,31 @@ const CadastrarFornecedor = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!validaEmail.test(novoFornecedor.email)) {
-      setInputEmailErr(true);
+    if (valoresIniciais?.id) {
+      putFornecedorPorId(valoresIniciais.id, novoFornecedor);
     } else {
-      setInputEmailErr(false);
+      if (!validaEmail.test(novoFornecedor.email)) {
+        setInputEmailErr(true);
+      } else {
+        setInputEmailErr(false);
+      }
+      if (!validarCnpj(novoFornecedor.cnpj)) {
+        setInputCnpjErr(true);
+      } else {
+        setInputCnpjErr(false);
+      }
+      postFornecedor(novoFornecedor);
+      console.log(novoFornecedor);
     }
-    if (!validarCnpj(novoFornecedor.cnpj)) {
-      setInputCnpjErr(true);
-    } else {
-      setInputCnpjErr(false);
-    }
-    //postFornecedor(novoFornecedor);
-    console.log(novoFornecedor);
   };
 
   return (
     <div className="container-fornecedor">
-      <Titulo titulo="Cadastrar Fornecedor" />
+      {valoresIniciais?.id ? (
+        <Titulo titulo="Editar Fornecedor" />
+      ) : (
+        <Titulo titulo="Cadastrar Fornecedor" />
+      )}
       <div className="container-form-fornecedor">
         <form className="cadastrar-fornecedor">
           <aside>

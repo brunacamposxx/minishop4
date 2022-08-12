@@ -13,3 +13,8 @@ export function postCliente(novoCliente) {
     return AxiosResponse.data;
   });
 }
+export function putClientePorId(id, cliente) {
+  return axios.put(`${url}/${id}`, cliente).then((response) => {
+    return response.data;
+  });
+}

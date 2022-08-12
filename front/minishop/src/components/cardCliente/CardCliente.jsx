@@ -30,7 +30,10 @@ export default function CardCliente(props) {
               />
             </Button>
           </Link>
-          <Link to="/editarcliente" style={{ textDecoration: 'none' }}>
+          <Link
+            to={`/editarClientes/${props.id}`}
+            style={{ textDecoration: 'none' }}
+          >
             <Button>
               <CreateIcon
                 style={{ fontSize: '30', color: '#b07ca3', margin: '5px' }}
