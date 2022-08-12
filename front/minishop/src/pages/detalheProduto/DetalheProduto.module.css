@@ -19,6 +19,7 @@
 
 .direita {
     width: 25vw;
+    padding-left: 20px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -51,6 +52,7 @@ h2 {
     margin: 10px;
     color: #808080;
     font-weight: 400;
+    font-size: 30px;
 }
 
 .linha {
@@ -62,12 +64,12 @@ h2 {
 
 .dados {
     margin-top: 50px;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .nome {
     margin: 20px;
     margin-left: 0;
-    font-size: 40px;
+    font-size: 46px;
     color: black
 }

@@ -13,27 +13,29 @@ export default function CardFornecedor(props) {
   return (
     <div>
       <div className={styles.card}>
-        <p className={styles.nome}>
-          {props.nome ? props.nome : 'Nome do fornecedor'}
-        </p>
+        <p className={styles.nome}>{props.nome ? props.nome : ''}</p>
         <p className={styles.dados}>
           <PersonIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-          {props.contato ? props.contato : 'Charlotte Cooper'}
+          {props.contato ? props.contato : ''}
         </p>
         <p className={styles.dados}>
           <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-          {props.telefone ? props.telefone : '(11) 9999 9999'}
+          {props.telefone ? props.telefone : ''}
         </p>
         <p className={styles.dados}>
           <PlaceIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-          {props.local ? props.local : 'Uberlândia - MG'}
+          {props.cidade ? props.cidade : ''} <span> - </span>
+          {props.estado ? props.estado : ''}
         </p>
         <p className={styles.dados}>
           <AlternateEmailIcon style={{ fontSize: '28', color: '#b07ca3' }} />
           {props.email ? props.email : 'exoticliquids@gmail.com'}
         </p>
         <div className={styles.icones}>
-          <Link to="/detalhefornecedor" style={{ textDecoration: 'none' }}>
+          <Link
+            to={`/fornecedores/${props.id}`}
+            style={{ textDecoration: 'none' }}
+          >
             <Button>
               <RemoveRedEyeIcon
                 style={{ fontSize: '30', color: '#b07ca3', margin: '5px' }}
