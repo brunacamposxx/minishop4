@@ -1,60 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardCliente from '../../components/cardCliente/CardCliente';
 import styles from './Clientes.module.css';
 import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
 import { Link } from 'react-router-dom';
+import { getClientes } from '../../services/minishopApiServices';
 
 function Clientes() {
-  const lista = [
-    {
-      id: 0,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-    {
-      id: 1,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-    {
-      id: 2,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-    {
-      id: 3,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-    {
-      id: 4,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-    {
-      id: 5,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-    {
-      id: 6,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-    {
-      id: 7,
-      nome: 'Maria Anders',
-      telefone: '(11) 3003 4852',
-      email: 'maria.anders@gmail.com',
-    },
-  ];
+  const [listaClientes, setListaClientes] = useState([]);
+  const [pagina, setPagina] = useState(0);
+
+  function proximaPagina() {
+    setPagina((paginaAtual) => paginaAtual + 1);
+  }
+
+  useEffect(() => {
+    getClientes(pagina, 12).then((data) => {
+      setListaClientes((listaAtual) => [
+        ...listaAtual,
+        ...data.objetoRetorno.content,
+      ]);
+    });
+  }, [pagina]);
 
   return (
     <div className={styles.pagina}>
@@ -63,15 +29,19 @@ function Clientes() {
         <div className={styles.linha}></div>
       </div>
       <div className={styles.listacards}>
-        {lista.map((cliente) => (
+        {listaClientes.map((cliente) => (
           <CardCliente
             key={cliente.id}
+            id={cliente.id}
             nome={cliente.nome}
-            telefone={cliente.telefone}
+            phone={cliente.phone}
             email={cliente.email}
           />
         ))}
       </div>
+      <p className={styles.carregar} onClick={() => proximaPagina()}>
+        Carregar mais...
+      </p>
       <div>
         <Link to="/cadastrarCliente">
           <CustomFloatingButton />

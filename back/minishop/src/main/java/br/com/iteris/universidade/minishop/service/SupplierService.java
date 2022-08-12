@@ -4,6 +4,9 @@ import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Customer;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import br.com.iteris.universidade.minishop.repository.SupplierRespository;
+import br.com.iteris.universidade.minishop.util.CnpjValidator;
+import br.com.iteris.universidade.minishop.util.CpfValidator;
+import br.com.iteris.universidade.minishop.util.EmailValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +48,21 @@ public class SupplierService {
     }
 
     public ResponseBase<SupplierResponse> create(SupplierCreateRequest novo){
+
+        if (novo.getCNPJ() == null || !CnpjValidator.isCNPJ(novo.getCNPJ())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"CNPJ inválido");
+        }
+        if (!EmailValidator.isValid(novo.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"E-mail inválido");
+        }
+        var emailFound = supplierRespository.findByEmailContaining(novo.getEmail());
+        if (emailFound.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Este e-mail já está cadastrado");
+        }
+        var cnpjFound = supplierRespository.findByCNPJContaining(novo.getCNPJ());
+        if (cnpjFound.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"O CNPJ já está cadastrado");
+        }
 
         List<String> ufEstados = new ArrayList<>();
         //ufEstados.add("DF", "GO", );

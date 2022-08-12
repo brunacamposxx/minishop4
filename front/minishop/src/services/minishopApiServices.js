@@ -16,3 +16,38 @@ export function getProdutoPorId(id) {
     return AxiosResponse.data;
   });
 }
+
+const urlApiC = 'http://localhost:8080/api/costumers/?paginaAtual=';
+
+export function getClientes(paginaAtual, qtdPorPagina) {
+  return axios
+    .get(urlApiC + paginaAtual + '&qtdPorPagina=' + qtdPorPagina)
+    .then((AxiosResponse) => {
+      return AxiosResponse.data;
+    });
+}
+
+export function getClientePorId(id) {
+  const urlComIdCliente = 'http://localhost:8080/api/costumers' + '/' + id;
+  return axios.get(urlComIdCliente).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
+
+const urlApiF = 'http://localhost:8080/minishop/supplier/?paginaAtual=';
+
+export function getFornecedores(paginaAtual, qtdPorPagina) {
+  return axios
+    .get(urlApiF + paginaAtual + '&qtdPorPagina=' + qtdPorPagina)
+    .then((AxiosResponse) => {
+      return AxiosResponse.data;
+    });
+}
+
+export function getFornecedorPorId(id) {
+  const urlComIdFornecedor =
+    'http://localhost:8080/minishop/supplier' + '/' + id;
+  return axios.get(urlComIdFornecedor).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}

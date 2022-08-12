@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './DetalheCliente.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -6,9 +6,43 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import SubjectIcon from '@mui/icons-material/Subject';
 import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import {
+  getClientePorId,
+  getProdutoPorId,
+} from '../../services/minishopApiServices';
 
 function DetalheCliente() {
+  const { id } = useParams();
+  const listaIdProdutos = [];
+  const listaNomes = [];
+
+  const [cliente, setCliente] = useState({});
+  const [pedidos, setPedidos] = useState({});
+
+  useEffect(() => {
+    getClientePorId(id).then((data) => {
+      setCliente(data.objetoRetorno);
+      setPedidos(data.objetoRetorno.customerOrders);
+    });
+  }, [id]);
+
+  console.log(pedidos);
+  for (let i = 0; i < pedidos.length; i++) {
+    listaIdProdutos.push(pedidos[i].id);
+  }
+
+  async function pegaNomes() {
+    for (let n = 0; n < listaIdProdutos.length; n++) {
+      await getProdutoPorId(listaIdProdutos[n]).then((data) => {
+        listaNomes.push(data.objetoRetorno.productName);
+      });
+    }
+  }
+
+  console.log(listaNomes);
+  pegaNomes();
+
   return (
     <div className={styles.pagina}>
       <div className={styles.cabecalho}>
@@ -17,18 +51,18 @@ function DetalheCliente() {
       </div>
       <div className={styles.conteiner}>
         <div className={styles.parteum}>
-          <h1>Maria</h1>
+          <h1>{cliente.firstName + ' ' + cliente.lastName}</h1>
           <h5>
             <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            (37)998187879
+            {cliente.phone}
           </h5>
           <h5>
             <AlternateEmailIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            maria.anders@gmail.com
+            {cliente.email}
           </h5>
           <h5>
             <SubjectIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            458.990.339-22
+            {cliente.cpf}
           </h5>
         </div>
         <div className={styles.linha}></div>

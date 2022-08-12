@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { useParams, Link } from 'react-router-dom';
 import { getProdutoPorId } from '../../services/minishopApiServices';
+import CircleIcon from '@mui/icons-material/Circle';
 
 function DetalheProduto() {
   const { id } = useParams();
@@ -43,12 +44,17 @@ function DetalheProduto() {
           </h1>
           <span className={styles.dados}>
             Fornecedor:{' '}
-            {produto.supplierId == 12 ? 'Exotic Liquids' : 'Exemplo'}
+            {produto.supplierId == 3 ? 'Boa Comida' : 'Função enfeites'}
           </span>
-          <span style={{ fontSize: '20px' }}>
+          <span style={{ fontSize: '24px' }}>
             {produto.packageName ? 'Pacotes:' + produto.packageName : ''}
           </span>
           <span className={styles.dados}>
+            {produto.isDiscontinued == false ? (
+              <CircleIcon style={{ fontSize: '25', color: 'green' }} />
+            ) : (
+              <CircleIcon style={{ fontSize: '25', color: 'red' }} />
+            )}
             {produto.isDiscontinued == false ? 'Ativo' : 'Inativo'}
           </span>
 
