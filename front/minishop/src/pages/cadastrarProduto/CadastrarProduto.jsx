@@ -9,18 +9,23 @@ import CustomSwitch from '../../components/customSwitch/CustomSwitch';
 import { formatter } from '../../service/formatacao/real';
 import { getFornecedor } from '../../service/requisicoesApi/produtoApiService';
 import { useNavigate } from 'react-router-dom';
-import { postProduto } from '../../service/requisicoesApi/produtoApiService';
+import {
+  postProduto,
+  putProdutoPorId,
+} from '../../service/requisicoesApi/produtoApiService';
 
-const CadastrarProduto = () => {
+const CadastrarProduto = ({ valorInicial }) => {
   const navigate = useNavigate();
-  const [fornecedores, setFornecedores] = useState([]);
-  const [pagina, setPagina] = useState(0);
+  const [fornecedores, setFornecedores] = useState([]); //lista de fornecedores para o select
+  const [pagina, setPagina] = useState(0); //paginacao
+  const valoresIniciais = valorInicial;
+
   const [novoProduto, setNovoProduto] = useState({
-    isDiscontinued: false,
-    packageName: '',
-    productName: '',
-    supplierId: '',
-    unitPrice: 0,
+    isDiscontinued: valoresIniciais.isDiscontinued ?? false,
+    packageName: valoresIniciais.packageName ?? '',
+    productName: valoresIniciais.productName ?? '',
+    supplierId: valoresIniciais.supplierId ?? '',
+    unitPrice: valoresIniciais.unitPrice ?? 0,
   });
 
   useEffect(() => {
@@ -38,8 +43,11 @@ const CadastrarProduto = () => {
 
   const handleClick = (event) => {
     event.preventDefault();
-
-    postProduto(novoProduto);
+    if (valoresIniciais.id) {
+      postProduto(novoProduto);
+    } else {
+      putProdutoPorId(novoProduto);
+    }
   };
 
   console.log(novoProduto);

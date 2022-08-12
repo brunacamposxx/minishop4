@@ -30,7 +30,7 @@ export function getProdutoPorId(id) {
   });
 }
 
-export function editarProdutoPorId(id, produto) {
+export function putProdutoPorId(id, produto) {
   return axios.put(`${url}/${id}`, produto).then((response) => {
     return response.data;
   });
