@@ -154,12 +154,7 @@ const CadastrarProduto = ({ valorInicial }) => {
         </form>
 
         <div className="alinhamento-direita">
-          <CustomBotao
-            onClick={handleClick}
-            disabled={true} //true - desabilitado
-            cor="#B17DA4"
-            label="Salvar"
-          />
+          <CustomBotao onClick={handleClick} cor="#B17DA4" label="Salvar" />
           <CustomBotao
             onClick={() => navigate(-1)}
             cor="#94b456"
