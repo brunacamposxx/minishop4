@@ -32,7 +32,7 @@ const CadastrarCliente = ({ valorInicial }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (valoresIniciais.id) {
+    if (valoresIniciais?.id) {
       putClientePorId(valoresIniciais.id, novoCliente);
     } else {
       if (!validaCPF(novoCliente.cpf)) {

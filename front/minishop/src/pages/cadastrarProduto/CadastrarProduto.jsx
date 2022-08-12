@@ -16,6 +16,7 @@ import {
 
 const CadastrarProduto = ({ valorInicial }) => {
   const navigate = useNavigate();
+  const [imagem, setImagem] = useState('');
   const [fornecedores, setFornecedores] = useState([]); //lista de fornecedores para o select
   const [pagina, setPagina] = useState(0); //paginacao
   const valoresIniciais = valorInicial;
@@ -43,7 +44,7 @@ const CadastrarProduto = ({ valorInicial }) => {
 
   const handleClick = (event) => {
     event.preventDefault();
-    if (valoresIniciais.id) {
+    if (valoresIniciais?.id) {
       putProdutoPorId(valoresIniciais.id, novoProduto);
     } else {
       postProduto(novoProduto);
@@ -75,20 +76,15 @@ const CadastrarProduto = ({ valorInicial }) => {
                 }
               />
             </div>
-            {/* <div className="flex">
+            <div className="flex">
               <CustomTextField
                 label="Imagem"
                 required={true}
                 value={imagem}
                 largura={30}
-                // aoAlterado={(valor) =>
-                //   setNovoProduto({
-                //     ...novoProduto,
-                //     nome: valor,
-                //   })
-                // }
+                aoAlterado={(valor) => setNovoProduto(setImagem(valor))}
               />
-            </div> */}
+            </div>
           </aside>
           <main>
             <div className="flex">
@@ -160,7 +156,7 @@ const CadastrarProduto = ({ valorInicial }) => {
         <div className="alinhamento-direita">
           <CustomBotao
             onClick={handleClick}
-            disabled={false}
+            disabled={true} //true - desabilitado
             cor="#B17DA4"
             label="Salvar"
           />

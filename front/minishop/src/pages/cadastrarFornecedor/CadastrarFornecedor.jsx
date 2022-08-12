@@ -39,7 +39,7 @@ const CadastrarFornecedor = ({ valorInicial }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (valoresIniciais.id) {
+    if (valoresIniciais?.id) {
       putFornecedorPorId(valoresIniciais.id, novoFornecedor);
     } else {
       if (!validaEmail.test(novoFornecedor.email)) {
