@@ -32,7 +32,7 @@ public class Product {
     @Column(name = "PackageName", length = 100)
     private String packageName;
 
-   @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productID")
     @JsonManagedReference
     private List<ProductImage> images;
 

@@ -28,7 +28,6 @@ public class ProductResponse {
         if (product.getImages().size() == 0 ) {
             imagemPrincipal = null;
         } else if (product.getProductImage().getSequencia() != 1) {
-            System.out.println("/////////////////////////////////////////////////////////////////////////////////////////////// entrou aqui óh");
             imagemPrincipal = null;
         }
         else{
