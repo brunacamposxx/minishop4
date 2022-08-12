@@ -14,6 +14,7 @@ import CadastrarCliente from './pages/cadastrarCliente/CadastrarCliente';
 import CadastrarFornecedor from './pages/cadastrarFornecedor/CadastrarFornecedor';
 import EditarProduto from './pages/editarProduto/EditarProduto';
 import EditarFornecedor from './pages/editarFornecedor/EditarFornecedor';
+import EditarCliente from './pages/editarCliente/EditarCliente';
 
 function App() {
   return (
@@ -30,8 +31,8 @@ function App() {
             <Route path="/clientes/:id" element={<DetalheCliente />} />
             <Route path="/fornecedores/:id" element={<DetalheFornecedor />} />
             <Route path="/cadastrarProduto/" element={<CadastrarProduto />} />
-            <Route path="/editarProduto/:id" element={<EditarProduto />} />
             <Route path="/cadastrarCliente/" element={<CadastrarCliente />} />
+            <Route path="/editarProduto/:id" element={<EditarProduto />} />
             <Route
               path="/cadastrarFornecedor/"
               element={<CadastrarFornecedor />}
@@ -40,6 +41,7 @@ function App() {
               path="/editarFornecedores/:id"
               element={<EditarFornecedor />}
             />
+            <Route path="/editarClientes/:id" element={<EditarCliente />} />
           </Routes>
         </SecondPageTemplate>
       </BrowserRouter>

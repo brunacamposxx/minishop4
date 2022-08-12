@@ -14,3 +14,15 @@ export function postFornecedor(novoFornecedor) {
     return AxiosResponse.data;
   });
 }
+
+export function getFornecedorPorId(id) {
+  return axios.get(`${url}/${id}`).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
+
+export function putFornecedorPorId(id, fornecedor) {
+  return axios.put(`${url}/${id}`, fornecedor).then((response) => {
+    return response.data;
+  });
+}

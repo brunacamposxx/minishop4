@@ -1,8 +1,8 @@
 import React from 'react';
-import CadastrarProduto from '../cadastrarProduto/CadastrarProduto';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProdutoPorId } from '../../service/requisicoesApi/produtoApiService';
+import { getFornecedorPorId } from '../../service/requisicoesApi/fornecedorApiService';
+import CadastrarFornecedor from '../cadastrarFornecedor/CadastrarFornecedor';
 
 const EditarFornecedor = () => {
   const { id } = useParams();
@@ -10,15 +10,14 @@ const EditarFornecedor = () => {
   const [valorInicial, setValorInicial] = useState(null);
 
   useEffect(() => {
-    getProdutoPorId(id).then((data) => {
+    getFornecedorPorId(id).then((data) => {
       console.log(data);
       setValorInicial(data.objetoRetorno);
     });
   }, [id]);
   return (
     <div>
-      {/* <Titulo titulo="Editar Produto" /> */}
-      {!!valorInicial && <CadastrarProduto valorInicial={valorInicial} />}
+      {!!valorInicial && <CadastrarFornecedor valorInicial={valorInicial} />}
     </div>
   );
 };

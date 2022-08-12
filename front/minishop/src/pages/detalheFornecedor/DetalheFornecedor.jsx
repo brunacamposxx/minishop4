@@ -77,12 +77,14 @@ function DetalheFornecedor() {
             </p>
           </div>
         </div>
-        <Button
-          color="inherit"
-          style={{ marginLeft: 'auto', marginTop: 'auto' }}
-        >
-          <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
-        </Button>
+        <Link to={`/editarFornecedor/${id}`} style={{ textDecoration: 'none' }}>
+          <Button
+            color="inherit"
+            style={{ marginLeft: 'auto', marginTop: 'auto' }}
+          >
+            <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
+          </Button>
+        </Link>
       </div>
       <Link to="/fornecedores" style={{ textDecoration: 'none' }}>
         <CustomBotao cor="#b07ca3" label="Voltar" />

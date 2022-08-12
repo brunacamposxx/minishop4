@@ -42,7 +42,10 @@ export default function CardFornecedor(props) {
               />
             </Button>
           </Link>
-          <Link to="/editarfornecedor" style={{ textDecoration: 'none' }}>
+          <Link
+            to={`/editarFornecedores/${props.id}`}
+            style={{ textDecoration: 'none' }}
+          >
             <Button>
               <CreateIcon
                 style={{ fontSize: '30', color: '#b07ca3', margin: '5px' }}
