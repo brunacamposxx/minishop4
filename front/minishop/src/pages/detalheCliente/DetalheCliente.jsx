@@ -7,15 +7,11 @@ import SubjectIcon from '@mui/icons-material/Subject';
 import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
-import {
-  getClientePorId,
-  getProdutoPorId,
-} from '../../services/minishopApiServices';
+import { getClientePorId } from '../../services/minishopApiServices';
+// import QuadroCliente from './QuadroCliente';
 
 function DetalheCliente() {
   const { id } = useParams();
-  const listaIdProdutos = [];
-  const listaNomes = [];
 
   const [cliente, setCliente] = useState({});
   const [pedidos, setPedidos] = useState({});
@@ -28,20 +24,6 @@ function DetalheCliente() {
   }, [id]);
 
   console.log(pedidos);
-  for (let i = 0; i < pedidos.length; i++) {
-    listaIdProdutos.push(pedidos[i].id);
-  }
-
-  async function pegaNomes() {
-    for (let n = 0; n < listaIdProdutos.length; n++) {
-      await getProdutoPorId(listaIdProdutos[n]).then((data) => {
-        listaNomes.push(data.objetoRetorno.productName);
-      });
-    }
-  }
-
-  console.log(listaNomes);
-  pegaNomes();
 
   return (
     <div className={styles.pagina}>
@@ -70,16 +52,9 @@ function DetalheCliente() {
           <h4 className={styles.titulo}>Pedidos</h4>
           <div className={styles.quadro}>
             <div className={styles.linhaquadro}>
-              <span className={styles.produto}>3 Chai Latte</span>
-              <span className={styles.produto}>54,00</span>
-            </div>
-            <div className={styles.linhaquadro}>
-              <span className={styles.produto}>3 Chai Latte</span>
-              <span className={styles.produto}>54,00</span>
-            </div>
-            <div className={styles.linhaquadro}>
-              <span className={styles.total}>Total</span>
-              <span className={styles.total}>189,35</span>
+              {/* {pedidos.map((pedido) => (
+                <QuadroCliente key={pedido.id} nome={pedido.id} />
+              ))} */}
             </div>
           </div>
         </div>

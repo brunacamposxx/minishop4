@@ -1,0 +1,61 @@
+.pagina {
+    width: 100vw;
+    height: 75vh;
+    background-color: #e3e3e3;
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecalho {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 85vw;
+    padding: 0px;
+    margin: 0px;
+}
+
+.linha {
+    height: 1px;
+    width: 98%;
+    background-color: #808080;
+    margin-bottom: 20px;
+    align-self: center;
+}
+
+.quadro {
+    width: 80vw;
+    height: 120;
+    background-color: white;
+    align-self: center;
+}
+
+.tituloquadro {
+    background-color: #b07ca3;
+    display: flex;
+    justify-content: space-around;
+}
+
+.subtitulos {
+    font-size: 30px;
+    color: white
+}
+
+.dados {
+    font-size: 30px;
+}
+.dadosdata {
+    font-size: 30px;
+    padding-left: 450px;
+}
+
+.conteudoquadro {
+    margin-left: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
