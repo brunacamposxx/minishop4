@@ -13,6 +13,7 @@ import CadastrarProduto from './pages/cadastrarProduto/CadastrarProduto';
 import CadastrarCliente from './pages/cadastrarCliente/CadastrarCliente';
 import CadastrarFornecedor from './pages/cadastrarFornecedor/CadastrarFornecedor';
 import EditarProduto from './pages/editarProduto/EditarProduto';
+import EditarFornecedor from './pages/editarFornecedor/EditarFornecedor';
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
             <Route
               path="/cadastrarFornecedor/"
               element={<CadastrarFornecedor />}
+            />
+            <Route
+              path="/editarFornecedores/:id"
+              element={<EditarFornecedor />}
             />
           </Routes>
         </SecondPageTemplate>
