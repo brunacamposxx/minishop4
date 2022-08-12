@@ -12,6 +12,7 @@ import DetalheFornecedor from './pages/detalheFornecedor/DetalheFornecedor';
 import CadastrarProduto from './pages/cadastrarProduto/CadastrarProduto';
 import CadastrarCliente from './pages/cadastrarCliente/CadastrarCliente';
 import CadastrarFornecedor from './pages/cadastrarFornecedor/CadastrarFornecedor';
+import EditarProduto from './pages/editarProduto/EditarProduto';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
             <Route path="/clientes/:id" element={<DetalheCliente />} />
             <Route path="/fornecedores/:id" element={<DetalheFornecedor />} />
             <Route path="/cadastrarProduto/" element={<CadastrarProduto />} />
-            <Route path="/editarProduto/:id" element={<CadastrarProduto />} />
+            <Route path="/editarProduto/:id" element={<EditarProduto />} />
             <Route path="/cadastrarCliente/" element={<CadastrarCliente />} />
             <Route
               path="/cadastrarFornecedor/"

@@ -8,23 +8,24 @@ import MenuItem from '@mui/material/MenuItem';
 import CustomSwitch from '../../components/customSwitch/CustomSwitch';
 import { formatter } from '../../service/formatacao/real';
 import { getFornecedor } from '../../service/requisicoesApi/produtoApiService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   postProduto,
-  getProdutoPorId,
+  putProdutoPorId,
 } from '../../service/requisicoesApi/produtoApiService';
 
-const CadastrarProduto = () => {
+const CadastrarProduto = ({ valorInicial }) => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const [fornecedores, setFornecedores] = useState([]);
-  const [pagina, setPagina] = useState(0);
+  const [fornecedores, setFornecedores] = useState([]); //lista de fornecedores para o select
+  const [pagina, setPagina] = useState(0); //paginacao
+  const valoresIniciais = valorInicial;
+
   const [novoProduto, setNovoProduto] = useState({
-    isDiscontinued: false,
-    packageName: '',
-    productName: '',
-    supplierId: '',
-    unitPrice: 0,
+    isDiscontinued: valoresIniciais.isDiscontinued ?? false,
+    packageName: valoresIniciais.packageName ?? '',
+    productName: valoresIniciais.productName ?? '',
+    supplierId: valoresIniciais.supplierId ?? '',
+    unitPrice: valoresIniciais.unitPrice ?? 0,
   });
 
   useEffect(() => {
@@ -36,19 +37,17 @@ const CadastrarProduto = () => {
     });
   }, [pagina]);
 
-  useEffect(() => {
-    getProdutoPorId(id).then((data) => {
-      setNovoProduto(data.objetoRetorno);
-    });
-  }, [id]);
-
   function proximaPagina() {
     setPagina((paginaAtual) => paginaAtual + 1);
   }
 
   const handleClick = (event) => {
     event.preventDefault();
-    postProduto(novoProduto);
+    if (valoresIniciais.id) {
+      postProduto(novoProduto);
+    } else {
+      putProdutoPorId(novoProduto);
+    }
   };
 
   console.log(novoProduto);
@@ -155,7 +154,12 @@ const CadastrarProduto = () => {
         </form>
 
         <div className="alinhamento-direita">
-          <CustomBotao onClick={handleClick} cor="#B17DA4" label="Salvar" />
+          <CustomBotao
+            onClick={handleClick}
+            disabled={false}
+            cor="#B17DA4"
+            label="Salvar"
+          />
           <CustomBotao
             onClick={() => navigate(-1)}
             cor="#94b456"
