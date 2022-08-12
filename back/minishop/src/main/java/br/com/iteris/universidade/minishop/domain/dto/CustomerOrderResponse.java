@@ -5,6 +5,7 @@ import br.com.iteris.universidade.minishop.domain.entity.OrderItem;
 import lombok.Data;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
 public class CustomerOrderResponse {
@@ -13,6 +14,7 @@ public class CustomerOrderResponse {
     private double TotalAmount;
     private String FirstName;
     private String LastName;
+    private int TotalQuantity;
     private List<OrderItem> Orders;
 
     public CustomerOrderResponse(CustomerOrder customerOrder) {
@@ -23,5 +25,16 @@ public class CustomerOrderResponse {
         FirstName = customerOrder.getCustomer().getFirstName();
         LastName = customerOrder.getCustomer().getLastName();
         Orders = customerOrder.getOrderItems();
+        TotalQuantity = quantitySet();
+    }
+
+    private int quantitySet() {
+        int totalQuantity = 0;
+
+        for(int i = 0; i < this.getOrders().size(); i++) {
+            totalQuantity+= this.getOrders().get(i).getQuantity();
+        }
+
+        return totalQuantity;
     }
 }
