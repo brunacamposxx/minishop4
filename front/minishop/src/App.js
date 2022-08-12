@@ -9,6 +9,9 @@ import SecondPageTemplate from './pageTemplates/SecondPageTemplate';
 import DetalheProduto from './pages/detalheProduto/DetalheProduto';
 import DetalheCliente from './pages/detalheCliente/DetalheCliente';
 import DetalheFornecedor from './pages/detalheFornecedor/DetalheFornecedor';
+import CadastrarProduto from './pages/cadastrarProduto/CadastrarProduto';
+import CadastrarCliente from './pages/cadastrarCliente/CadastrarCliente';
+import CadastrarFornecedor from './pages/cadastrarFornecedor/CadastrarFornecedor';
 
 function App() {
   return (
@@ -24,6 +27,13 @@ function App() {
             <Route path="/produtos/:id" element={<DetalheProduto />} />
             <Route path="/clientes/:id" element={<DetalheCliente />} />
             <Route path="/fornecedores/:id" element={<DetalheFornecedor />} />
+            <Route path="/cadastrarProduto/" element={<CadastrarProduto />} />
+            <Route path="/editarProduto/:id" element={<CadastrarProduto />} />
+            <Route path="/cadastrarCliente/" element={<CadastrarCliente />} />
+            <Route
+              path="/cadastrarFornecedor/"
+              element={<CadastrarFornecedor />}
+            />
           </Routes>
         </SecondPageTemplate>
       </BrowserRouter>
