@@ -4,6 +4,7 @@ import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import br.com.iteris.universidade.minishop.service.SupplierService;
 //import com.google.common.base.Supplier;
+import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +43,8 @@ public class SupplierController {
 
     }
     @PutMapping(value = "minishop/supplier/{idSupplier}")
-    public ResponseEntity<Supplier> updadeTarefa(@PathVariable Integer idSupplier, @RequestBody @Valid SupplierUpdateRequest supplierUpdateRequest){
-        var supplier = supplierService.SupplierUpdate(idSupplier, supplierUpdateRequest);
+    public ResponseEntity updadeTarefa(@PathVariable Integer idSupplier, @RequestBody @Valid SupplierUpdateRequest supplierUpdateRequest){
+        ResponseBase<SupplierResponse> supplier = supplierService.supplierUpdate(idSupplier, supplierUpdateRequest);
         return ResponseEntity.ok(supplier);
     }
 }
