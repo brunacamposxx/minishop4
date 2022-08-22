@@ -13,6 +13,7 @@ import {
   postProduto,
   putProdutoPorId,
 } from '../../service/requisicoesApi/produtoApiService';
+import { maskPrice } from '../../utils/masks';
 
 const CadastrarProduto = ({ valorInicial }) => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const CadastrarProduto = ({ valorInicial }) => {
                 label="Preço"
                 placeholder="R$ 0.00"
                 type="number"
-                value={novoProduto.unitPrice}
+                value={maskPrice(novoProduto.unitPrice)}
                 largura={20}
                 aoAlterado={(valor) =>
                   setNovoProduto({

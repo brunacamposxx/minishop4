@@ -6,6 +6,7 @@ import CustomBotao from '../../components/customBotao/CustomBotao';
 import { useParams, Link } from 'react-router-dom';
 import { getProdutoPorId } from '../../services/minishopApiServices';
 import CircleIcon from '@mui/icons-material/Circle';
+import { maskPrice } from '../../utils/masks';
 
 function DetalheProduto() {
   const { id } = useParams();
@@ -40,7 +41,7 @@ function DetalheProduto() {
               margin: '0px',
             }}
           >
-            {produto.unitPrice ? 'R$' + produto.unitPrice : 'R$00,00'}
+            {produto.unitPrice ? maskPrice(produto.unitPrice) : 'R$00,00'}
           </h1>
           <span className={styles.dados}>
             Fornecedor:{' '}
