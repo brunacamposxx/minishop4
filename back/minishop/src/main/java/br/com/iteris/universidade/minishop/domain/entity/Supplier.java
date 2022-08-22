@@ -22,7 +22,7 @@ public class Supplier {
     private String nome;
 
     @CNPJ
-    @Column(name = "CNPJ", unique = true, nullable = false)
+    @Column(name = "CNPJ", length = 14, unique = true, nullable = false)
     private String CNPJ;
 
     @Column(name = "City", length = 100, nullable = false)
@@ -34,7 +34,7 @@ public class Supplier {
 
     @Email
    // @UniqueElements
-    @Column(name = "Email", unique = true, nullable = false)
+    @Column(name = "Email", length = 255, unique = true, nullable = false)
     private String email;
 
     @Column(name = "Phone", length = 15)

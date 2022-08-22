@@ -9,30 +9,27 @@ import javax.validation.constraints.Size;
 
 @Data
 public class SupplierUpdateRequest {
-    @NotEmpty
+
+    @NotEmpty(message = "É necessário informar o nome da empresa.")
     @Size(max = 100)
     private String nome;
 
-    @CNPJ
-    @NotEmpty
-    private String CNPJ;
-
-    @NotEmpty
+    @NotEmpty(message = "É necessário informar a Cidade.")
     @Size(max = 100)
-    private String Cidade;
+    private String cidade;
 
     //Obrigatório e que esteja entre as 27 siglas de estados brasileiros;
-    @NotEmpty
+    @NotEmpty(message = "É necessário informar a UF.")
     @Size(max = 2)
-    private String Estado;
+    private String estado;
 
-    @Email
+    @Email(message = "É necessário informar o Email.")
     @Size(max = 255)
-    private String Email;
+    private String email;
 
     @Size(max = 15)
-    private String Telefone;
+    private String telefone;
 
     @Size(max = 255)
-    private String Contato;
+    private String contato;
 }
