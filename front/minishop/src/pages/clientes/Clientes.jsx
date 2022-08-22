@@ -4,6 +4,7 @@ import styles from './Clientes.module.css';
 import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
 import { Link } from 'react-router-dom';
 import { getClientes } from '../../services/minishopApiServices';
+import { maskPhone } from '../../utils/masks';
 
 function Clientes() {
   const [listaClientes, setListaClientes] = useState([]);
@@ -34,7 +35,7 @@ function Clientes() {
             key={cliente.id}
             id={cliente.id}
             nome={cliente.nome}
-            phone={cliente.phone}
+            phone={maskPhone(cliente.phone)}
             email={cliente.email}
           />
         ))}

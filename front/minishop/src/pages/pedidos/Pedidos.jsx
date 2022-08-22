@@ -4,6 +4,7 @@ import { getPedidos } from '../../services/minishopApiServices';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { maskPrice } from '../../utils/masks';
 
 function Pedidos() {
   const [listaPedidos, setListaPedidos] = useState([]);
@@ -39,7 +40,7 @@ function Pedidos() {
                 {pedido.data ? pedido.data : ''}
               </span>
               <span className={styles.dados}>
-                R${pedido.unitPrice * pedido.quantity}
+                {maskPrice(pedido.unitPrice * pedido.quantity)}
               </span>
               <Link
                 to={`/pedidos/${pedido.id}`}

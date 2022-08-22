@@ -19,7 +19,7 @@ export default function CardProduto(props) {
           className={styles.imagem}
         />
         <p className={styles.dados}>
-          {props.unitPrice ? 'R$' + props.unitPrice : 'R$00,00'}
+          {props.unitPrice ? props.unitPrice : 'R$00,00'}
         </p>
         <p className={styles.status}>
           {props.isDiscontinued == false ? (

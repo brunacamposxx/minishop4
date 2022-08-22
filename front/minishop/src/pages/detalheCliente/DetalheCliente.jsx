@@ -9,6 +9,7 @@ import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
 import { getClientePorId } from '../../services/minishopApiServices';
 // import QuadroCliente from './QuadroCliente';
+import { maskPhone, maskCpf } from '../../utils/masks';
 
 function DetalheCliente() {
   const { id } = useParams();
@@ -36,7 +37,7 @@ function DetalheCliente() {
           <h1>{cliente.firstName + ' ' + cliente.lastName}</h1>
           <h5>
             <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            {cliente.phone}
+            {maskPhone(cliente.phone)}
           </h5>
           <h5>
             <AlternateEmailIcon style={{ fontSize: '28', color: '#b07ca3' }} />
@@ -44,7 +45,7 @@ function DetalheCliente() {
           </h5>
           <h5>
             <SubjectIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            {cliente.cpf}
+            {maskCpf(cliente.cpf)}
           </h5>
         </div>
         <div className={styles.linha}></div>

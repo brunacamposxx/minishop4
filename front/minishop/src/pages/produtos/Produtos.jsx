@@ -4,6 +4,7 @@ import styles from './Produtos.module.css';
 import { getProdutos } from '../../services/minishopApiServices';
 import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
 import { Link } from 'react-router-dom';
+import { maskPrice } from '../../utils/masks';
 
 function Produtos() {
   const [listaProdutos, setListaProdutos] = useState([]);
@@ -44,7 +45,7 @@ function Produtos() {
             id={produto.id}
             productName={handleProductsName(produto.productName)}
             imagem={produto.imagem}
-            unitPrice={produto.unitPrice}
+            unitPrice={maskPrice(produto.unitPrice)}
             isDiscontinued={produto.isDiscontinued}
           />
         ))}
