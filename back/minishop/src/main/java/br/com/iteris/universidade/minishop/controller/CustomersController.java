@@ -24,11 +24,11 @@ public class CustomersController {
     }
 
     @PutMapping("api/costumers/{id}")
-    public ResponseEntity<CustomerResponse> editar(
+    public ResponseEntity editar(
             @PathVariable int id,
             @RequestBody @Valid CustomerUpdateRequest customerUpdateRequest) {
-        var customer = customerService.editar(id, customerUpdateRequest);
-        return ResponseEntity.ok(customer);
+        ResponseBase<CustomerResponse> retorno = customerService.editar(id, customerUpdateRequest);
+        return ResponseEntity.ok(retorno);
     }
 
     @GetMapping("api/costumers/{id}")
