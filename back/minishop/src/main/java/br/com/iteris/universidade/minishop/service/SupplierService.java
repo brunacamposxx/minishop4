@@ -107,23 +107,26 @@ public class SupplierService {
         return listaRetorno;
     }
 
-    public Supplier SupplierUpdate(Integer idSupplier, SupplierUpdateRequest supplierUpdateRequest){
-        var supplierFound = supplierRespository.findById(idSupplier);
-      /*  Optional<Supplier> supplierOptional = supplierRespository.findById(idSupplier);
+    public ResponseBase<SupplierResponse> supplierUpdate(Integer idSupplier, SupplierUpdateRequest supplierUpdateRequest){
+
+        Optional<Supplier> supplierOptional = supplierRespository.findById(idSupplier);
         Supplier supplier = supplierOptional
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Supplier não enontrado !"));
-        */
-        var supplier = supplierFound.get();
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Supplier não encontrado!"));
+
+        var uniqueEmail = supplierRespository.findByEmail(supplierUpdateRequest.getEmail());
+        if(uniqueEmail.isPresent() && !supplier.getEmail().equals(supplierUpdateRequest.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já existe");
+        }
 
         supplier.setNome(supplierUpdateRequest.getNome());
-        supplier.setCNPJ(supplierUpdateRequest.getCNPJ());
         supplier.setCidade(supplierUpdateRequest.getCidade());
         supplier.setEstado(supplierUpdateRequest.getEstado());
         supplier.setEmail(supplierUpdateRequest.getEmail());
         supplier.setTelefone(supplierUpdateRequest.getTelefone());
         supplier.setContato(supplierUpdateRequest.getContato());
 
-        return supplierRespository.save(supplier);
+        supplierRespository.save(supplier);
+        return new ResponseBase<>(new SupplierResponse(supplier));
     }
 
 }

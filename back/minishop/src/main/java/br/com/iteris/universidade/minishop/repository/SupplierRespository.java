@@ -19,4 +19,6 @@ public interface SupplierRespository extends PagingAndSortingRepository<Supplier
     Optional<Supplier> findByEmailContaining(String email);
 
     Optional<Supplier> findByCNPJContaining(String CNPJ);
+
+    Optional<Supplier> findByEmail(String email);
 }

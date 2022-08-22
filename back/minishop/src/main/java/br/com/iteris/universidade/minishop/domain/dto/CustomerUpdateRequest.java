@@ -13,10 +13,6 @@ public class CustomerUpdateRequest {
     @NotEmpty(message = "Sobrenome deve ser definido")
     @Size(max = 100)
     private String LastName;
-    @NotEmpty(message = "CPF deve ser definido")
-    @Size(max = 11)
-    @org.hibernate.validator.constraints.br.CPF(message = "CPF inválido")
-    private String CPF;
     @NotEmpty(message = "Email deve ser definido")
     @Size(max = 255)
     @javax.validation.constraints.Email(message = "Email inválido")

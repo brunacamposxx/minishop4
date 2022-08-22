@@ -59,26 +59,27 @@ public class CustomerService {
         return new ResponseBase<>(customerResponse);
     }
 
-    // Edição por id
-    public CustomerResponse editar (int id, CustomerUpdateRequest customerUpdateRequest) {
+    public ResponseBase<CustomerResponse> editar (int id, CustomerUpdateRequest customerUpdateRequest) {
         Optional<Customer> customerOptional = customersRepository.findById(id);
 
         Customer customer = customerOptional
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
+        var emailFound = customersRepository.findByEmailContaining(customerUpdateRequest.getEmail());
+        if(emailFound.isPresent() && !customer.getEmail().equals(customerUpdateRequest.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este e-mail já está cadastrado");
 
-        var customer1 = customerOptional.get();
-        customer1.setFirstName(customerUpdateRequest.getFirstName());
-        customer1.setLastName(customerUpdateRequest.getLastName());
-        customer1.setCpf(customerUpdateRequest.getCPF());
-        customer1.setEmail(customerUpdateRequest.getEmail());
-        customer1.setPhone(customerUpdateRequest.getPhone());
+        }
 
-        var customerAtualizado = customersRepository.save(customer1);
+        customer.setFirstName(customerUpdateRequest.getFirstName());
+        customer.setLastName(customerUpdateRequest.getLastName());
+        customer.setEmail(customerUpdateRequest.getEmail());
+        customer.setPhone(customerUpdateRequest.getPhone());
 
-        return new CustomerResponse(
-                customerAtualizado
-        );
+        var customerAtualizado = customersRepository.save(customer);
+
+        return new ResponseBase<>( new CustomerResponse(customerAtualizado));
+
     }
 
     // Consulta por id consultado todos campos mais lista de ordens de compra (relacionamento tabela Customer com tabela CustomerOrder)
@@ -101,7 +102,6 @@ public class CustomerService {
         return new ResponseBase<>(customerConsultaPorIdResponse);
     }
 
-    // Listagem paginada consultando id, nome, telefone e email;
     public ResponseBase<Page<CustomerPesquisarPaginadoResponse>> pesquisarPaginado(PaginatedSearchRequest searchRequest) {
 
         // a Pagina atual não pode ser menor que 0
