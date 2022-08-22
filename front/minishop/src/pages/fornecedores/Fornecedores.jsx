@@ -5,6 +5,7 @@ import CustomFloatingButton from '../../components/customFloatingButton/CustomFl
 import { Link } from 'react-router-dom';
 import { getFornecedores } from '../../services/minishopApiServices';
 import styles from './Fornecedores.module.css';
+import { maskPhone } from '../../utils/masks';
 
 function Fornecedores() {
   const [listaFornecedores, setListaFornecedores] = useState([]);
@@ -40,7 +41,7 @@ function Fornecedores() {
             }
             telefone={
               fornecedor.telefone != null
-                ? fornecedor.telefone
+                ? maskPhone(fornecedor.telefone)
                 : 'Não informado'
             }
             cidade={fornecedor.cidade}
