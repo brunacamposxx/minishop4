@@ -13,7 +13,7 @@ public class SupplierResponse {
 
     private Integer id;
     private String nome;
-    //private String CNPJ;
+    private String CNPJ;
     private String cidade;
     private String estado;
     private String email;
@@ -23,7 +23,7 @@ public class SupplierResponse {
     public SupplierResponse(Supplier supplier){
         this.id = supplier.getId();
         this.nome = supplier.getNome();
-        //this.CNPJ = supplier.getCNPJ();
+        this.CNPJ = supplier.getCNPJ();
         this.cidade = supplier.getCidade();
         this.estado = supplier.getEstado();
         this.email = supplier.getEmail();
