@@ -13,10 +13,6 @@ public class SupplierUpdateRequest {
     @Size(max = 100)
     private String nome;
 
-    @CNPJ
-    @NotEmpty
-    private String CNPJ;
-
     @NotEmpty
     @Size(max = 100)
     private String Cidade;
