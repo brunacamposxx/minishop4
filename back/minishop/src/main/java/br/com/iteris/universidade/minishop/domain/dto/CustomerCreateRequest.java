@@ -1,11 +1,19 @@
 package br.com.iteris.universidade.minishop.domain.dto;
 
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
+@Builder
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerCreateRequest {
     @NotEmpty(message = "Nome deve ser definido")
     @Size(max = 100)

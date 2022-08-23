@@ -1,7 +1,10 @@
 package br.com.iteris.universidade.minishop.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -9,6 +12,10 @@ import javax.validation.constraints.Email;
 import java.util.List;
 
 @Data
+@Builder
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Customer")
 public class Customer {
