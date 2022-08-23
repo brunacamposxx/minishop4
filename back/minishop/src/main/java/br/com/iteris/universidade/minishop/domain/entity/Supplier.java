@@ -1,7 +1,10 @@
 package br.com.iteris.universidade.minishop.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -13,6 +16,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Supplier")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

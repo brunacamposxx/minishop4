@@ -1,5 +1,6 @@
 package br.com.iteris.universidade.minishop.domain.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
+@Builder
 public class SupplierCreateRequest {
 
         @NotEmpty(message = "É necessário informar o nome da empresa.")
