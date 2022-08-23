@@ -4,6 +4,7 @@ import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Product;
 import br.com.iteris.universidade.minishop.domain.entity.ProductImage;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
+import br.com.iteris.universidade.minishop.repository.ProductImageRepository;
 import br.com.iteris.universidade.minishop.repository.ProductsRepository;
 import br.com.iteris.universidade.minishop.repository.SupplierRespository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ import java.util.Optional;
 public class ProductsService {
     private final ProductsRepository productsRepository;
     private final SupplierRespository supplierRespository;
+    private final ProductImageRepository productImageRepository;
 
     public ResponseBase<Page<ProductResponse>> pesquisar(SearchProductsRequest searchRequest) {
         if (searchRequest.getPaginaAtual() < 0) {
@@ -74,6 +76,9 @@ public class ProductsService {
         product.setUnitPrice(productUpdateRequest.getUnitPrice());
         product.setIsDiscontinued(productUpdateRequest.getIsDiscontinued());
         product.setPackageName(productUpdateRequest.getPackageName());
+
+      List<ProductImageResponse> productImages = editProductImages(product, productUpdateRequest.getUrlImage())
+                .stream().map(ProductImageResponse::new).toList();
 
         Product produtoSalvo = productsRepository.save(product);
 
@@ -151,4 +156,36 @@ public class ProductsService {
 
         return productImageList;
     }
+    private List<ProductImage> editProductImages(Product product, List<String> urlList) {
+        List<ProductImage> editProductImages = new ArrayList<>();
+
+        Integer Count = 1;
+        for (String url : urlList) {
+            Optional<ProductImage> optional = productImageRepository.findByURL(url);
+            ProductImage productImage;
+
+            if (optional.isPresent()) {
+                productImage = optional.get();
+                productImage.setSequencia(Count++);
+            } else {
+                productImage = new ProductImage();
+                productImage.setProduct(product);
+                productImage.setURL(url);
+                productImage.setSequencia(Count++);
+            }
+
+            ProductImage savedProductImage = productImageRepository.save(productImage);
+            editProductImages.add(savedProductImage);
+        }
+
+        List<ProductImage> productImages = productImageRepository.findAll();
+        List<ProductImage> deleteListDataBase = productImages
+                .stream().filter(productImage -> !editProductImages.contains(productImage))
+                .toList();
+
+        productImageRepository.deleteAll(deleteListDataBase);
+
+        return editProductImages;
+    }
+
 }
