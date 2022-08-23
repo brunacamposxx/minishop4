@@ -10,6 +10,7 @@ import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import PlaceIcon from '@mui/icons-material/Place';
 import { Link, useParams } from 'react-router-dom';
 import { getFornecedorPorId } from '../../services/minishopApiServices';
+import { maskCnpj, maskPhone } from '../../utils/masks';
 
 function DetalheFornecedor() {
   const { id } = useParams();
@@ -36,30 +37,33 @@ function DetalheFornecedor() {
           <div className={styles.colunaum}>
             <h5>
               <PersonIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              {fornecedor.contato ? fornecedor.contato : ''}
+              {fornecedor.contato ? fornecedor.contato : 'Não informado'}
             </h5>
             <h5>
               <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              {fornecedor.telefone ? fornecedor.telefone : ''}
+              {fornecedor.telefone
+                ? maskPhone(fornecedor.telefone)
+                : 'Não informado'}
             </h5>
           </div>
           <div className={styles.colunadois}>
             <h5>
               <CorporateFareIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              {fornecedor.cnpj ? fornecedor.cnpj : ''}
+              {fornecedor.cnpj ? maskCnpj(fornecedor.cnpj) : 'Não informado'}
             </h5>
             <h5>
               <AlternateEmailIcon
                 style={{ fontSize: '28', color: '#b07ca3' }}
               />
-              {fornecedor.email ? fornecedor.email : ''}
+              {fornecedor.email ? fornecedor.email : 'Não informado'}
             </h5>
           </div>
           <div className={styles.colunatres}>
             <h5>
               <PlaceIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-              {fornecedor.cidade ? fornecedor.cidade : ''} <span>-</span>
-              {fornecedor.estado ? fornecedor.estado : ''}
+              {fornecedor.cidade ? fornecedor.cidade : 'Não informado'}{' '}
+              <span>-</span>
+              {fornecedor.estado ? fornecedor.estado : 'Não informado'}
             </h5>
           </div>
         </div>
