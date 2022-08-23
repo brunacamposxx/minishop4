@@ -2,6 +2,7 @@ package br.com.iteris.universidade.minishop.service;
 
 import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Product;
+import br.com.iteris.universidade.minishop.domain.entity.ProductImage;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import br.com.iteris.universidade.minishop.repository.ProductsRepository;
 import br.com.iteris.universidade.minishop.repository.SupplierRespository;
@@ -11,7 +12,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
+import java.net.URI;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -76,17 +87,68 @@ public class ProductsService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fornecedor não encontrado ou inexistente");
         }
 
-        Product modeloDb = new Product();
-        modeloDb.setProductName(novo.getProductName());
-        modeloDb.setSupplierId(novo.getSupplierId());
-        modeloDb.setUnitPrice(novo.getUnitPrice());
-        modeloDb.setIsDiscontinued(novo.getIsDiscontinued());
-        modeloDb.setPackageName(novo.getPackageName());
+        Product product = new Product();
+        product.setProductName(novo.getProductName());
+        product.setSupplierId(novo.getSupplierId());
+        product.setUnitPrice(novo.getUnitPrice());
+        product.setIsDiscontinued(novo.getIsDiscontinued());
+        product.setPackageName(novo.getPackageName());
+        product.setProductImage((ProductImage) setProductImagesList(product, novo.getUrlList()));
 
-        Product productSalvo = productsRepository.save(modeloDb);
+        Product productsalvo = productsRepository.save(product);
 
-        ProductResponse productResponse = new ProductResponse((productSalvo));
-        return new ResponseBase<>(productResponse);
+        return new ResponseBase<>(new ProductResponse(productsalvo));
+    }
+    public String getPressignedURL(String fileName) {
+
+        try {
+            // Objetos necessários
+            String bucketName = "minishop-imagens";
+            // Get an Amazon S3 Client
+            // Endpoint do nosso ambiente de testes: http://localhost:4566
+            S3Presigner presigner = S3Presigner.builder()
+                    .endpointOverride(URI.create("http://localhost:4566"))
+                    .build();
+
+            // Criando objetos de requisição
+            PutObjectRequest objectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(fileName)
+                    .build();
+
+            PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(10))
+                    .putObjectRequest(objectRequest)
+                    .build();
+
+            // Gera URL e retorna
+            PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
+            return presignedRequest.url().toString();
+
+        } catch (S3Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
+    private List<ProductImage> setProductImagesList(Product product, List<String> urlList) {
+        if(Objects.isNull(urlList) || urlList.isEmpty())
+            return null;
+
+        ArrayList<ProductImage> productImageList = new ArrayList<>();
+        ProductImage productImage;
+        Integer sequenceCounter = 1;
+        for (String url : urlList) {
+            if(!url.trim().isEmpty()) {
+                productImage = new ProductImage();
+                productImage.setProduct(product);
+                productImage.setSequencia(sequenceCounter);
+                productImage.setURL(url.trim());
+                productImageList.add(productImage);
+                sequenceCounter++;
+            }
+        }
+
+        return productImageList;
+    }
 }

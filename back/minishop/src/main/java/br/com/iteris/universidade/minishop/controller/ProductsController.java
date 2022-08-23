@@ -39,4 +39,10 @@ public class ProductsController {
         return ResponseEntity.ok(retorno);
     }
 
+    @PostMapping(value = "/urlAWS")
+    public ResponseEntity<String> getPressignedURL(@RequestBody @Valid String postModel){
+        String url = productsService.getPressignedURL(postModel);
+        return ResponseEntity.ok(url);
+    }
+
 }

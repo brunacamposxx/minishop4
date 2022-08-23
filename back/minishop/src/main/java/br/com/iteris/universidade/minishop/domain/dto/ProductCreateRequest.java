@@ -28,5 +28,7 @@ public class ProductCreateRequest {
     @Size(max = 100)
     private String PackageName;
 
+    private List<String> UrlList;
+
 
 }
