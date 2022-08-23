@@ -38,4 +38,11 @@ public class ProductsController {
         ResponseBase<ProductResponse> retorno = productsService.cadastrar(postModel);
         return ResponseEntity.ok(retorno);
     }
+
+    @PostMapping(value = "/url")
+    public ResponseEntity<String> getPressignedURL(@RequestBody @Valid String postModel){
+        String url = productsService.getPressignedURL(postModel);
+        return ResponseEntity.ok(url);
+    }
+
 }
