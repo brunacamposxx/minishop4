@@ -67,3 +67,10 @@ export function getPedidoPorId(id) {
     return AxiosResponse.data;
   });
 }
+
+export function getPedidosDeTodosClientes() {
+  const url = `http://localhost:8080/api/CustomerOrder/?paginaAtual=0&qtdPorPagina=10`;
+  return axios.get(url).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
