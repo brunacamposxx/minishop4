@@ -5,6 +5,7 @@ import styles from './DetalhePedido.module.css';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
 import { getPedidoPorId } from '../../services/minishopApiServices';
+import { maskPrice } from '../../utils/masks';
 
 function DetalhePedido() {
   const { id } = useParams();
@@ -45,7 +46,7 @@ function DetalhePedido() {
         <div className={styles.linhaTotal}>
           <span style={{ fontSize: '40px' }}>Total</span>
           <span style={{ fontSize: '40px' }}>
-            R${pedido.unitPrice * pedido.quantity}
+            {maskPrice(pedido.unitPrice * pedido.quantity)}
           </span>
         </div>
       </div>

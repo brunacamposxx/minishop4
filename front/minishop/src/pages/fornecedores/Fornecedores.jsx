@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+
 import CardFornecedor from '../../components/cardFornecedor/CardFornecedor';
-import styles from './Fornecedores.module.css';
-import { getFornecedores } from '../../services/minishopApiServices';
-import { Link } from 'react-router-dom';
 import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
+import { Link } from 'react-router-dom';
+import { getFornecedores } from '../../services/minishopApiServices';
+import styles from './Fornecedores.module.css';
+import { maskPhone } from '../../utils/masks';
 
 function Fornecedores() {
   const [listaFornecedores, setListaFornecedores] = useState([]);
@@ -34,8 +36,14 @@ function Fornecedores() {
             key={fornecedor.id}
             id={fornecedor.id}
             nome={fornecedor.nome}
-            contato={fornecedor.contato}
-            telefone={fornecedor.telefone}
+            contato={
+              fornecedor.contato != null ? fornecedor.contato : 'Não informado'
+            }
+            telefone={
+              fornecedor.telefone != null
+                ? maskPhone(fornecedor.telefone)
+                : 'Não informado'
+            }
             cidade={fornecedor.cidade}
             estado={fornecedor.estado}
             email={fornecedor.email}
