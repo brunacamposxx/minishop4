@@ -4,8 +4,17 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 @Data
+@Builder
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerUpdateRequest {
     @NotEmpty(message = "Nome deve ser definido")
     @Size(max = 100)

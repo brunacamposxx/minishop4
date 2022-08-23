@@ -30,7 +30,7 @@ public class SupplierService {
 
     public ResponseBase<Page<SupplierResponse>> index(PaginatedSearchRequest searchRequest) {
         if (searchRequest.getPaginaAtual() < 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O indice da página atual deve ser deve começar em 0");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O indice da página atual deve deve começar em 0");
         }
         if (searchRequest.getQtdPorPagina() < 1 || searchRequest.getQtdPorPagina() > 50) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quantidade de itens por pagina deve ser entre 1 e 50 itens");
@@ -64,7 +64,7 @@ public class SupplierService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"O CNPJ já está cadastrado");
         }
 
-        List<String> ufEstados = new ArrayList<>();
+        //List<String> ufEstados = new ArrayList<>();
         //ufEstados.add("DF", "GO", );
 
         Supplier modeloDb = new Supplier();
@@ -86,9 +86,9 @@ public class SupplierService {
 
     public ResponseBase<SupplierProductResponse> getById(Integer id) {
         Optional<Supplier> supplierOptional = supplierRespository.findById(id);
-        ;
+
         Supplier supplier = supplierOptional
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Supplier não enontrado !"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Supplier não encontrado!"));
         SupplierProductResponse supplierProductResponse = new SupplierProductResponse(supplier);
         return new ResponseBase<>(supplierProductResponse);
     }

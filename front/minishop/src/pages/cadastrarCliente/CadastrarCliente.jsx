@@ -1,19 +1,22 @@
 import './CadastrarCliente.css';
-import CustomBotao from '../../components/customBotao/CustomBotao';
-import CustomTextField from '../../components/customTextField/CustomTextField';
-import Titulo from '../../components/titulo/Titulo';
-import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
-import { validaEmail } from '../../service/validadores/regex';
-import { useState } from 'react';
-import { validaCPF } from '../../service/validadores/validaCpf';
-import CustomAlertaErro from '../../components/customAlertaErro/CustomAlertaErro';
+
 import {
   postCliente,
   putClientePorId,
 } from '../../service/requisicoesApi/clienteApiService';
+
+import CustomAlertaErro from '../../components/customAlertaErro/CustomAlertaErro';
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
+import CustomTextField from '../../components/customTextField/CustomTextField';
+import { TestaCPF } from '../../utils/validadores';
+import Titulo from '../../components/titulo/Titulo';
 import { unmaskCPF } from '../../service/unmask/cpf';
 import { unmaskTelefone } from '../../service/unmask/telefone';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { validaCPF } from '../../service/validadores/validaCpf';
+import { validaEmail } from '../../service/validadores/regex';
 
 const CadastrarCliente = ({ valorInicial }) => {
   const navigate = useNavigate();
@@ -30,9 +33,15 @@ const CadastrarCliente = ({ valorInicial }) => {
     phone: valoresIniciais?.phone ?? '',
   });
 
+  const isEditForm = valoresIniciais?.id ? true : false;
+
+  const isCPFValid = (numeroCPF) => {
+    return TestaCPF(numeroCPF);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (valoresIniciais?.id) {
+    if (isEditForm) {
       putClientePorId(valoresIniciais.id, novoCliente);
     } else {
       if (!validaCPF(novoCliente.cpf)) {
@@ -51,7 +60,7 @@ const CadastrarCliente = ({ valorInicial }) => {
 
   return (
     <div className="container-cliente">
-      {valoresIniciais?.id ? (
+      {isEditForm ? (
         <Titulo titulo="Editar Cliente" />
       ) : (
         <Titulo titulo="Cadastrar Cliente" />
@@ -114,6 +123,7 @@ const CadastrarCliente = ({ valorInicial }) => {
 
             <div className="margin">
               <CustomMaskedInput
+                isDisabled={isEditForm && isCPFValid(novoCliente.cpf)}
                 mascara="999.999.999-99"
                 placeholder="CPF"
                 required={true}
