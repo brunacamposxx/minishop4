@@ -38,4 +38,5 @@ public class ProductsController {
         ResponseBase<ProductResponse> retorno = productsService.cadastrar(postModel);
         return ResponseEntity.ok(retorno);
     }
+
 }

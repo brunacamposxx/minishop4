@@ -7,6 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 public class ProductUpdateRequest {
@@ -26,4 +27,6 @@ public class ProductUpdateRequest {
 
     @Size(max = 100)
     private String PackageName;
+
+    private List<String> urlImage;
 }
