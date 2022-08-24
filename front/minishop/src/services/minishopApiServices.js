@@ -28,7 +28,7 @@ export function getClientes(paginaAtual, qtdPorPagina) {
 }
 
 export function getClientePorId(id) {
-  const urlComIdCliente = 'http://localhost:8080/api/costumers' + '/' + id;
+  const urlComIdCliente = 'http://localhost:8080/api/CustomerOrder' + '/' + id;
   return axios.get(urlComIdCliente).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
