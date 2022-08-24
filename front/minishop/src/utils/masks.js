@@ -37,6 +37,9 @@ export function maskDate(dateString) {
 }
 
 export function maskPrice(price) {
+  if (!price) {
+    return;
+  }
   return price.toLocaleString('pt-br', {
     style: 'currency',
     currency: 'BRL',

@@ -21,7 +21,7 @@ function DetalheFornecedor() {
   useEffect(() => {
     getFornecedorPorId(id).then((data) => {
       setFornecedor(data.objetoRetorno);
-      setProdutos(data.objetoRetorno.listaDeProdutos); //trocar listaDeProdutos por products (Bruna me mostrou como esse retorno vai ficar e será "products"!!!)
+      setProdutos(data.objetoRetorno.products);
     });
   }, [id]);
 

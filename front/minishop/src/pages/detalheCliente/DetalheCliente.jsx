@@ -8,21 +8,23 @@ import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
 import { getClientePorId } from '../../services/minishopApiServices';
-import { maskPhone, maskCpf, maskDate } from '../../utils/masks';
+import { maskPhone, maskCpf, maskPrice } from '../../utils/masks';
 
 function DetalheCliente() {
   const { id } = useParams();
 
   const [cliente, setCliente] = useState({});
   const [pedidos, setPedidos] = useState({});
+  const [total, setTotal] = useState([]);
 
   useEffect(() => {
     getClientePorId(id).then((data) => {
       console.log(data);
+      setCliente(data.objetoRetorno.customer);
+      setPedidos(data.objetoRetorno.orders);
+      setTotal(data.objetoRetorno.totalAmount);
       console.log(cliente);
       console.log(pedidos);
-      setCliente(data.objetoRetorno);
-      setPedidos(data.objetoRetorno.customerOrders);
     });
   }, [id]);
 
@@ -56,10 +58,12 @@ function DetalheCliente() {
               {!!pedidos?.length &&
                 pedidos.map((pedido) => (
                   <div key={pedido.id}>
-                    {maskDate(pedido.orderDate)}
-                    {pedido.totalAmount}
+                    {pedido.quantity}
+                    <div>{pedido.productName}</div>
+                    <div>{maskPrice(pedido.unitPrice)}</div>
                   </div>
                 ))}
+              <div>Total: {maskPrice(total)}</div>
             </div>
           </div>
         </div>
