@@ -8,8 +8,7 @@ import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
 import { getClientePorId } from '../../services/minishopApiServices';
-// import QuadroCliente from './QuadroCliente';
-import { maskPhone, maskCpf } from '../../utils/masks';
+import { maskPhone, maskCpf, maskDate } from '../../utils/masks';
 
 function DetalheCliente() {
   const { id } = useParams();
@@ -19,12 +18,13 @@ function DetalheCliente() {
 
   useEffect(() => {
     getClientePorId(id).then((data) => {
+      console.log(data);
+      console.log(cliente);
+      console.log(pedidos);
       setCliente(data.objetoRetorno);
       setPedidos(data.objetoRetorno.customerOrders);
     });
   }, [id]);
-
-  console.log(pedidos);
 
   return (
     <div className={styles.pagina}>
@@ -53,9 +53,13 @@ function DetalheCliente() {
           <h4 className={styles.titulo}>Pedidos</h4>
           <div className={styles.quadro}>
             <div className={styles.linhaquadro}>
-              {/* {pedidos.map((pedido) => (
-                <QuadroCliente key={pedido.id} nome={pedido.id} />
-              ))} */}
+              {!!pedidos?.length &&
+                pedidos.map((pedido) => (
+                  <div key={pedido.id}>
+                    {maskDate(pedido.orderDate)}
+                    {pedido.totalAmount}
+                  </div>
+                ))}
             </div>
           </div>
         </div>
