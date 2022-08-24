@@ -13,6 +13,8 @@ public class ProductResponse {
     private long Id;
     private String ProductName;
 
+    //private SupplierResponse supplier;
+    //private String packageName;
     private Double UnitPrice;
     private boolean IsDiscontinued;
 
@@ -21,10 +23,12 @@ public class ProductResponse {
    // private List<ProductImage> imagens;
 
     public ProductResponse(Product product) {
-        Id = product.getId();
-        ProductName = product.getProductName();
-        UnitPrice = product.getUnitPrice();
-        IsDiscontinued = product.getIsDiscontinued();
+        this.Id = product.getId();
+        this.ProductName = product.getProductName();
+        //this.supplier = new SupplierResponse(product.getSupplier());
+        //this.packageName = product.getPackageName();
+        this.UnitPrice = product.getUnitPrice();
+        this.IsDiscontinued = product.getIsDiscontinued();
         if (product.getImages().size() == 0 ) {
             imagemPrincipal = null;
         } else if (product.getProductImage().getSequencia() != 1) {

@@ -3,7 +3,6 @@ package br.com.iteris.universidade.minishop.intro.service;
 import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Product;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
-import br.com.iteris.universidade.minishop.intro.fixture.ProductFixture;
 
 import br.com.iteris.universidade.minishop.intro.fixture.SupplierFixture;
 import br.com.iteris.universidade.minishop.repository.ProductsRepository;

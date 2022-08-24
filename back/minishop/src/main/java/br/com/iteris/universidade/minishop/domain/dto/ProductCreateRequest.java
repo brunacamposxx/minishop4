@@ -1,6 +1,7 @@
 package br.com.iteris.universidade.minishop.domain.dto;
 
 import jdk.jfr.BooleanFlag;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
+@Builder
 public class ProductCreateRequest {
     @NotEmpty(message = "O nome é obrigatorio")
     @Size(max = 100)
