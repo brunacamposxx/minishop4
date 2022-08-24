@@ -39,8 +39,8 @@ public class ProductsController {
         return ResponseEntity.ok(retorno);
     }
 
-    @PostMapping(value = "/url")
-    public ResponseEntity<String> getPressignedURL(@RequestBody @Valid String postModel){
+    @GetMapping(value = "/url")
+    public ResponseEntity<String> getPressignedURL(String postModel){
         String url = productsService.getPressignedURL(postModel);
         return ResponseEntity.ok(url);
     }
