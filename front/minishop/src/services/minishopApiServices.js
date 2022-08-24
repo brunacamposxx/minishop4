@@ -28,7 +28,7 @@ export function getClientes(paginaAtual, qtdPorPagina) {
 }
 
 export function getClientePorId(id) {
-  const urlComIdCliente = 'http://localhost:8080/api/costumers' + '/' + id;
+  const urlComIdCliente = 'http://localhost:8080/api/CustomerOrder' + '/' + id;
   return axios.get(urlComIdCliente).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
@@ -64,6 +64,20 @@ export function getPedidos() {
 export function getPedidoPorId(id) {
   const urlComIdPedido = 'http://localhost:8080/api/OrderItems' + '/' + id;
   return axios.get(urlComIdPedido).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
+
+export function getPedidosDeTodosClientes() {
+  const url = `http://localhost:8080/api/CustomerOrder/?paginaAtual=0&qtdPorPagina=10`;
+  return axios.get(url).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
+
+export function getPedidosDeTodosClientesById(id) {
+  const url = 'http://localhost:8080/api/CustomerOrder' + '/' + id;
+  return axios.get(url).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }

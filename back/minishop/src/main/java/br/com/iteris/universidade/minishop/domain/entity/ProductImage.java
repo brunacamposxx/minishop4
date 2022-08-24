@@ -21,7 +21,7 @@ public class ProductImage {
     private String URL;
 
     @Column(name = "Sequency", nullable = false)
-    private Integer sequencia;
+    private Integer sequencia = 0;
 
     @Column(name = "ProductID", nullable = false)
     private Integer productID;

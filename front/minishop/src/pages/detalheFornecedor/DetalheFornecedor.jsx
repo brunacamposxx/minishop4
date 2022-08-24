@@ -21,7 +21,7 @@ function DetalheFornecedor() {
   useEffect(() => {
     getFornecedorPorId(id).then((data) => {
       setFornecedor(data.objetoRetorno);
-      setProdutos(data.objetoRetorno.listaDeProdutos);
+      setProdutos(data.objetoRetorno.products);
     });
   }, [id]);
 
@@ -74,7 +74,6 @@ function DetalheFornecedor() {
             <p className={styles.produto}>
               {produtos.map((produto) => (
                 <span key={produto.id}>
-                  {' '}
                   {produto.productName} <br />
                 </span>
               ))}

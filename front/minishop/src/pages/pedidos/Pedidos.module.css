@@ -59,3 +59,11 @@
     justify-content: space-around;
     align-items: flex-start;
 }
+
+.carregar {
+    align-self: center;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+}

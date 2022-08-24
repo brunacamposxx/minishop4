@@ -8,23 +8,25 @@ import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
 import { getClientePorId } from '../../services/minishopApiServices';
-// import QuadroCliente from './QuadroCliente';
-import { maskPhone, maskCpf } from '../../utils/masks';
+import { maskPhone, maskCpf, maskPrice } from '../../utils/masks';
 
 function DetalheCliente() {
   const { id } = useParams();
 
   const [cliente, setCliente] = useState({});
   const [pedidos, setPedidos] = useState({});
+  const [total, setTotal] = useState([]);
 
   useEffect(() => {
     getClientePorId(id).then((data) => {
-      setCliente(data.objetoRetorno);
-      setPedidos(data.objetoRetorno.customerOrders);
+      console.log(data);
+      setCliente(data.objetoRetorno.customer);
+      setPedidos(data.objetoRetorno.orders);
+      setTotal(data.objetoRetorno.totalAmount);
+      console.log(cliente);
+      console.log(pedidos);
     });
   }, [id]);
-
-  console.log(pedidos);
 
   return (
     <div className={styles.pagina}>
@@ -53,9 +55,15 @@ function DetalheCliente() {
           <h4 className={styles.titulo}>Pedidos</h4>
           <div className={styles.quadro}>
             <div className={styles.linhaquadro}>
-              {/* {pedidos.map((pedido) => (
-                <QuadroCliente key={pedido.id} nome={pedido.id} />
-              ))} */}
+              {!!pedidos?.length &&
+                pedidos.map((pedido) => (
+                  <div key={pedido.id}>
+                    {pedido.quantity}
+                    <div>{pedido.productName}</div>
+                    <div>{maskPrice(pedido.unitPrice)}</div>
+                  </div>
+                ))}
+              <div>Total: {maskPrice(total)}</div>
             </div>
           </div>
         </div>

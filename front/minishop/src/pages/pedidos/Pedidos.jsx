@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Pedidos.module.css';
-import { getPedidos } from '../../services/minishopApiServices';
+import { getPedidosDeTodosClientes } from '../../services/minishopApiServices';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { maskPrice } from '../../utils/masks';
+import { maskDate, maskPrice } from '../../utils/masks';
 
 function Pedidos() {
   const [listaPedidos, setListaPedidos] = useState([]);
+  const [pagina, setPagina] = useState(0);
+
+  function proximaPagina() {
+    setPagina((paginaAtual) => paginaAtual + 1);
+  }
 
   useEffect(() => {
-    getPedidos().then((data) => {
-      setListaPedidos(data.objetoRetorno.content);
+    getPedidosDeTodosClientes().then((data) => {
+      setListaPedidos((listaAtual) => [
+        ...listaAtual,
+        ...data.objetoRetorno.content,
+      ]);
     });
-  }, []);
+  }, [pagina]);
 
   return (
     <div className={styles.pagina}>
@@ -33,14 +41,16 @@ function Pedidos() {
           {listaPedidos.map((pedido) => (
             <div key={pedido.id}>
               <span className={styles.dados}>
-                {pedido.cliente ? pedido.cliente : ''}
+                {pedido.firstName + ' ' + pedido.lastName
+                  ? pedido.firstName + ' ' + pedido.lastName
+                  : ''}
               </span>
-              <span className={styles.dados}>{pedido.quantity} </span>
+              <span className={styles.dados}>{pedido.totalQuantity} </span>
               <span className={styles.dadosdata}>
-                {pedido.data ? pedido.data : ''}
+                {pedido.orderDate ? maskDate(pedido.orderDate) : ''}
               </span>
               <span className={styles.dados}>
-                {maskPrice(pedido.unitPrice * pedido.quantity)}
+                {maskPrice(pedido.totalAmount)}
               </span>
               <Link
                 to={`/pedidos/${pedido.id}`}
@@ -61,6 +71,9 @@ function Pedidos() {
           ))}
         </div>
       </div>
+      <p className={styles.carregar} onClick={() => proximaPagina()}>
+        Carregar mais...
+      </p>
     </div>
   );
 }

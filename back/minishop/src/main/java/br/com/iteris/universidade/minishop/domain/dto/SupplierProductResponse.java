@@ -4,7 +4,9 @@ import br.com.iteris.universidade.minishop.domain.entity.Product;
 import br.com.iteris.universidade.minishop.domain.entity.Supplier;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class SupplierProductResponse {
@@ -18,7 +20,7 @@ public class SupplierProductResponse {
     private String email;
     private String telefone;
     private String contato;
-    private List<Product> listaDeProdutos;
+    private List<ProductResponse> products = new ArrayList<>();
 
     public SupplierProductResponse(Supplier supplier){
         this.id = supplier.getId();
@@ -29,7 +31,7 @@ public class SupplierProductResponse {
         this.email = supplier.getEmail();
         this.telefone = supplier.getTelefone();
         this.contato = supplier.getContato();
-        this.listaDeProdutos = supplier.getProducts();
+        this.products = supplier.getProducts().stream().map(x -> new ProductResponse(x)).collect(Collectors.toList());
     }
 
 }
