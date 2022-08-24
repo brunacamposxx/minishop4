@@ -74,3 +74,10 @@ export function getPedidosDeTodosClientes() {
     return AxiosResponse.data;
   });
 }
+
+export function getPedidosDeTodosClientesById(id) {
+  const url = 'http://localhost:8080/api/CustomerOrder' + '/' + id;
+  return axios.get(url).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
