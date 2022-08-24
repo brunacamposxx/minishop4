@@ -68,7 +68,6 @@ public class CustomerService {
         var emailFound = customersRepository.findByEmailContaining(customerUpdateRequest.getEmail());
         if(emailFound.isPresent() && !customer.getEmail().equals(customerUpdateRequest.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este e-mail já está cadastrado");
-
         }
 
         customer.setFirstName(customerUpdateRequest.getFirstName());
@@ -79,7 +78,6 @@ public class CustomerService {
         var customerAtualizado = customersRepository.save(customer);
 
         return new ResponseBase<>( new CustomerResponse(customerAtualizado));
-
     }
 
     // Consulta por id consultado todos campos mais lista de ordens de compra (relacionamento tabela Customer com tabela CustomerOrder)
