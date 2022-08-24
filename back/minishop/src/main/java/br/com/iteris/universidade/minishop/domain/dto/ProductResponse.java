@@ -12,13 +12,11 @@ import java.util.List;
 public class ProductResponse {
     private long Id;
     private String ProductName;
-
     private Double UnitPrice;
     private boolean IsDiscontinued;
-
     private String imagemPrincipal;
 
-   // private List<ProductImage> imagens;
+   //private List<ProductImage> imagens;
 
     public ProductResponse(Product product) {
         Id = product.getId();
