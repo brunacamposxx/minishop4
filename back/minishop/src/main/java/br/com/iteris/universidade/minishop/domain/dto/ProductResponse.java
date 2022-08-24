@@ -12,23 +12,17 @@ import java.util.List;
 public class ProductResponse {
     private long Id;
     private String ProductName;
-
-    //private SupplierResponse supplier;
-    //private String packageName;
     private Double UnitPrice;
     private boolean IsDiscontinued;
-
     private String imagemPrincipal;
 
-   // private List<ProductImage> imagens;
+   //private List<ProductImage> imagens;
 
     public ProductResponse(Product product) {
-        this.Id = product.getId();
-        this.ProductName = product.getProductName();
-        //this.supplier = new SupplierResponse(product.getSupplier());
-        //this.packageName = product.getPackageName();
-        this.UnitPrice = product.getUnitPrice();
-        this.IsDiscontinued = product.getIsDiscontinued();
+        Id = product.getId();
+        ProductName = product.getProductName();
+        UnitPrice = product.getUnitPrice();
+        IsDiscontinued = product.getIsDiscontinued();
         if (product.getImages().size() == 0 ) {
             imagemPrincipal = null;
         } else if (product.getProductImage().getSequencia() != 1) {

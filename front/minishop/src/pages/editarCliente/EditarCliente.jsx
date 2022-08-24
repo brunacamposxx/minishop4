@@ -1,8 +1,9 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getClientePorId } from '../../services/minishopApiServices';
+import { useEffect, useState } from 'react';
+
 import CadastrarCliente from '../cadastrarCliente/CadastrarCliente';
+import React from 'react';
+import { getClientePorId } from '../../services/minishopApiServices';
+import { useParams } from 'react-router-dom';
 
 const EditarCliente = () => {
   const { id } = useParams();
@@ -11,7 +12,6 @@ const EditarCliente = () => {
 
   useEffect(() => {
     getClientePorId(id).then((data) => {
-      console.log(data);
       setValorInicial(data.objetoRetorno);
     });
   }, [id]);

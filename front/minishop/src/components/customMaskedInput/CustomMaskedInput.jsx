@@ -1,7 +1,8 @@
-import InputMask from 'react-input-mask';
-import TextField from '@mui/material/TextField';
-import React from 'react';
 import './CustomMaskedInput.css';
+
+import InputMask from 'react-input-mask';
+import React from 'react';
+import TextField from '@mui/material/TextField';
 
 const CustomMaskedInput = ({
   mascara,
@@ -12,6 +13,7 @@ const CustomMaskedInput = ({
   value,
   erro,
   aoAlterado,
+  isDisabled = false,
 }) => {
   const width = largura + 'vw';
   const aoDigitado = (evento) => {
@@ -21,6 +23,7 @@ const CustomMaskedInput = ({
   return (
     <InputMask
       className="input"
+      disabled={isDisabled}
       mask={mascara}
       maskChar={null}
       onChange={aoDigitado}

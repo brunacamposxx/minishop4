@@ -48,7 +48,6 @@ public class Product {
     @JsonBackReference
     private ProductImage productImage;
 
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "supplierId", insertable = false, updatable = false)
     @JsonBackReference
