@@ -33,9 +33,7 @@ export function numbersOnly(string) {
 }
 
 export function maskDate(dateString) {
-  return new Date(`${dateString.split(' ')[0]}T04:00:00`).toLocaleDateString(
-    'pt-br',
-  );
+  return new Date(dateString).toLocaleDateString('pt-br');
 }
 
 export function maskPrice(price) {
