@@ -26,7 +26,7 @@ public class Product {
     @Column(name = "ProductName", length = 100, nullable = false)
     private String productName;
 
-    @Column(name = "SupplierId", nullable = false)
+    @Column(name = "SupplierId", nullable = false, insertable = false, updatable = false)
     private Integer supplierId;
 
     @Column(name = "UnitPrice", columnDefinition = "decimal(12,2)")
@@ -40,16 +40,16 @@ public class Product {
 
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productID")
     @JsonManagedReference
-    private List<ProductImage> images;
+    private List<ProductImage> productImage;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    @JsonBackReference
-    private ProductImage productImage;
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id", insertable = false, updatable = false)
+//    @JsonBackReference
+//    private ProductImage productImage;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "supplierId", insertable = false, updatable = false)
+    @JoinColumn(name = "supplierId")
     @JsonBackReference
     private Supplier supplier;
 }

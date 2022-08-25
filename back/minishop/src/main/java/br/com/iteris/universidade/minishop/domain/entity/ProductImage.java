@@ -1,7 +1,9 @@
 package br.com.iteris.universidade.minishop.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -23,11 +25,12 @@ public class ProductImage {
     @Column(name = "Sequency", nullable = false)
     private Integer sequencia = 0;
 
-    @Column(name = "ProductID", nullable = false)
+
+    @Column(name = "ProductID", nullable = false, insertable = false, updatable = false)
     private Integer productID;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "productID", insertable = false, updatable = false)
+    @JoinColumn(name = "productID")
     @JsonBackReference
     private Product product;
 
