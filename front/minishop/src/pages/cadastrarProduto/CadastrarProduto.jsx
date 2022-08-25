@@ -1,23 +1,26 @@
 import './CadastrarProduto.css';
-import CustomBotao from '../../components/customBotao/CustomBotao';
-import CustomTextField from '../../components/customTextField/CustomTextField';
-import Titulo from '../../components/titulo/Titulo';
-import { useState, useEffect } from 'react';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import CustomSwitch from '../../components/customSwitch/CustomSwitch';
-import { formatter } from '../../service/formatacao/real';
-import { getFornecedor } from '../../service/requisicoesApi/produtoApiService';
-import { useNavigate } from 'react-router-dom';
+
 import {
   postProduto,
   putProdutoPorId,
 } from '../../service/requisicoesApi/produtoApiService';
+import { useEffect, useState } from 'react';
+
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import CustomSwitch from '../../components/customSwitch/CustomSwitch';
+import CustomTextField from '../../components/customTextField/CustomTextField';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Titulo from '../../components/titulo/Titulo';
+import { formatter } from '../../service/formatacao/real';
+import { getFornecedor } from '../../service/requisicoesApi/produtoApiService';
+import { imgUpload } from '../../service/imgService/imgservice';
 import { maskPrice } from '../../utils/masks';
+import { useNavigate } from 'react-router-dom';
 
 const CadastrarProduto = ({ valorInicial }) => {
   const navigate = useNavigate();
-  const [imagem, setImagem] = useState('');
+  const [currentImage, setCurrentImage] = useState([]);
   const [fornecedores, setFornecedores] = useState([]); //lista de fornecedores para o select
   const [pagina, setPagina] = useState(0); //paginacao
   const valoresIniciais = valorInicial;
@@ -28,6 +31,7 @@ const CadastrarProduto = ({ valorInicial }) => {
     productName: valoresIniciais?.productName ?? '',
     supplierId: valoresIniciais?.supplierId ?? '',
     unitPrice: valoresIniciais?.unitPrice ?? 0,
+    urlList: valoresIniciais?.listaUrls ?? [],
   });
 
   useEffect(() => {
@@ -52,7 +56,16 @@ const CadastrarProduto = ({ valorInicial }) => {
     }
   };
 
-  console.log(novoProduto);
+  async function handleImageUpload(e) {
+    setCurrentImage([...currentImage, e.target.files[0]]);
+    const newImgUrl = await imgUpload(e.target.files[0]);
+
+    setNovoProduto({
+      ...novoProduto,
+      urlList: [...novoProduto.urlList, newImgUrl],
+    });
+  }
+
   return (
     <div className="container-produto">
       {valoresIniciais?.id ? (
@@ -78,12 +91,13 @@ const CadastrarProduto = ({ valorInicial }) => {
               />
             </div>
             <div className="flex">
-              <CustomTextField
+              <input
+                type="file"
+                accept=".jpg,.jpeg,.png"
                 label="Imagem"
                 required={true}
-                value={imagem}
                 largura={30}
-                aoAlterado={(valor) => setNovoProduto(setImagem(valor))}
+                onChange={handleImageUpload}
               />
             </div>
           </aside>
