@@ -34,9 +34,11 @@ function Clientes() {
           <CardCliente
             key={cliente.id}
             id={cliente.id}
-            nome={cliente.nome}
-            phone={maskPhone(cliente.phone)}
-            email={cliente.email}
+            nome={cliente.nome != null ? cliente.nome : 'Não informado'}
+            phone={
+              cliente.phone != null ? maskPhone(cliente.phone) : 'Não informado'
+            }
+            email={cliente.email != null ? cliente.email : 'Não informado'}
           />
         ))}
       </div>
