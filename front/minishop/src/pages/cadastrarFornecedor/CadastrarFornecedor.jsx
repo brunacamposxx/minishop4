@@ -1,24 +1,24 @@
-import React from 'react';
-import './CadastrarFornecedor.css';
-import CustomBotao from '../../components/customBotao/CustomBotao';
-import CustomTextField from '../../components/customTextField/CustomTextField';
-import Titulo from '../../components/titulo/Titulo';
-import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
-import { useState } from 'react';
-import { validaEmail } from '../../service/validadores/regex';
-import { validarCnpj } from '../../service/validadores/validarCnpj';
-import Alert from '@mui/material/Alert';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import { estadosBrasileiros } from '../../constants/fornecedor.constants';
-import { unmaskCnpj } from '../../service/unmask/cnpj';
-import { unmaskTelefone } from '../../service/unmask/telefone';
-import { useNavigate } from 'react-router-dom';
-
 import {
   postFornecedor,
   putFornecedorPorId,
 } from '../../service/requisicoesApi/fornecedorApiService';
+
+import Alert from '@mui/material/Alert';
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import CustomMaskedInput from '../../components/customMaskedInput/CustomMaskedInput';
+import CustomTextField from '../../components/customTextField/CustomTextField';
+import MenuItem from '@mui/material/MenuItem';
+import React from 'react';
+import TextField from '@mui/material/TextField';
+import Titulo from '../../components/titulo/Titulo';
+import { estadosBrasileiros } from '../../constants/fornecedor.constants';
+import styles from './CadastrarFornecedor.module.css';
+import { unmaskCnpj } from '../../service/unmask/cnpj';
+import { unmaskTelefone } from '../../service/unmask/telefone';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { validaEmail } from '../../service/validadores/regex';
+import { validarCnpj } from '../../service/validadores/validarCnpj';
 
 const CadastrarFornecedor = ({ valorInicial }) => {
   const navigate = useNavigate();
@@ -37,9 +37,11 @@ const CadastrarFornecedor = ({ valorInicial }) => {
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCnpjErr, setInputCnpjErr] = useState(false);
 
+  const isEditForm = valoresIniciais?.id ? true : false;
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (valoresIniciais?.id) {
+    if (isEditForm) {
       putFornecedorPorId(valoresIniciais.id, novoFornecedor);
     } else {
       if (!validaEmail.test(novoFornecedor.email)) {
@@ -58,16 +60,16 @@ const CadastrarFornecedor = ({ valorInicial }) => {
   };
 
   return (
-    <div className="container-fornecedor">
-      {valoresIniciais?.id ? (
+    <div className={styles.containerFornecedor}>
+      {isEditForm ? (
         <Titulo titulo="Editar Fornecedor" />
       ) : (
         <Titulo titulo="Cadastrar Fornecedor" />
       )}
-      <div className="container-form-fornecedor">
-        <form className="cadastrar-fornecedor">
+      <div className={styles.containerFormFornecedor}>
+        <form className={styles.cadastrarFornecedor}>
           <aside>
-            <div className="flex-fornecedor">
+            <div className={styles.flexFornecedor}>
               <CustomTextField
                 label="Nome"
                 required={true}
@@ -81,7 +83,7 @@ const CadastrarFornecedor = ({ valorInicial }) => {
                 }
               />
             </div>
-            <div className="flex-fornecedor">
+            <div className={styles.flexFornecedor}>
               <CustomTextField
                 largura={30}
                 label="Contato"
@@ -96,7 +98,7 @@ const CadastrarFornecedor = ({ valorInicial }) => {
               />
             </div>
 
-            <div className="flex-fornecedor teste">
+            <div className={styles.flexFornecedor}>
               <CustomTextField
                 label="Cidade"
                 largura={20}
@@ -110,7 +112,7 @@ const CadastrarFornecedor = ({ valorInicial }) => {
                 }
               />
 
-              <div className="alinhamento-uf">
+              <div className={styles.alinhamentoUf}>
                 <TextField
                   id="outlined-select-currency"
                   select
@@ -154,7 +156,7 @@ const CadastrarFornecedor = ({ valorInicial }) => {
               }
             />
 
-            <div className="flex-fornecedor">
+            <div className={styles.flexFornecedor}>
               <CustomMaskedInput
                 mascara="(99)99999-9999"
                 required={true}
@@ -170,8 +172,9 @@ const CadastrarFornecedor = ({ valorInicial }) => {
               />
             </div>
 
-            <div className="flex-fornecedor">
+            <div className={styles.flexFornecedor}>
               <CustomMaskedInput
+                isDisabled={isEditForm}
                 mascara="99.999.999/9999-99"
                 placeholder="CNPJ"
                 required={true}
@@ -189,7 +192,7 @@ const CadastrarFornecedor = ({ valorInicial }) => {
           </main>
         </form>
 
-        <div className="alinhamento-direita">
+        <div className={styles.alinhamentoDireita}>
           <CustomBotao onClick={handleSubmit} cor="#B17DA4" label="Salvar" />
           <CustomBotao
             onClick={() => navigate(-1)}
