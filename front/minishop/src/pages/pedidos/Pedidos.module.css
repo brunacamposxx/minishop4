@@ -65,5 +65,20 @@
     font-size: 30px;
     margin: 0;
     padding: 0;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
+
+.pedidosPage {
+    
+    width: 80%;
+    background-color: white;
+}
+
+.divPai {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+

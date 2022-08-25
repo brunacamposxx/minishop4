@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-// import styles from './DetalhePedido.module.css';
+import { Link, useParams } from 'react-router-dom';
+import styles from './DetalhePedido.module.css';
 // import CreateIcon from '@mui/icons-material/Create';
 // import { Button } from '@mui/material';
 // import CustomBotao from '../../components/customBotao/CustomBotao';
 // import { Link } from 'react-router-dom';
 import { getPedidosDeTodosClientesById } from '../../services/minishopApiServices';
 import { maskDate, maskPrice } from '../../utils/masks';
+import CustomBotao from '../../components/customBotao/CustomBotao';
 // import { maskPrice } from '../../utils/masks';
 
 function DetalhePedido() {
@@ -36,56 +37,78 @@ function DetalhePedido() {
 
   return (
     <>
-      <div>
-        Pedido {idPedido} .......... {maskDate(dataPedido)}
-      </div>
-      <div>
-        {customer.firstName} {customer.lastName}
-      </div>
-      {pedidos?.map((pedido) => {
-        return (
-          <div key={pedido.id}>
-            {pedido.quantity} - Nome do produto - {maskPrice(pedido.unitPrice)}
+      <div className={styles.pagina}>
+        <div className={styles.cabecalho}>
+          <h2>Detalhe do Pedido</h2>
+          <div className={styles.linha}></div>
+        </div>
+        <div className={styles.conteiner}>
+          <div className={styles.pedidoEdata}>
+            <div className={styles.pedido}>
+              <h1 style={{ fontSize: '60px' }}>Pedido {idPedido}</h1>
+            </div>
+            <div className={styles.data}>
+              <h1 style={{ fontSize: '50px' }}>{maskDate(dataPedido)}</h1>
+            </div>
           </div>
-        );
-      })}
-      <div>Total ........ {maskPrice(total)}</div>
+          <div className={styles.linha2}></div>
+          <h4
+            style={{
+              marginTop: '10px',
+              marginBottom: '20px',
+              fontSize: '50px',
+            }}
+            className={styles.nome}
+          >
+            {customer.firstName} {customer.lastName}
+          </h4>
+          <div className={styles.conteudo}>
+            <div className={styles.titles}>
+              <div
+                style={{ display: 'flex', columnGap: '40px' }}
+                className={styles.quantEprod}
+              >
+                <div className={styles.colunaum}>
+                  <h4 className={styles.titulos}>Qnt.</h4>
+                </div>
+                <div className={styles.colunadois}>
+                  <h4 className={styles.titulos}>Produto</h4>
+                </div>
+              </div>
+              <div className={styles.colunaum}>
+                <h4 className={styles.titulos}>Valor Unitário</h4>
+              </div>
+            </div>
+            <div className={styles.infos}>
+              {pedidos?.map((pedido) => {
+                return (
+                  <div
+                    className={styles.infos2}
+                    style={{ display: 'flex' }}
+                    key={pedido.id}
+                  >
+                    <div style={{ display: 'flex', columnGap: '60px' }}>
+                      <div>{pedido.quantity}</div>
+                      <div>{pedido.productName}</div>
+                    </div>
+                    <div>{maskPrice(pedido.unitPrice)}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          {/* <div className={styles.linhaTotal}> */}
+          <div className={styles.totais}>
+            <div style={{ fontSize: '35px' }}>Total</div>
+            <div style={{ fontSize: '35px' }}>{maskPrice(total)}</div>
+          </div>
+          {/* </div> */}
+        </div>
+        <Link to="/pedidos" style={{ textDecoration: 'none' }}>
+          <CustomBotao cor="#b07ca3" label="Voltar" />
+        </Link>
+      </div>
     </>
-    // <div className={styles.pagina}>
-    //   <div className={styles.cabecalho}>
-    //     <h2>Detalhe do Pedido</h2>
-    //     <div className={styles.linha}></div>
-    //   </div>
-    //   <div className={styles.conteiner}>
-    //     <div className={styles.parteum}>
-    //       <h1>Pedido {pedido.id}</h1>
-    //     </div>
-    //     <div className={styles.linha}></div>
-    //     <div className={styles.conteudo}>
-    //       <div className={styles.colunaum}>
-    //         <h4 className={styles.titulos}>Qnt.</h4>
-    //         <h4 className={styles.total}>{pedido.quantity}</h4>
-    //       </div>
-    //       <div className={styles.colunadois}>
-    //         <h4 className={styles.titulos}>Produto</h4>
-    //         <h4 className={styles.total}>{pedido.productName}</h4>
-    //       </div>
-    //       <div className={styles.colunaum}>
-    //         <h4 className={styles.titulos}>Valor Unitário</h4>
-    //         <h4 className={styles.total}>R${pedido.unitPrice}</h4>
-    //       </div>
-    //     </div>
-    //     <div className={styles.linhaTotal}>
-    //       <span style={{ fontSize: '40px' }}>Total</span>
-    //       <span style={{ fontSize: '40px' }}>
-    //         {maskPrice(pedido.unitPrice * pedido.quantity)}
-    //       </span>
-    //     </div>
-    //   </div>
-    //   <Link to="/pedidos" style={{ textDecoration: 'none' }}>
-    //     <CustomBotao cor="#b07ca3" label="Voltar" />
-    //   </Link>
-    // </div>
   );
 }
 

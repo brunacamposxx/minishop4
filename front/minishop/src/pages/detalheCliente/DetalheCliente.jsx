@@ -51,14 +51,17 @@ function DetalheCliente() {
           </h5>
         </div>
         <div className={styles.linha}></div>
+
         <div className={styles.partedois}>
-          <h4 className={styles.titulo}>Pedidos</h4>
+          <h4 style={{ fontSize: '40px' }} className={styles.titulo}>
+            Pedidos
+          </h4>
           <div className={styles.quadro}>
             <div className={styles.linhaquadro}>
               {!!pedidos?.length &&
                 pedidos.map((pedido) => (
                   <div className={styles.info} key={pedido.id}>
-                    <div style={{ display: 'flex', columnGap: '10px' }}>
+                    <div style={{ display: 'flex', columnGap: '25px' }}>
                       <div>{pedido.quantity}</div>
                       <div>{pedido.productName}</div>
                     </div>
@@ -66,20 +69,22 @@ function DetalheCliente() {
                   </div>
                 ))}
             </div>
-            <div className={styles.separador}>
+            <div style={{ fontSize: '35px' }} className={styles.separador}>
               <div>Total</div>
               <div>{maskPrice(total)}</div>
             </div>
           </div>
         </div>
-        <Link to={`/editarClientes/${id}`} style={{ textDecoration: 'none' }}>
-          <Button
-            color="inherit"
-            style={{ marginLeft: 'auto', marginTop: 'auto' }}
-          >
-            <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
-          </Button>
-        </Link>
+        <div className={styles.lapis}>
+          <Link to={`/editarClientes/${id}`} style={{ textDecoration: 'none' }}>
+            <Button
+              color="inherit"
+              style={{ marginLeft: 'auto', marginTop: 'auto' }}
+            >
+              <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
+            </Button>
+          </Link>
+        </div>
       </div>
       <Link to="/clientes" style={{ textDecoration: 'none' }}>
         <CustomBotao cor="#b07ca3" label="Voltar" />

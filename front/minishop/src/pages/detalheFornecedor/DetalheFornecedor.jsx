@@ -32,7 +32,7 @@ function DetalheFornecedor() {
         <div className={styles.linha}></div>
       </div>
       <div className={styles.conteiner}>
-        <div className={styles.parteum}>
+        <div style={{ marginTop: '20px' }} className={styles.parteum}>
           <h1>{fornecedor.nome}</h1>
           <div className={styles.colunaum}>
             <h5>
@@ -68,29 +68,30 @@ function DetalheFornecedor() {
           </div>
         </div>
         <div className={styles.linha}></div>
+
         <div className={styles.partedois}>
           <h4 className={styles.total}>Produtos</h4>
           <div className={styles.quadro}>
-            <p className={styles.produto}>
+            <div className={styles.produto}>
               {produtos.map((produto) => (
-                <span key={produto.id}>
-                  {produto.productName} <br />
-                </span>
+                <div key={produto.id}>{produto.productName}</div>
               ))}
-            </p>
+            </div>
           </div>
         </div>
-        <Link
-          to={`/editarFornecedores/${id}`}
-          style={{ textDecoration: 'none' }}
-        >
-          <Button
-            color="inherit"
-            style={{ marginLeft: 'auto', marginTop: 'auto' }}
+        <div className={styles.lapis}>
+          <Link
+            to={`/editarFornecedores/${id}`}
+            style={{ textDecoration: 'none' }}
           >
-            <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
-          </Button>
-        </Link>
+            <Button
+              color="inherit"
+              style={{ marginLeft: 'auto', marginTop: 'auto' }}
+            >
+              <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
+            </Button>
+          </Link>
+        </div>
       </div>
       <Link to="/fornecedores" style={{ textDecoration: 'none' }}>
         <CustomBotao cor="#b07ca3" label="Voltar" />
