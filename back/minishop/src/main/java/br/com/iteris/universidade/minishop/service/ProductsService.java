@@ -71,34 +71,57 @@ public class ProductsService {
         Product product = produtoEncontrado.get();
 
         product.setProductName(productUpdateRequest.getProductName());
-        product.setSupplierId(productUpdateRequest.getSupplierId());
-        System.out.println(productUpdateRequest.getUnitPrice());
+        //product.setSupplierId(productUpdateRequest.getSupplierId());
+        //System.out.println(productUpdateRequest.getUnitPrice());
         product.setUnitPrice(productUpdateRequest.getUnitPrice());
         product.setIsDiscontinued(productUpdateRequest.getIsDiscontinued());
         product.setPackageName(productUpdateRequest.getPackageName());
 
-      List<ProductImageResponse> productImages = editProductImages(product, productUpdateRequest.getUrlImage())
-                .stream().map(ProductImageResponse::new).toList();
+      List<ProductImageResponse> productImages = new ArrayList<>();
 
         Product produtoSalvo = productsRepository.save(product);
+
+        List<ProductImage> editProductImages = new ArrayList<>();
+//
+        Integer Count = 1;
+        for (String url : productUpdateRequest.getUrlImage()) {
+            Optional<ProductImage> optional = productImageRepository.findByURL(url);
+
+            if (optional.isEmpty()) {
+                ProductImage productImage = new ProductImage();
+                productImage.setProduct(product);
+                productImage.setURL(url);
+                productImage.setSequencia(Count);
+                editProductImages.add(productImage);
+                productImageRepository.save(productImage);
+            } else {
+                ProductImage productImage = optional.get();
+                productImage.setProduct(product);
+                productImage.setURL(url);
+                editProductImages.add(productImage);
+                productImage.setSequencia(Count);
+                productImageRepository.save(productImage);
+            }
+            Count++;
+
+            product.setProductImage(editProductImages);
+        }
 
         return new ResponseBase<>(new ProductResponse(produtoSalvo));
     }
 
-    public ResponseBase<ProductResponse> cadastrar(ProductCreateRequest novo) {
-        Optional<Supplier> supplierOptional = supplierRespository.findById(novo.getSupplierId());
-
-        if (supplierOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fornecedor não encontrado ou inexistente");
-        }
+    public ResponseBase<ProductResponse> cadastrar(ProductCreateRequest postModel) {
+        Optional<Supplier> supplierOptional = supplierRespository.findById(postModel.getSupplierId());
+        Supplier supplier  = supplierOptional
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fornecedor não Cadastrado"));
 
         Product product = new Product();
-        product.setProductName(novo.getProductName());
-        product.setSupplierId(novo.getSupplierId());
-        product.setUnitPrice(novo.getUnitPrice());
-        product.setIsDiscontinued(novo.getIsDiscontinued());
-        product.setPackageName(novo.getPackageName());
-        product.setProductImage((ProductImage) setProductImagesList(product, novo.getUrlList()));
+        product.setProductName(postModel.getProductName());
+        product.setSupplier(supplier);
+        product.setUnitPrice(postModel.getUnitPrice());
+        product.setIsDiscontinued(false);
+        product.setPackageName(postModel.getPackageName());
+        product.setProductImage(setProductImagesList(product, postModel.getUrlList()));
 
         Product productsalvo = productsRepository.save(product);
 
@@ -136,7 +159,7 @@ public class ProductsService {
         }
     }
 
-    private List<ProductImage> setProductImagesList(Product product, List<String> urlList) {
+    private List <ProductImage> setProductImagesList(Product product, List<String> urlList) {
         if(Objects.isNull(urlList) || urlList.isEmpty())
             return null;
 
@@ -156,36 +179,37 @@ public class ProductsService {
 
         return productImageList;
     }
-    private List<ProductImage> editProductImages(Product product, List<String> urlList) {
-        List<ProductImage> editProductImages = new ArrayList<>();
-
-        Integer Count = 1;
-        for (String url : urlList) {
-            Optional<ProductImage> optional = productImageRepository.findByURL(url);
-            ProductImage productImage;
-
-            if (optional.isPresent()) {
-                productImage = optional.get();
-                productImage.setSequencia(Count++);
-            } else {
-                productImage = new ProductImage();
-                productImage.setProduct(product);
-                productImage.setURL(url);
-                productImage.setSequencia(Count++);
-            }
-
-            ProductImage savedProductImage = productImageRepository.save(productImage);
-            editProductImages.add(savedProductImage);
-        }
-
-        List<ProductImage> productImages = productImageRepository.findAll();
-        List<ProductImage> deleteListDataBase = productImages
-                .stream().filter(productImage -> !editProductImages.contains(productImage))
-                .toList();
-
-        productImageRepository.deleteAll(deleteListDataBase);
-
-        return editProductImages;
-    }
+//    private List<ProductImage> editProductImages(Product product, List<String> urlList) {
+//        List<ProductImage> editProductImages = new ArrayList<>();
+//
+//        Integer Count = 1;
+//        for (String url : urlList) {
+//            Optional<ProductImage> optional = productImageRepository.findByURL(url);
+//            ProductImage productImage;
+//
+//            if (optional.isPresent()) {
+//                productImage = optional.get();
+//                productImage.setSequencia(Count++);
+//            } else {
+//                productImage = new ProductImage();
+//                productImage.setProduct(product);
+//                productImage.setURL(url);
+//                productImage.setSequencia(Count++);
+//            }
+//
+//            ProductImage savedProductImage = productImageRepository.save(productImage);
+//            editProductImages.add(savedProductImage);
+//        }
+//
+//        List<ProductImage> productImages = productImageRepository.findAllByProductID(product.getId());
+//        List<ProductImage> deleteListDataBase = productImages
+//                .stream().filter(productImage -> !editProductImages.contains(productImage))
+//                .toList();
+//
+//        productImageRepository.deleteAll(deleteListDataBase);
+//
+//        return editProductImages;
+//    }
 
 }
+

@@ -7,6 +7,8 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Data
 public class ProductResponseFull {
@@ -21,33 +23,23 @@ public class ProductResponseFull {
 
    private List<String> listaUrls;
 
-   //private List<ProductImage> imagens;
+   private List<ProductImageResponse> imagens;
 
     public ProductResponseFull(Product product) {
-        Id = product.getId();
-        ProductName = product.getProductName();
-        UnitPrice = product.getUnitPrice();
-        IsDiscontinued = product.getIsDiscontinued();
-        SupplierId = product.getSupplierId();
-        PackageName = product.getPackageName();
-        NomeSupplier = product.getSupplier().getNome();
+        this.Id = product.getId();
+        this.ProductName = product.getProductName();
+        this.UnitPrice = product.getUnitPrice();
+        this.IsDiscontinued = product.getIsDiscontinued();
+        this.SupplierId = product.getSupplierId();
+        this.PackageName = product.getPackageName();
+        this.NomeSupplier = product.getSupplier().getNome();
+        this.imagens = transform(product.getProductImage());
 
+    }
+    private List<ProductImageResponse> transform(List<ProductImage> productImage) {
+        if (Objects.isNull(productImage))
+            return new ArrayList<>();
 
-        if (product.getImages().size() == 0 ) {
-            listaUrls = new ArrayList<>();
-        }
-        else{
-            List<String> lista = new ArrayList<>();
-
-                product.getImages().forEach(productImage -> {
-                   // System.out.println("/////////////////////----------------////////////////////////////////" + productImage.getURL());
-                    lista.add(productImage.getURL());
-                });
-
-                //lista.sort(Comparator.comparing();
-
-            //System.out.println("///////////////////////////////////////////////////////////////////////////////// entrou sim confia");
-            this.listaUrls = lista;
-        }
+        return productImage.stream().map(ProductImageResponse::new).collect(Collectors.toList());
     }
 }
