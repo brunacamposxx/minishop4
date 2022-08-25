@@ -9,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 
-public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
+public interface ProductImageRepository extends JpaRepository<ProductImage, Integer> {
     Optional<ProductImage> findByURL(String url);
+
+    List<ProductImage> findAllByproductID(Integer ProductId);
 
 }
