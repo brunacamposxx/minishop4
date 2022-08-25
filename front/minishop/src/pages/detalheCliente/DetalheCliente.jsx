@@ -39,11 +39,11 @@ function DetalheCliente() {
           <h1>{cliente.firstName + ' ' + cliente.lastName}</h1>
           <h5>
             <PhoneIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            {maskPhone(cliente.phone)}
+            {cliente.phone != null ? maskPhone(cliente.phone) : 'Não informado'}
           </h5>
           <h5>
             <AlternateEmailIcon style={{ fontSize: '28', color: '#b07ca3' }} />
-            {cliente.email}
+            {cliente.email != null ? cliente.email : 'Não informado'}
           </h5>
           <h5>
             <SubjectIcon style={{ fontSize: '28', color: '#b07ca3' }} />
@@ -57,13 +57,18 @@ function DetalheCliente() {
             <div className={styles.linhaquadro}>
               {!!pedidos?.length &&
                 pedidos.map((pedido) => (
-                  <div key={pedido.id}>
-                    {pedido.quantity}
-                    <div>{pedido.productName}</div>
+                  <div className={styles.info} key={pedido.id}>
+                    <div style={{ display: 'flex', columnGap: '10px' }}>
+                      <div>{pedido.quantity}</div>
+                      <div>{pedido.productName}</div>
+                    </div>
                     <div>{maskPrice(pedido.unitPrice)}</div>
                   </div>
                 ))}
-              <div>Total: {maskPrice(total)}</div>
+            </div>
+            <div className={styles.separador}>
+              <div>Total</div>
+              <div>{maskPrice(total)}</div>
             </div>
           </div>
         </div>
