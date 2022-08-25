@@ -81,3 +81,10 @@ export function getPedidosDeTodosClientesById(id) {
     return AxiosResponse.data;
   });
 }
+
+export function getClienteDetalhes(id) {
+  const url = 'http://localhost:8080/api/costumers' + '/' + id;
+  return axios.get(url).then((AxiosResponse) => {
+    return AxiosResponse.data;
+  });
+}
