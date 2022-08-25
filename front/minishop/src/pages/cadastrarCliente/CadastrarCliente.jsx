@@ -20,7 +20,7 @@ import { validaEmail } from '../../service/validadores/regex';
 
 const CadastrarCliente = ({ valorInicial }) => {
   const navigate = useNavigate();
-  const valoresIniciais = valorInicial;
+  const valoresIniciais = valorInicial.customer;
 
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCpfErr, setInputCpfErr] = useState(false);

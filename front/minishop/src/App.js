@@ -16,10 +16,19 @@ import CadastrarFornecedor from './pages/cadastrarFornecedor/CadastrarFornecedor
 import EditarProduto from './pages/editarProduto/EditarProduto';
 import EditarFornecedor from './pages/editarFornecedor/EditarFornecedor';
 import EditarCliente from './pages/editarCliente/EditarCliente';
+// import { createTheme } from '@mui/material';
+// import { ThemeProvider } from '@emotion/react';
+
+// const theme = createTheme({
+//   typography: {
+//     fontFamily: 'Pompiere',
+//   },
+// });
 
 function App() {
   return (
     <div className="App">
+      {/* <ThemeProvider theme={theme}> */}
       <BrowserRouter>
         <SecondPageTemplate>
           <Routes>
@@ -47,6 +56,7 @@ function App() {
           </Routes>
         </SecondPageTemplate>
       </BrowserRouter>
+      {/* </ThemeProvider> */}
     </div>
   );
 }

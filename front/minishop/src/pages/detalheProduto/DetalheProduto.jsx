@@ -58,14 +58,19 @@ function DetalheProduto() {
             )}
             {produto.isDiscontinued == false ? 'Ativo' : 'Inativo'}
           </span>
-          <Link to={`/editarProduto/${id}`} style={{ textDecoration: 'none' }}>
-            <Button
-              color="inherit"
-              style={{ marginLeft: 'auto', marginTop: 'auto' }}
+          <div className={styles.lapis} style={{ display: 'flex' }}>
+            <Link
+              to={`/editarProduto/${id}`}
+              style={{ textDecoration: 'none' }}
             >
-              <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
-            </Button>
-          </Link>
+              <Button
+                color="inherit"
+                style={{ marginLeft: 'auto', marginTop: 'auto' }}
+              >
+                <CreateIcon style={{ fontSize: '40', color: '#b07ca3' }} />
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
       <Link to="/produtos" style={{ textDecoration: 'none' }}>

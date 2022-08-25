@@ -1,3 +1,6 @@
+body {
+    background-color: rgb(230, 225, 225);
+}
 .cabecalho {
     display: flex;
     flex-direction: column;
@@ -20,25 +23,20 @@
 .linha {
     height: 1px;
     width: 98%;
-    background-color: #808080;
+    background-color: gray;
     margin-bottom: 20px;
     align-self: center;
 }
 
 .conteiner {
-    width: 83vw;
+    width: 63vw;
     align-self: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     margin: 20px;
     background-color: white;
-}
-
-.parteum {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
+    padding: 40px;
 }
 
 .quadro {
@@ -51,11 +49,16 @@
     align-items: flex-start;
 }
 
-h1 {
-    font-size: 60px;
+.pedido {
+    font-size: 60px !important;
     color: #b07ca3;
     font-weight: 400;
-    margin: 20px;
+}
+
+.data {
+    font-size: 50px !important;
+    color: #b07ca3;
+    font-weight: 400;
 }
 
 h5 {
@@ -75,17 +78,17 @@ h5 {
     color: #b07ca3;
     margin: 0px;
     margin-bottom: 10px;
-    margin-left: 50px;
 }
 
 .titulos {
-    color: #808080;
+    color: black;
 }
 
 .conteudo {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
 }
 
 .linhaTotal {
@@ -97,3 +100,51 @@ h5 {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.titles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nome {
+    font-size: 32px;
+    font-weight: 400;
+    
+    margin: 0px;
+    margin-bottom: 10px;
+    
+}
+
+.infos {
+    color: #b07ca3;
+    font-size: 26px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pedidoEdata {
+    display: flex;
+    justify-content: space-between;
+}
+
+.totais {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    color: gray;
+}
+
+.infos2 {
+    justify-content: space-between;
+}
+
+.linha2 {
+    height: 1px;
+    width: 98%;
+    background-color: #b07ca3;
+    margin-bottom: 20px;
+    align-self: center;
+    margin-top: -10px;
+}
+
