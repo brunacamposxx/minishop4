@@ -26,7 +26,6 @@ public class Customer {
     private String firstName;
     @Column(name = "LastName", length = 100, nullable = false)
     private String lastName;
-    @CPF
     @Column(name = "CPF", length = 11, nullable = false)
     private String cpf;
     @Email
