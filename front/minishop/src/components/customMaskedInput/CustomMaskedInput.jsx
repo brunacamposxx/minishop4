@@ -19,7 +19,7 @@ const CustomMaskedInput = ({
   const aoDigitado = (evento) => {
     aoAlterado(evento.target.value);
   };
-
+  console.log('oi', isDisabled);
   return (
     <InputMask
       className="input"
@@ -39,7 +39,7 @@ const CustomMaskedInput = ({
       value={value}
       error={erro}
     >
-      {(inputProps) => <TextField {...inputProps} />}
+      {(inputProps) => <TextField {...inputProps} disabled={isDisabled} />}
     </InputMask>
   );
 };

@@ -20,7 +20,7 @@ import { validaEmail } from '../../service/validadores/regex';
 
 const CadastrarCliente = ({ valorInicial }) => {
   const navigate = useNavigate();
-  const valoresIniciais = valorInicial.customer;
+  const valoresIniciais = valorInicial;
 
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputCpfErr, setInputCpfErr] = useState(false);
@@ -34,7 +34,9 @@ const CadastrarCliente = ({ valorInicial }) => {
   });
 
   const isEditForm = valoresIniciais?.id ? true : false;
+  console.log(valorInicial);
 
+  // eslint-disable-next-line no-unused-vars
   const isCPFValid = (numeroCPF) => {
     return TestaCPF(numeroCPF);
   };
@@ -42,7 +44,9 @@ const CadastrarCliente = ({ valorInicial }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isEditForm) {
-      putClientePorId(valoresIniciais.id, novoCliente);
+      // eslint-disable-next-line no-unused-vars
+      const { cpf, ...others } = novoCliente;
+      putClientePorId(valoresIniciais.id, others);
     } else {
       if (!validaCPF(novoCliente.cpf)) {
         setInputCpfErr(false);
@@ -123,7 +127,7 @@ const CadastrarCliente = ({ valorInicial }) => {
 
             <div className="margin">
               <CustomMaskedInput
-                isDisabled={isEditForm && isCPFValid(novoCliente.cpf)}
+                isDisabled={isEditForm}
                 mascara="999.999.999-99"
                 placeholder="CPF"
                 required={true}
