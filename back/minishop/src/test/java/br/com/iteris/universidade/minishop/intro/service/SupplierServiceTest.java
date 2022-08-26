@@ -1,4 +1,4 @@
-package br.com.iteris.universidade.minishop.intro.service;
+package br.com.iteris.universidade.minishop.intro.Service;
 
 import br.com.iteris.universidade.minishop.domain.dto.ResponseBase;
 import br.com.iteris.universidade.minishop.domain.dto.SupplierCreateRequest;
