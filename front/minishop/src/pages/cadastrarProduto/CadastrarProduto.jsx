@@ -50,7 +50,13 @@ const CadastrarProduto = ({ valorInicial }) => {
   const handleClick = (event) => {
     event.preventDefault();
     if (valoresIniciais?.id) {
-      putProdutoPorId(valoresIniciais.id, novoProduto);
+      const productPayload = {
+        ...novoProduto,
+        urlImage: novoProduto.urlList,
+        unitPrice: Number(novoProduto.unitPrice),
+      };
+      delete productPayload.urlList;
+      putProdutoPorId(valoresIniciais.id, productPayload);
     } else {
       postProduto(novoProduto);
     }
