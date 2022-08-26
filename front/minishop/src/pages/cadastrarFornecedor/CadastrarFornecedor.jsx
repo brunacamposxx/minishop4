@@ -43,6 +43,8 @@ const CadastrarFornecedor = ({ valorInicial }) => {
     event.preventDefault();
     if (isEditForm) {
       putFornecedorPorId(valoresIniciais.id, novoFornecedor);
+      alert('Fornecedor editado com sucesso!');
+      navigate(-1);
     } else {
       if (!validaEmail.test(novoFornecedor.email)) {
         setInputEmailErr(true);
@@ -56,6 +58,8 @@ const CadastrarFornecedor = ({ valorInicial }) => {
       }
       postFornecedor(novoFornecedor);
       console.log(novoFornecedor);
+      alert('Fornecedor cadastrado com sucesso!');
+      navigate(-1);
     }
   };
 

@@ -22,7 +22,6 @@ export async function postCliente(novoCliente) {
 export async function putClientePorId(id, cliente) {
   try {
     await axios.put(`${url}/${id}`, cliente);
-    alert('Cliente atualizado com sucesso!');
     return true;
   } catch (error) {
     alert('Algo inesperado aconteceu, verifique os campos e tente novamente!');

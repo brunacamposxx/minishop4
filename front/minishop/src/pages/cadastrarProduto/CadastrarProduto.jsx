@@ -57,8 +57,12 @@ const CadastrarProduto = ({ valorInicial }) => {
       };
       delete productPayload.urlList;
       putProdutoPorId(valoresIniciais.id, productPayload);
+      alert('Produto editado com sucesso!');
+      navigate(-1);
     } else {
       postProduto(novoProduto);
+      alert('Produto cadastrado com sucesso!');
+      navigate(-1);
     }
   };
 
