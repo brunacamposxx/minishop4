@@ -30,10 +30,21 @@ function DetalheProduto() {
       </div>
       <div className={styles.conteiner}>
         <div className={styles.esquerda}>
-          {imgs.length == 0 ? (
+          {imgs.length === 0 ? (
             <img src={'/sem-foto.jpg'} alt="produto" className={styles.foto} />
           ) : (
-            imgs.map((img) => <img key={img.index} src={img} />)
+            imgs.map((img) => (
+              <img
+                style={{
+                  maxHeight: '400px',
+                  maxWidth: '450px',
+                  marginTop: '20px',
+                  border: 'none',
+                }}
+                key={img.id}
+                src={img.url}
+              />
+            ))
           )}
         </div>
         <div className={styles.direita}>
