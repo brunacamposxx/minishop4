@@ -7,26 +7,31 @@ import SubjectIcon from '@mui/icons-material/Subject';
 import { Button } from '@mui/material';
 import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
-import { getClientePorId } from '../../services/minishopApiServices';
+import { getClienteDetalhes } from '../../services/minishopApiServices';
 import { maskPhone, maskCpf, maskPrice } from '../../utils/masks';
 
 function DetalheCliente() {
   const { id } = useParams();
 
-  const [cliente, setCliente] = useState({});
-  const [pedidos, setPedidos] = useState({});
+  const [cliente, setCliente] = useState([]);
+  const [pedidos, setPedidos] = useState([]);
   const [total, setTotal] = useState([]);
 
   useEffect(() => {
-    getClientePorId(id).then((data) => {
+    getClienteDetalhes(id).then((data) => {
       console.log(data);
-      setCliente(data.objetoRetorno.customer);
-      setPedidos(data.objetoRetorno.orders);
-      setTotal(data.objetoRetorno.totalAmount);
-      console.log(cliente);
-      console.log(pedidos);
+      setCliente(data.objetoRetorno);
+      setPedidos(data.objetoRetorno.customerOrders);
+      setTotal(
+        data.objetoRetorno.customerOrders.reduce((acc, currentValue) => {
+          return acc + currentValue.totalAmount;
+        }, 0),
+      );
     });
   }, [id]);
+  console.log(cliente);
+  console.log(pedidos);
+  console.log(total);
 
   return (
     <div className={styles.pagina}>
@@ -59,15 +64,17 @@ function DetalheCliente() {
           <div className={styles.quadro}>
             <div className={styles.linhaquadro}>
               {!!pedidos?.length &&
-                pedidos.map((pedido) => (
-                  <div className={styles.info} key={pedido.id}>
-                    <div style={{ display: 'flex', columnGap: '25px' }}>
-                      <div>{pedido.quantity}</div>
-                      <div>{pedido.productName}</div>
+                pedidos.map((pedido) =>
+                  pedido.orders.map((currentOrder) => (
+                    <div className={styles.info} key={currentOrder.id}>
+                      <div style={{ display: 'flex', columnGap: '25px' }}>
+                        <div>{currentOrder.quantity}</div>
+                        <div>{currentOrder.productName}</div>
+                      </div>
+                      <div>{maskPrice(currentOrder.unitPrice)}</div>
                     </div>
-                    <div>{maskPrice(pedido.unitPrice)}</div>
-                  </div>
-                ))}
+                  )),
+                )}
             </div>
             <div style={{ fontSize: '35px' }} className={styles.separador}>
               <div>Total</div>
