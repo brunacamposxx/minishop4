@@ -47,6 +47,8 @@ const CadastrarCliente = ({ valorInicial }) => {
       // eslint-disable-next-line no-unused-vars
       const { cpf, ...others } = novoCliente;
       putClientePorId(valoresIniciais.id, others);
+      alert('Cliente atualizado com sucesso!');
+      navigate(-1);
     } else {
       if (!validaCPF(novoCliente.cpf)) {
         setInputCpfErr(false);
@@ -59,6 +61,8 @@ const CadastrarCliente = ({ valorInicial }) => {
         setInputEmailErr(false);
       }
       postCliente(novoCliente);
+      alert('Cliente cadastrado com sucesso!');
+      navigate(-1);
     }
   };
 
