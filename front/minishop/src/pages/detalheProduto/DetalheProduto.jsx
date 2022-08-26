@@ -12,10 +12,13 @@ function DetalheProduto() {
   const { id } = useParams();
 
   const [produto, setProduto] = useState({});
+  const [imgs, setImgs] = useState([]);
 
   useEffect(() => {
     getProdutoPorId(id).then((data) => {
+      console.log(data);
       setProduto(data.objetoRetorno);
+      setImgs(data.objetoRetorno.imagens);
     });
   }, [id]);
 
@@ -27,7 +30,11 @@ function DetalheProduto() {
       </div>
       <div className={styles.conteiner}>
         <div className={styles.esquerda}>
-          <img src={'/sem-foto.jpg'} alt="produto" className={styles.foto} />
+          {imgs.length == 0 ? (
+            <img src={'/sem-foto.jpg'} alt="produto" className={styles.foto} />
+          ) : (
+            imgs.map((img) => <img key={img.index} src={img} />)
+          )}
         </div>
         <div className={styles.direita}>
           <h1 className={styles.nome}>
