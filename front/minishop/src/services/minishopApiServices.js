@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const urlApi = 'process.env.REACT_APP_API_URL/api/products/?paginaAtual=';
+const url =  'process.env.REACT_APP_API_URL';
+
+const urlApi = `${url}/api/products/?paginaAtual=`;
 
 export function getProdutos(paginaAtual, qtdPorPagina) {
   return axios
@@ -11,49 +13,47 @@ export function getProdutos(paginaAtual, qtdPorPagina) {
 }
 
 export function getProdutoPorId(id) {
-  const urlComId = 'process.env.REACT_APP_API_URL/api/products' + '/' + id;
+  const urlComId = `${url}/api/products/${id}`;
   return axios.get(urlComId).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
-const urlApiC = 'process.env.REACT_APP_API_URL/api/costumers/?paginaAtual=';
+const urlApiC = `${url}/api/costumers/?paginaAtual=`;
 
 export function getClientes(paginaAtual, qtdPorPagina) {
   return axios
-    .get(urlApiC + paginaAtual + '&qtdPorPagina=' + qtdPorPagina)
+    .get(`${urlApiC}${paginaAtual}&qtdPorPagina=${qtdPorPagina}`)
     .then((AxiosResponse) => {
       return AxiosResponse.data;
     });
 }
 
 export function getClientePorId(id) {
-  const urlComIdCliente = 'process.env.REACT_APP_API_URL/api/CustomerOrder' + '/' + id;
+  const urlComIdCliente = `${url}/api/CustomerOrder/${id}`;
   return axios.get(urlComIdCliente).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
-const urlApiF = 'process.env.REACT_APP_API_URL/minishop/supplier/?paginaAtual=';
+const urlApiF = `${url}/minishop/supplier/?paginaAtual=`;
 
 export function getFornecedores(paginaAtual, qtdPorPagina) {
   return axios
-    .get(urlApiF + paginaAtual + '&qtdPorPagina=' + qtdPorPagina)
+    .get(`${urlApiF}${paginaAtual}&qtdPorPagina=${qtdPorPagina}`)
     .then((AxiosResponse) => {
       return AxiosResponse.data;
     });
 }
 
 export function getFornecedorPorId(id) {
-  const urlComIdFornecedor =
-    'process.env.REACT_APP_API_URL/minishop/supplier' + '/' + id;
+  const urlComIdFornecedor = `${url}/minishop/supplier/${id}`;
   return axios.get(urlComIdFornecedor).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
-const urlApiP =
-  'process.env.REACT_APP_API_URL/api/OrderItems/?paginaAtual=0&qtdPorPagina=7';
+const urlApiP = `${url}/api/OrderItems/?paginaAtual=0&qtdPorPagina=7`;
 
 export function getPedidos() {
   return axios.get(urlApiP).then((AxiosResponse) => {
@@ -62,29 +62,29 @@ export function getPedidos() {
 }
 
 export function getPedidoPorId(id) {
-  const urlComIdPedido = 'process.env.REACT_APP_API_URL/api/OrderItems' + '/' + id;
+  const urlComIdPedido = `${url}/api/OrderItems/${id}`;
   return axios.get(urlComIdPedido).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
 export function getPedidosDeTodosClientes() {
-  const url = `process.env.REACT_APP_API_URL/api/CustomerOrder/?paginaAtual=0&qtdPorPagina=10`;
-  return axios.get(url).then((AxiosResponse) => {
+  const urlA = `${url}/api/CustomerOrder/?paginaAtual=0&qtdPorPagina=10`;
+  return axios.get(urlA).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
 export function getPedidosDeTodosClientesById(id) {
-  const url = 'process.env.REACT_APP_API_URL/api/CustomerOrder' + '/' + id;
-  return axios.get(url).then((AxiosResponse) => {
+  const urlA = `${url}/api/CustomerOrder/${id}`;
+  return axios.get(urlA).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
 export function getClienteDetalhes(id) {
-  const url = 'process.env.REACT_APP_API_URL/api/costumers' + '/' + id;
-  return axios.get(url).then((AxiosResponse) => {
+  const urlA = `${url}/api/costumers/${id}`;
+  return axios.get(urlA).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
