@@ -57,7 +57,6 @@ const CadastrarFornecedor = ({ valorInicial }) => {
         setInputCnpjErr(false);
       }
       postFornecedor(novoFornecedor);
-      console.log(novoFornecedor);
       alert('Fornecedor cadastrado com sucesso!');
       navigate(-1);
     }

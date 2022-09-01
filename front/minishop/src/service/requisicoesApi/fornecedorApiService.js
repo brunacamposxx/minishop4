@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const url = 'process.env.REACT_APP_API_URL/minishop/supplier';
+// eslint-disable-next-line no-undef
+const url = process.env.REACT_APP_API_URL;
+
+const urlS = `${url}/minishop/supplier`;
+
 export function postFornecedor(novoFornecedor) {
   const fornecedorPost = {
     cidade: novoFornecedor.cidade,
@@ -11,19 +15,19 @@ export function postFornecedor(novoFornecedor) {
     nome: novoFornecedor.nome,
     telefone: novoFornecedor.telefone,
   };
-  return axios.post(url, fornecedorPost).then((AxiosResponse) => {
+  return axios.post(urlS, fornecedorPost).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
 export function getFornecedorPorId(id) {
-  return axios.get(`${url}/${id}`).then((AxiosResponse) => {
+  return axios.get(`${urlS}/${id}`).then((AxiosResponse) => {
     return AxiosResponse.data;
   });
 }
 
 export function putFornecedorPorId(id, fornecedor) {
-  return axios.put(`${url}/${id}`, fornecedor).then((response) => {
+  return axios.put(`${urlS}/${id}`, fornecedor).then((response) => {
     return response.data;
   });
 }

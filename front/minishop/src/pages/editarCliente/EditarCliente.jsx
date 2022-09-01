@@ -13,7 +13,6 @@ const EditarCliente = () => {
   useEffect(() => {
     getClienteDetalhes(id).then((data) => {
       setValorInicial(data.objetoRetorno);
-      console.log(data.objetoRetorno);
     });
   }, [id]);
   return (

@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-const url =  'process.env.REACT_APP_API_URL';
-
-const urlApi = `${url}/api/products/?paginaAtual=`;
+const url = process.env.REACT_APP_API_URL;
 
 export function getProdutos(paginaAtual, qtdPorPagina) {
+  const urlApi = `${url}/api/products/?paginaAtual=`;
   return axios
-    .get(urlApi + paginaAtual + '&qtdPorPagina=' + qtdPorPagina)
+    .get(`${urlApi}${paginaAtual}&qtdPorPagina=${qtdPorPagina}`)
     .then((AxiosResponse) => {
       return AxiosResponse.data;
     });
@@ -19,9 +18,8 @@ export function getProdutoPorId(id) {
   });
 }
 
-const urlApiC = `${url}/api/costumers/?paginaAtual=`;
-
 export function getClientes(paginaAtual, qtdPorPagina) {
+  const urlApiC = `${url}/api/costumers/?paginaAtual=`;
   return axios
     .get(`${urlApiC}${paginaAtual}&qtdPorPagina=${qtdPorPagina}`)
     .then((AxiosResponse) => {
@@ -36,9 +34,8 @@ export function getClientePorId(id) {
   });
 }
 
-const urlApiF = `${url}/minishop/supplier/?paginaAtual=`;
-
 export function getFornecedores(paginaAtual, qtdPorPagina) {
+  const urlApiF = `${url}/minishop/supplier/?paginaAtual=`;
   return axios
     .get(`${urlApiF}${paginaAtual}&qtdPorPagina=${qtdPorPagina}`)
     .then((AxiosResponse) => {
@@ -53,9 +50,8 @@ export function getFornecedorPorId(id) {
   });
 }
 
-const urlApiP = `${url}/api/OrderItems/?paginaAtual=0&qtdPorPagina=7`;
-
 export function getPedidos() {
+  const urlApiP = `${url}/api/OrderItems/?paginaAtual=0&qtdPorPagina=7`;
   return axios.get(urlApiP).then((AxiosResponse) => {
     return AxiosResponse.data;
   });

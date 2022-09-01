@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const url = 'process.env.REACT_APP_API_URL/api/costumers';
+// eslint-disable-next-line no-undef
+const url = process.env.REACT_APP_API_URL;
+
+const urlC = `${url}/api/costumers`;
 
 export async function postCliente(novoCliente) {
   const clientePost = {
@@ -11,7 +14,7 @@ export async function postCliente(novoCliente) {
     phone: novoCliente.phone,
   };
   try {
-    await axios.post(url, clientePost);
+    await axios.post(urlC, clientePost);
     return true;
   } catch (error) {
     alert('Não foi possível cadastrar o cliente.\nTente novamente');
@@ -21,7 +24,7 @@ export async function postCliente(novoCliente) {
 
 export async function putClientePorId(id, cliente) {
   try {
-    await axios.put(`${url}/${id}`, cliente);
+    await axios.put(`${urlC}/${id}`, cliente);
     return true;
   } catch (error) {
     alert('Algo inesperado aconteceu, verifique os campos e tente novamente!');

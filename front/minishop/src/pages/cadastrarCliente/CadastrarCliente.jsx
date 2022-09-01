@@ -34,7 +34,6 @@ const CadastrarCliente = ({ valorInicial }) => {
   });
 
   const isEditForm = valoresIniciais?.id ? true : false;
-  console.log(valorInicial);
 
   // eslint-disable-next-line no-unused-vars
   const isCPFValid = (numeroCPF) => {

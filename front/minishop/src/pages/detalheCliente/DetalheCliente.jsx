@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import styles from './DetalheCliente.module.css';
-import CreateIcon from '@mui/icons-material/Create';
-import PhoneIcon from '@mui/icons-material/Phone';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import SubjectIcon from '@mui/icons-material/Subject';
-import { Button } from '@mui/material';
-import CustomBotao from '../../components/customBotao/CustomBotao';
 import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { maskCpf, maskPhone, maskPrice } from '../../utils/masks';
+
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import { Button } from '@mui/material';
+import CreateIcon from '@mui/icons-material/Create';
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import PhoneIcon from '@mui/icons-material/Phone';
+import SubjectIcon from '@mui/icons-material/Subject';
 import { getClienteDetalhes } from '../../services/minishopApiServices';
-import { maskPhone, maskCpf, maskPrice } from '../../utils/masks';
+import styles from './DetalheCliente.module.css';
 
 function DetalheCliente() {
   const { id } = useParams();
@@ -19,7 +20,6 @@ function DetalheCliente() {
 
   useEffect(() => {
     getClienteDetalhes(id).then((data) => {
-      console.log(data);
       setCliente(data.objetoRetorno);
       setPedidos(data.objetoRetorno.customerOrders);
       setTotal(
@@ -29,9 +29,6 @@ function DetalheCliente() {
       );
     });
   }, [id]);
-  console.log(cliente);
-  console.log(pedidos);
-  console.log(total);
 
   return (
     <div className={styles.pagina}>
