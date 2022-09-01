@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+
 import CardProduto from '../../components/cardProduto/CardProduto';
-import styles from './Produtos.module.css';
-import { getProdutos } from '../../services/minishopApiServices';
 import CustomFloatingButton from '../../components/customFloatingButton/CustomFloatingButton';
 import { Link } from 'react-router-dom';
+import { getProdutos } from '../../services/minishopApiServices';
 import { maskPrice } from '../../utils/masks';
+import styles from './Produtos.module.css';
 
 function Produtos() {
   const [listaProdutos, setListaProdutos] = useState([]);
@@ -44,7 +45,7 @@ function Produtos() {
             key={produto.id}
             id={produto.id}
             productName={handleProductsName(produto.productName)}
-            imagem={produto.imagem}
+            imagem={produto.imagens?.length > 0 ? produto.imagens[0].url : null}
             unitPrice={maskPrice(produto.unitPrice)}
             isDiscontinued={produto.isDiscontinued}
           />

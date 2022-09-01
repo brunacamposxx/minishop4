@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8080/api/costumers';
+const url = 'process.env.REACT_APP_API_URL/api/costumers';
 
 export async function postCliente(novoCliente) {
   const clientePost = {
@@ -22,7 +22,6 @@ export async function postCliente(novoCliente) {
 export async function putClientePorId(id, cliente) {
   try {
     await axios.put(`${url}/${id}`, cliente);
-    alert('Cliente atualizado com sucesso!');
     return true;
   } catch (error) {
     alert('Algo inesperado aconteceu, verifique os campos e tente novamente!');

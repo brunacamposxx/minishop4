@@ -50,9 +50,19 @@ const CadastrarProduto = ({ valorInicial }) => {
   const handleClick = (event) => {
     event.preventDefault();
     if (valoresIniciais?.id) {
-      putProdutoPorId(valoresIniciais.id, novoProduto);
+      const productPayload = {
+        ...novoProduto,
+        urlImage: novoProduto.urlList,
+        unitPrice: Number(novoProduto.unitPrice),
+      };
+      delete productPayload.urlList;
+      putProdutoPorId(valoresIniciais.id, productPayload);
+      alert('Produto editado com sucesso!');
+      navigate(-1);
     } else {
       postProduto(novoProduto);
+      alert('Produto cadastrado com sucesso!');
+      navigate(-1);
     }
   };
 
