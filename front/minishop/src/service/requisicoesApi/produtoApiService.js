@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const urlPaginacao = 'http://localhost:8080/minishop/supplier?paginaAtual=';
+const urlPaginacao = 'process.env.REACT_APP_API_URL/minishop/supplier?paginaAtual=';
 
-const url = 'http://localhost:8080/api/products/';
+const url = 'process.env.REACT_APP_API_URL/api/products/';
 
 export function postProduto(novoProduto) {
   const produtoPost = {

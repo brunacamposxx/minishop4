@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8080/api/products/url';
+const url = 'process.env.REACT_APP_API_URL/api/products/url';
 
 export async function imgUpload(file) {
   const res = await axios.get(`${url}?postModel=${file.name}`);

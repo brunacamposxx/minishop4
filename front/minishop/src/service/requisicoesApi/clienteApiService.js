@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8080/api/costumers';
+const url = 'process.env.REACT_APP_API_URL/api/costumers';
 
 export async function postCliente(novoCliente) {
   const clientePost = {

@@ -1,5 +1,6 @@
 import axios from 'axios';
-const url = 'http://localhost:8080/minishop/supplier';
+
+const url = 'process.env.REACT_APP_API_URL/minishop/supplier';
 export function postFornecedor(novoFornecedor) {
   const fornecedorPost = {
     cidade: novoFornecedor.cidade,
