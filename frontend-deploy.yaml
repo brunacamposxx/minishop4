@@ -1,0 +1,97 @@
+trigger:
+  branches:
+    include:
+      - main
+      - feat/pipeline-frontend
+      - fix/pipeline-frontend
+  paths:
+    include:
+      - front/minishop/*
+      - frontend-deploy.yaml
+
+variables:
+- group: iteris-terraform
+- group: minishop4-frontend
+
+jobs:
+- job: ReactBuild 
+  displayName: React build
+  pool:
+    name: ISPPAP20-Agents
+    vmImage: ubuntu-20.04
+
+  steps:
+
+  - task: NodeTool@0
+    displayName: 'Node install'
+    inputs:
+      versionSpec: '16.x'
+
+  - task: Npm@1
+    displayName: 'Npm install'
+    inputs:
+      command: 'install'
+      workingDir: '$(System.DefaultWorkingDirectory)/front/minishop'
+    
+  - script: |
+      cd $(System.DefaultWorkingDirectory)/front/minishop
+      echo "REACT_APP_API_URL=$REACT_APP_API_URL" > .env.production
+    displayName: 'Create .env file for production'
+
+  - script:
+      npm run build:prod
+    displayName: 'Build'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/front/minishop'    
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/front/minishop/build'
+      includeRootFolder: false
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tgz'
+      replaceExistingArchive: true
+      displayName: 'Create build artifact'
+    
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: '$(Build.BuildId)-build'
+      publishLocation: 'Container'
+      displayName: 'Publish build artifact'   
+
+- job: AWSDeploy 
+  dependsOn: ReactBuild
+  displayName: AWS deploy
+  pool:
+    name: ISPPAP20-Agents
+    vmImage: ubuntu-20.04
+
+  steps:
+
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      artifactName: '$(Build.BuildId)-build'
+      displayName: 'Download build artifact'
+
+  - task: ExtractFiles@1
+    inputs:
+      archiveFilePatterns: '$(System.ArtifactsDirectory)/$(Build.BuildId)-build/$(Build.BuildId).tgz'
+      destinationFolder: '$(System.DefaultWorkingDirectory)/front/minishop/build'
+      cleanDestinationFolder: false
+      displayName: 'Extract build artifact'
+
+  - script: |
+      aws configure set aws_access_key_id $(AWS_ACCESS_KEY_ID) 
+      aws configure set aws_secret_access_key $(AWS_SECRET_ACCESS_KEY)
+      aws configure set default.region $(AWS_REGION)
+    displayName: 'Configure AWS credentials'
+
+  - script: |
+      cd $(System.DefaultWorkingDirectory)/front/minishop/build
+      aws s3 sync . s3://$(BUCKET_NAME) --delete
+    displayName: 'Deploy to S3 bucket'
+
+  - script:
+      aws cloudfront create-invalidation --distribution-id $(DISTRIBUTION_ID) --paths /*
+    displayName: 'Invalidate CloudFront cache'
