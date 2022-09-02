@@ -1,0 +1,12 @@
+
+k	java:S117V"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ϊ‚“ϋÿÿÿÿ
+\
+java:S1854P"ARemove this useless assignment to local variable "productImages".(ΐπώτώÿÿÿÿ
+V	java:S125J"<This block of commented-out lines of code should be removed.(³ύΖωÿÿÿÿ
+M
+java:S1481P"2Remove this unused "productImages" local variable.(ΐπώτώÿÿÿÿ
+o
+java:S6244•"SConsider using the Consumer Builder method instead of creating this nested builder.(µ¦Π’ϋÿÿÿÿ
+B
+java:S1168¤"+Return an empty collection instead of null.(¥Ήο
+Q	java:S125¶"<This block of commented-out lines of code should be removed.(ƒοψ
