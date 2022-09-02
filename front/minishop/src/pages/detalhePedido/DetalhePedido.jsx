@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { maskDate, maskPrice } from '../../utils/masks';
+
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import { getPedidosDeTodosClientesById } from '../../services/minishopApiServices';
 import styles from './DetalhePedido.module.css';
+
 // import CreateIcon from '@mui/icons-material/Create';
 // import { Button } from '@mui/material';
 // import CustomBotao from '../../components/customBotao/CustomBotao';
 // import { Link } from 'react-router-dom';
-import { getPedidosDeTodosClientesById } from '../../services/minishopApiServices';
-import { maskDate, maskPrice } from '../../utils/masks';
-import CustomBotao from '../../components/customBotao/CustomBotao';
+
 // import { maskPrice } from '../../utils/masks';
 
 function DetalhePedido() {
@@ -24,9 +27,6 @@ function DetalhePedido() {
       const total = data.objetoRetorno.totalAmount;
       const idPedido = data.objetoRetorno.id;
       const dataPedido = data.objetoRetorno.orderDate;
-      console.log(data);
-      console.log(orders);
-      console.log(customer);
       setPedidos(orders);
       setCustomers(customer);
       setTotal(total);

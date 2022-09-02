@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-const url = 'process.env.REACT_APP_API_URL/api/products/url';
+// eslint-disable-next-line no-undef
+const url = process.env.REACT_APP_API_URL;
 
 export async function imgUpload(file) {
-  const res = await axios.get(`${url}?postModel=${file.name}`);
+  const urlP = `${url}/api/products/url`;
+  const res = await axios.get(`${urlP}?postModel=${file.name}`);
   const urlUpload = res.data;
 
   const formData = new FormData();

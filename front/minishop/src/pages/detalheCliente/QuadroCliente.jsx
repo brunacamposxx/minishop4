@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './QuadroCliente.module.css';
+
 // import CreateIcon from '@mui/icons-material/Create';
 // import PhoneIcon from '@mui/icons-material/Phone';
 // import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
@@ -27,7 +28,6 @@ function QuadroCliente(props) {
   //     });
   //   }, [id]);
 
-  //   console.log(pedidos);
   //   for (let i = 0; i < pedidos.length; i++) {
   //     listaIdProdutos.push(pedidos[i].id);
   //   }
@@ -40,7 +40,6 @@ function QuadroCliente(props) {
   //     }
   //   }
 
-  //   console.log(listaNomes);
   //   pegaNomes();
 
   return (

@@ -1,8 +1,9 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getFornecedorPorId } from '../../service/requisicoesApi/fornecedorApiService';
+import { useEffect, useState } from 'react';
+
 import CadastrarFornecedor from '../cadastrarFornecedor/CadastrarFornecedor';
+import React from 'react';
+import { getFornecedorPorId } from '../../service/requisicoesApi/fornecedorApiService';
+import { useParams } from 'react-router-dom';
 
 const EditarFornecedor = () => {
   const { id } = useParams();
@@ -11,7 +12,6 @@ const EditarFornecedor = () => {
 
   useEffect(() => {
     getFornecedorPorId(id).then((data) => {
-      console.log(data);
       setValorInicial(data.objetoRetorno);
     });
   }, [id]);

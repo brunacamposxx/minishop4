@@ -1,12 +1,13 @@
+import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import styles from './DetalheProduto.module.css';
-import CreateIcon from '@mui/icons-material/Create';
+
 import { Button } from '@mui/material';
-import CustomBotao from '../../components/customBotao/CustomBotao';
-import { useParams, Link } from 'react-router-dom';
-import { getProdutoPorId } from '../../services/minishopApiServices';
 import CircleIcon from '@mui/icons-material/Circle';
+import CreateIcon from '@mui/icons-material/Create';
+import CustomBotao from '../../components/customBotao/CustomBotao';
+import { getProdutoPorId } from '../../services/minishopApiServices';
 import { maskPrice } from '../../utils/masks';
+import styles from './DetalheProduto.module.css';
 
 function DetalheProduto() {
   const { id } = useParams();
@@ -16,7 +17,6 @@ function DetalheProduto() {
 
   useEffect(() => {
     getProdutoPorId(id).then((data) => {
-      console.log(data);
       setProduto(data.objetoRetorno);
       setImgs(data.objetoRetorno.imagens);
     });

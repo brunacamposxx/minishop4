@@ -19,7 +19,7 @@ const CustomMaskedInput = ({
   const aoDigitado = (evento) => {
     aoAlterado(evento.target.value);
   };
-  console.log('oi', isDisabled);
+
   return (
     <InputMask
       className="input"
