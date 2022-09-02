@@ -8,7 +8,7 @@ trigger:
       - main
   paths:
     include:
-    - $(BACKEND)/*
+    - back/*
 
 jobs:    
 - job: ECR_PUSH
