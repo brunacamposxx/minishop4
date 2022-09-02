@@ -2,15 +2,18 @@ package br.com.iteris.universidade.minishop.component;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 
 import java.net.URI;
 import java.util.Arrays;
 
-@Component
+@Configuration
 @RequiredArgsConstructor
 public class MinishopS3Client {
 
@@ -28,6 +31,7 @@ public class MinishopS3Client {
     private String bucketName;
 
     public String getBucketName() {
+
         return bucketName;
     }
 
@@ -37,6 +41,8 @@ public class MinishopS3Client {
      * @see <a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">Documentação</a>
      * @return S3Client cliente de conexão
      */
+
+    @Bean
     public S3Client getS3Client() {
         // Em ambiente de desenvolvimento apontamos para o localstack
         if (environment.acceptsProfiles(Profiles.of("default"))) {
@@ -44,8 +50,16 @@ public class MinishopS3Client {
                     .endpointOverride(URI.create("http://localhost:4566"))
                     .build();
         }
-
-        // Em outros ambientes usamos a configuracao padrao
         return S3Client.create();
+    }
+    @Bean
+    public S3Presigner getS3Presigner(){
+            if(environment.acceptsProfiles(Profiles.of("default"))){
+                return S3Presigner.builder()
+                        .endpointOverride(URI.create("http://localhost:4566"))
+                        .build();
+            }
+        // Em outros ambientes usamos a configuracao padrao
+        return S3Presigner.create();
     }
 }

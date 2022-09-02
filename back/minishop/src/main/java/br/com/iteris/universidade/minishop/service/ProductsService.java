@@ -1,5 +1,6 @@
 package br.com.iteris.universidade.minishop.service;
 
+import br.com.iteris.universidade.minishop.component.MinishopS3Client;
 import br.com.iteris.universidade.minishop.domain.dto.*;
 import br.com.iteris.universidade.minishop.domain.entity.Product;
 import br.com.iteris.universidade.minishop.domain.entity.ProductImage;
@@ -32,6 +33,8 @@ public class ProductsService {
     private final ProductsRepository productsRepository;
     private final SupplierRespository supplierRespository;
     private final ProductImageRepository productImageRepository;
+
+    private final MinishopS3Client minishopS3Client;
 
     public ResponseBase<Page<ProductResponse>> pesquisar(SearchProductsRequest searchRequest) {
         if (searchRequest.getPaginaAtual() < 0) {
@@ -129,18 +132,12 @@ public class ProductsService {
     }
     public String getPressignedURL(String fileName) {
 
+
         try {
-            // Objetos necessários
-            String bucketName = "minishop-imagens";
-            // Get an Amazon S3 Client
-            // Endpoint do nosso ambiente de testes: http://localhost:4566
-            S3Presigner presigner = S3Presigner.builder()
-                    .endpointOverride(URI.create("http://localhost:4566"))
-                    .build();
 
             // Criando objetos de requisição
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
+                    .bucket(minishopS3Client.getBucketName())
                     .key(fileName)
                     .build();
 
@@ -150,7 +147,8 @@ public class ProductsService {
                     .build();
 
             // Gera URL e retorna
-            PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
+            PresignedPutObjectRequest presignedRequest = minishopS3Client.getS3Presigner()
+                    .presignPutObject(presignRequest);
             return presignedRequest.url().toString();
 
         } catch (S3Exception e) {

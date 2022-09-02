@@ -4,7 +4,11 @@ import br.com.iteris.universidade.minishop.component.DatabaseSession;
 import br.com.iteris.universidade.minishop.component.MinishopS3Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+
+import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +25,7 @@ public class HealthCheckService {
      */
     public void check() {
         checkDatabase();
+        checkPresigner();
         checkS3();
     }
 
@@ -31,6 +36,20 @@ public class HealthCheckService {
 
         miniShopS3Client.getS3Client().headBucket(bucketRequest);
     }
+    private void checkPresigner() {
+        var getObjetctRequest = GetObjectRequest.builder()
+                .bucket(miniShopS3Client.getBucketName())
+                .key("teste")
+                .build();
+
+        var buckerRequest = GetObjectPresignRequest.builder()
+                .getObjectRequest(getObjetctRequest)
+                .signatureDuration(Duration.ofMinutes(10))
+                .build();
+
+        miniShopS3Client.getS3Presigner().presignGetObject(buckerRequest);
+    }
+
 
     private void checkDatabase() {
         //
