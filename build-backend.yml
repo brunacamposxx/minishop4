@@ -1,0 +1,46 @@
+variables:
+- group: iteris-terraform
+- group: minishop4-backend
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+    - $(BACKEND)/*
+
+jobs:    
+- job: ECR_PUSH
+  displayName: ECR DOCKER PUSH
+  pool:
+    name: ISPPAP20-Agents
+
+  steps:     
+  - script: |
+      sudo apt-get update
+      sudo apt-get install jq
+    displayName: 'install jq'
+
+  - script: |
+      aws configure set aws_access_key_id $(AWS_ACCESS_KEY_ID) 
+      aws configure set aws_secret_access_key $(AWS_SECRET_ACCESS_KEY)
+      aws configure set default.region $(AWS_REGION)
+    displayName: 'configure aws credentials'
+
+  - script: |
+      aws ecr-public get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin public.ecr.aws/$(AWS_ACCOUNT_ID)     
+      docker build -t $(IMAGE_NAME) .
+      docker tag $(IMAGE_NAME):latest public.ecr.aws/$(AWS_ACCOUNT_ID)/$(IMAGE_NAME):latest      
+      docker push public.ecr.aws/$(AWS_ACCOUNT_ID)/${IMAGE_NAME}:latest
+    displayName: 'push to ecr'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/$(BACKEND)'
+
+  - script: |  
+      ECR_IMAGE="public.ecr.aws/$(AWS_ACCOUNT_ID)/$(IMAGE_NAME):latest"
+      TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition $(TASK_FAMILY) --region $(AWS_REGION))
+      NEW_TASK_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "$ECR_IMAGE" '.taskDefinition | .containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn) | del(.revision) | del(.status) | del(.requiresAttributes) | del(.compatibilities)  | del(.registeredAt) | del(.registeredBy)')
+      NEW_TASK_INFO=$(aws ecs register-task-definition --region $(AWS_REGION) --cli-input-json "$NEW_TASK_DEFINTIION")
+      NEW_REVISION=$(echo $NEW_TASK_INFO | jq '.taskDefinition.revision')
+      aws ecs update-service --cluster ${ECS_CLUSTER} --service ${SERVICE_NAME} --task-definition $(TASK_FAMILY):${NEW_REVISION}
+    displayName: 'create new task and update service'     
