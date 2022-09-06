@@ -82,7 +82,7 @@ INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Maurício','P
 INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Gustavo','Sousa','22172345016','gustavo.sousa@outlook.com',NULL)
 INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Bernardo','Pereira','56245302692','bernardo.pereira@ig.com.br','59627366926')
 INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Aquiles','Pedri','25847830297','contato@aquilespedri.com.br','21675526310')
-INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Gustavo','Gil','12598445520','gustavo.gil@ig.com.br','75643279210')
+INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Gustavo','Gil','12598445520','gustavo.gil22@ig.com.br','75643279210')
 INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Pietra','Rodrigues','09364791320','pietra.rodrigues@ig.com.br',NULL)
 INSERT INTO CUSTOMER (FirstName,LastName,CPF,Email,Phone) VALUES ('Juliana','Dudeque','60487179110','juliana.dudeque@outlook.com',NULL)
 GO

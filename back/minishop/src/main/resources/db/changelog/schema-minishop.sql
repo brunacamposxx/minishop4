@@ -5,7 +5,7 @@ create table Customer (
    Id                   int                  identity,
    FirstName            nvarchar(100)        not null,
    LastName             nvarchar(100)        not null,
-   CPF                  varchar(11)          not null unique, 
+   CPF                  varchar(11)          not null unique,
    Email                varchar(255)         not null unique,
    Phone                varchar(15)          null,
    constraint PK_CUSTOMER primary key (Id)
@@ -131,8 +131,6 @@ create index IndexOrderItemProductId on OrderItem (
    ProductId ASC
 )
 go
-
-
 
 /*==============================================================*/
 /* Constraints                                                  */
