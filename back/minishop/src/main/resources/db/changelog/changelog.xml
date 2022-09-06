@@ -17,10 +17,30 @@
     porém é importante que o author seja algo unico e que identifique alguém
     e o id precisa ser unico entre todas as mudanças (em alguns casos as
     pessoas usam a data e hora atual, o importante é definir um padrão e seguir) -->
-    <changeSet author="frank.galindo@iteris.com.br" id="INSERI_DADOS">
-        <comment>Inseri Dados</comment>
+    <changeSet author="alessandro.oliveira@iteris.com.br" id="INSERI_DADOS_CUSTOMER">
+        <comment>Inseri Dados CUSTOMER</comment>
         <!-- Verificar se seu banco está em PT/BR ou em EN e usar o script correto aqui -->
-        <sqlFile splitStatements="false"  endDelimiter="GO" path="dados-minishop.sql" relativeToChangelogFile="true" />
+        <sqlFile path="customer.sql" relativeToChangelogFile="true" />
+    </changeSet>
+    <changeSet author="alessandro.oliveira@iteris.com.br" id="INSERI_DADOS_CUSTOMER_ORDER">
+        <comment>Inseri Dados CUSTOMER ORDER</comment>
+        <!-- Verificar se seu banco está em PT/BR ou em EN e usar o script correto aqui -->
+        <sqlFile path="customerorder.sql" relativeToChangelogFile="true" />
+    </changeSet>
+    <changeSet author="alessandro.oliveira@iteris.com.br" id="INSERI_DADOS_SUPPLIER">
+        <comment>Inseri Dados SUPPLIER</comment>
+        <!-- Verificar se seu banco está em PT/BR ou em EN e usar o script correto aqui -->
+        <sqlFile path="supplier.sql" relativeToChangelogFile="true" />
+    </changeSet>
+    <changeSet author="alessandro.oliveira@iteris.com.br" id="INSERI_DADOS_PRODUCT">
+        <comment>Inseri Dados PRODUCT</comment>
+        <!-- Verificar se seu banco está em PT/BR ou em EN e usar o script correto aqui -->
+        <sqlFile path="product.sql" relativeToChangelogFile="true" />
+    </changeSet>
+    <changeSet author="alessandro.oliveira@iteris.com.br" id="INSERI_DADOS_ORDER_ITEM">
+        <comment>Inseri Dados ORDER ITEM</comment>
+        <!-- Verificar se seu banco está em PT/BR ou em EN e usar o script correto aqui -->
+        <sqlFile path="orderitem.sql" relativeToChangelogFile="true" />
     </changeSet>
 
     <changeSet author="frank.galindo@iteris.com.br" id="CRIA_UMATABELA">
